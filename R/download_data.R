@@ -18,7 +18,7 @@
 
 download_data<-function(drop_box_folder,BW_app_path){
 
-   token<-readRDS(paste0(BW_app_path,"/.secrets/dropbox_token.rds"))
+   token<-readRDS(".secrets/dropbox_token.rds")
    rdrop2::drop_dir(dtoken = token)
     # Read all the files into a list
     filesInfo <- rdrop2::drop_dir(drop_box_folder,dtoken=token)
