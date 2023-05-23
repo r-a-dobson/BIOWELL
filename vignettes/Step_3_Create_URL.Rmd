@@ -1,0 +1,88 @@
+---
+title: "Vignette 3: Create URL"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette 3: Create URL}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+In the previous vignettes, you will have created your custom BIO-WELL surveys and linked this to your Dropbox account for response data storage.
+
+In this vignette, we will be deploying the surveys onto the [Posit Shiny Server](https://posit.co/products/open-source/shinyserver/) and creating a URL to share with participants that provides access to the BIO-WELL survey created. 
+
+# What is the Posit Shiny Server?
+
+Posit Connect is a platform that can be used to publish and share Shiny Apps.
+
+For BIO-WELL survey deployment, we will be using the cloud hosting option for [Shiny Apps](https://www.shinyapps.io/?_gl=1*1gtg1gf*_ga*MTkxOTUyMTUuMTY3NjM1NDY2OA..*_ga_2C0WZ1JHG0*MTY4NDY4NDc0NC4xNS4wLjE2ODQ2ODQ3NDQuMC4wLjA.).
+
+Registering for an account is free and this provides users with the ability to deploy up to five surveys at one time, and up to 25 active hours per month. If more active hours are needed, there are paid upgrade options.
+
+For short surveys, 25 hours per month should be sufficient as active time is only counted whilst a participant is actively responding to the questions. For example, if your survey takes five minutes to complete, then 300 participants can respond to the survey each month. 
+
+# Preparation
+
+Please ensure that you have followed the stages in Vignette 1 and Vignette 2. You should now have a directory that contains:
+
+1) `.secrets` directory containing your activated Dropbox access token named `dropbox_token.rds`)
+
+2) Your custom `build_survey()` input saved in an R script named `app.R`
+
+If this is not the case, please revisit the previous vignettes before trying to `create_URL`. 
+
+
+# Step 1: Shiny Server account
+
+The first stage is to register for a Shiny Server account via the [website](https://www.shinyapps.io/?_gl=1*1gtg1gf*_ga*MTkxOTUyMTUuMTY3NjM1NDY2OA..*_ga_2C0WZ1JHG0*MTY4NDY4NDc0NC4xNS4wLjE2ODQ2ODQ3NDQuMC4wLjA.). 
+
+![Creating Shiny Server account](C:/Users/eerdo/Documents/GitHub/BIOWELL/data/V3/V3_1.png){width=75%}
+
+# Step 2: Connect account to R
+
+Shiny Server interacts with R through the package `rsconnect`. Install
+`rsconnect` and load the package library.
+
+```{r}
+# install.packages("rsconnect")
+library(rsconnect)
+library(BIOWELL)
+```
+
+On the website, click on your profile photo in the top right, and choose `Tokens` from the drop down list. Click to show the token and reveal your account's secret code.
+
+![Finding Shiny Server token](C:/Users/eerdo/Documents/GitHub/BIOWELL/data/V3/V3_2.png){width=75%}
+
+This will provide code for you to run in R to connect your Shiny Server account. 
+
+```{r, eval = FALSE}
+rsconnect::setAccountInfo(name='biowell-app-testing',
+			  token='string of letters and numbers',  # Input your Shiny Server token number here
+			  secret='string of letters and numbers') # Input your Shiny Server token secret here
+```
+![Revealing Shiny Server secret](C:/Users/eerdo/Documents/GitHub/BIOWELL/data/V3/V3_3.png){width=75%}
+
+# Step 3: Create survey URL
+
+Now, use the BIO-WELL package function `create_URL` to deploy the app and
+retrieve a URL for sharing the survey with participants.
+
+```{r, eval = FALSE}
+create_URL(
+  BW_app_path = "C:/Users/eerdo/Desktop/my_app_name_1",
+  appName = "my_app_name_1",
+  shiny_server_username = 'biowell-app-testing'
+)
+```
+
+
+
