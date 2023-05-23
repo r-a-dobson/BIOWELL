@@ -2,24 +2,24 @@ Package: BIOWELL
 Title: Create shiny surveys with the BIO-WELL scale
 Version: 0.0.0.9000
 Authors@R: 
-    person("Rachel", "Dobson", , "eerdo@leeds.ac.uk", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID")),
+      c(person("Rachel", "Dobson", , "eerdo@leeds.ac.uk", role = c("aut", "cre", "ctb"),
+           comment = c(ORCID = "0000-0003-3990-267X")),
  person("Katherine N.", "Irvine", , "kate.irvine@hutton.ac.uk", role = c("aut", "ctb"),
-           comment = c(ORCID = "0000-0002-8551-6617")),
+           comment = c(ORCID = "YOUR-ORCID-ID")),
  person("Jessica C.", "Fisher", , "J.C.Fisher@kent.ac.uk", role = c("aut", "ctb"),
-           comment = c(ORCID = "0000-0002-8551-6617")),
+           comment = c(ORCID = "YOUR-ORCID-ID")),
  person("Phoebe R.", "Bentley", , "xxxx", role = c("aut", "ctb"),
-           comment = c(ORCID = "0000-0002-8551-6617")),
+           comment = c(ORCID = "YOUR-ORCID-ID")),
  person("Maximillian","Nawrath",  , "eemn@leeds.ac.uk", role = c("aut", "ctb"),
-           comment = c(ORCID = "0000-0002-8551-6617")),
+           comment = c(ORCID = "YOUR-ORCID-ID")),
  person("Martin", "Dallimer", , "M.Dallimer@leeds.ac.uk", role = c("aut", "ctb"),
-           comment = c(ORCID = "0000-0002-8551-6617")),
+           comment = c(ORCID = "YOUR-ORCID-ID")),
  person("Gail E.", "Austen", , "G.E.Austen@kent.ac.uk", role = c("aut", "ctb"),
-           comment = c(ORCID = "0000-0002-8551-6617")),
+           comment = c(ORCID = "YOUR-ORCID-ID")),
  person("Rob", "Fish", , "r.fish@kent.ac.uk", role = c("aut", "ctb"),
-           comment = c(ORCID = "0000-0002-8551-6617")),
+           comment = c(ORCID = "YOUR-ORCID-ID")),
  person("Zoe G.", "Davies", , "Z.G.Davies@kent.ac.uk", role = c("aut", "ctb"),
-           comment = c(ORCID = "0000-0002-8551-6617"))
+           comment = c(ORCID = "YOUR-ORCID-ID")))
 Description: The BIO-WELL scale is a valid and relaible scale with strong psychometric properties that can be used to measure the human wellbeing responses to biodiversity. This package contains functions for developing and deploying customised shiny surveys that utilise the BIO-WELL scale. 
 License: 
 Encoding: UTF-8
@@ -39,7 +39,7 @@ Imports:
 Suggests: 
     knitr,
     ltm,
-    multilevel
+    multilevel,
     rmarkdown,
     rsconnect,
     testthat (>= 3.0.0)

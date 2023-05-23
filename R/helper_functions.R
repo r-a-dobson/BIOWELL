@@ -31,7 +31,7 @@ add_biowell_scale<-function(biowell_situations,biowell_questions,...){
         shiny::tags$script(shiny::HTML(custom_slider_text(c(record:(record+length(questions_for_sit)-1))))),
 
         lapply(sapply(c(record:(record+length(questions_for_sit)-1)),list),sliders,biowell_questions=biowell_questions),
-        tags$div(style="color:red","All sliders must be moved to continue to the next page."
+        shiny::tags$div(style="color:red","All sliders must be moved to continue to the next page."
         ))
 
     record<-record+length(questions_for_sit)

@@ -149,11 +149,11 @@ build_survey <- function(survey_title,
           shiny::fluidRow(
             if(!user_report){shiny::textOutput("final_message")},
             if(user_report){
-              div(style = "border-style: solid;border-color: #004A86;height: 1500px;width:100%;padding:9.5px;border-width: 5px; border-radius: 10px;justify-content: center;
+              shiny::div(style = "border-style: solid;border-color: #004A86;height: 1500px;width:100%;padding:9.5px;border-width: 5px; border-radius: 10px;justify-content: center;
   align-items: center; position:relative;",
                   shiny::h1("Your BIO-WELL score is:"),
                   shiny::tags$head(shiny::tags$style('h1 {font-size: 4vw;color:#0097AD;font-weight: bold;text-align: center; font: 1px}')),
-                  div(class="square", textOutput("text"),
+                  shiny::div(class="square", shiny::textOutput("text"),
                       shiny::tags$head(shiny::tags$style('.square {
                          width: 60%;
                            height:15%;
@@ -171,7 +171,7 @@ build_survey <- function(survey_title,
                           text-align: center;
                           background: #0097AD}'))),
 
-                  div(class="square2", textOutput("text1"),
+                  shiny::div(class="square2", shiny::textOutput("text1"),
                       shiny::tags$head(shiny::tags$style('.square2 {
                          width: 60%;
                            height:15%;
@@ -205,7 +205,7 @@ build_survey <- function(survey_title,
 
                             ;}
                             '),
-                  div(class ="line",
+                  shiny::div(class ="line",
                       shiny::tags$head(shiny::tags$style('.line {
 
             width: 30%;
