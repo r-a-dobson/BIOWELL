@@ -32,10 +32,11 @@ Imports:
     shiny,
     shinyjs,
     shinyWidgets,
-    httr,  
+    httr,
     lubridate,
     shinyFeedback,
-    stringr
+    stringr,
+    magrittr
 Suggests: 
     knitr,
     ltm,
