@@ -319,7 +319,10 @@ add_questions<-function(questions,type,drop_down,return_names=FALSE,return_names
 
 
 
-
+#' answers Adds BIO-WELL scale to shiny survey for each question
+#'@param names11 a character string or vector, describing the environmental space setting for BIO-WELL questions.
+#'@param names22 a list of character strings or vectors, the questions for each separate `biowell_situations` for BIO-WELL responses.
+#' @noRd
 
 answers<-function(names11,names22){
   d<- sapply(names11,grepl,names22)
@@ -330,6 +333,11 @@ answers<-function(names11,names22){
   if(length(x)==0){return(FALSE)}
 }
 
+#' convert_data_frame Adds BIO-WELL scale to shiny survey for each question
+#'@param data a character string or vector, describing the environmental space setting for BIO-WELL questions.
+#'@param biowell_situations_ID a list of character strings or vectors, the questions for each separate `biowell_situations` for BIO-WELL responses.
+#'@param biowell_questions_ID a list of character strings or vectors, the questions for each separate `biowell_situations` for BIO-WELL responses.
+#' @noRd
 
 
 
@@ -386,13 +394,14 @@ convert_data_frame<-function(data,biowell_situations_ID,biowell_questions_ID){
 }
 
 
+#' sort_question_answers Adds BIO-WELL scale to shiny survey for each question
+#'@param qnames a character string or vector, describing the environmental space setting for BIO-WELL questions.
+#'@param response_df a list of character strings or vectors, the questions for each separate `biowell_situations` for BIO-WELL responses.
+#'@param qs a list of character strings or vectors, the questions for each separate `biowell_situations` for BIO-WELL responses.
+#'@param dropdownopt a list of character strings or vectors, the questions for each separate `biowell_situations` for BIO-WELL responses.
+#' @noRd
 
 
-#qnames<-c("text1","selectbox2","text3","checkbox4")
-#response_df<-c(text1="hi",selectbox2="15-20",text3="yo",checkbox41="dog",checkbox42="cat")
-#qs<-c("greeting1","age","greeting2","pet")
-#dropdownopt<-list(c("15-20","10-29"),
-#                  c("frog","cat","dog"))
 
 sort_question_answers<-function(qnames,response_df,qs,dropdownopt){
 
