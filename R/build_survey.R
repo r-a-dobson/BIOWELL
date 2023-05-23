@@ -301,8 +301,8 @@ build_survey <- function(survey_title,
 
           input_for_this<-t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))[,must_move_IDS]
           if(!length(input_for_this)==0){
-            # showPlot(FALSE)
-            showPlot(TRUE)
+            showPlot(FALSE)
+            #showPlot(TRUE)
             if(any(!input_for_this==50)){
 
               input_for_this<-input_for_this[-which(!input_for_this==50)]
