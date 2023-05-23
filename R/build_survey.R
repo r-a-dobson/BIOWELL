@@ -45,7 +45,7 @@ build_survey <- function(survey_title,
                          ...) {
 
 
-  token<-readRDS("/.secrets/dropbox_token.rds")
+  token<-readRDS(".secrets/dropbox_token.rds")
 
   rdrop2::drop_dir(dtoken = token)
 
