@@ -41,6 +41,7 @@ build_survey <- function(survey_title,
                          organisation,
                          organisation_website,
                          all_questions = TRUE,
+                         all_sliders = TRUE,
                          user_report = TRUE,
                          ...) {
 
@@ -301,8 +302,8 @@ build_survey <- function(survey_title,
 
           input_for_this<-t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))[,must_move_IDS]
           if(!length(input_for_this)==0){
-            #showPlot(FALSE)
-            showPlot(TRUE)
+           if(all_sliders){showPlot(FALSE)}
+            if(!all_sliders){ showPlot(TRUE)}
             if(any(!input_for_this==50)){
 
               input_for_this<-input_for_this[-which(!input_for_this==50)]

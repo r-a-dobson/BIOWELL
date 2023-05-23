@@ -26,6 +26,7 @@ build_survey(
   organisation,
   organisation_website,
   all_questions = TRUE,
+  all_sliders = TRUE,
   user_report = TRUE,
   ...
 )
