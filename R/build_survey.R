@@ -420,16 +420,18 @@ build_survey <- function(survey_title,
 
       track<-0
 
-      start_date<-as.character(as.Date(strsplit(paste(format(lubridate::mdy_hms(as.character(input$clientTime)), "%d/%m/%Y; %H:%M:%S")),";")[[1]][1],format="%d/%m/%Y"))
 
-      start_time<-as.character(strsplit(paste(format(lubridate::mdy_hms(as.character(input$clientTime)), "%d/%m/%Y; %H:%M:%S")),"; ")[[1]][2])
+      start_time_POSIXct<-as.POSIXct(paste(strsplit(input$clientTime,",")[[1]][1],"",strsplit(input$clientTime,", ")[[1]][2]),format="%d/%m/%Y %H:%M:%S")
+      start_time_ch<-as.character(start_time_POSIXct)
+      start_time<-as.character(strsplit(start_time_ch," ")[[1]][2])
+      start_date<-as.character(strsplit(start_time_ch," ")[[1]][1])
 
 
       end1<-Sys.time()
 
       lengthofsurvey<-round(as.numeric(difftime(end1,start1,units="secs")),2)
 
-      sd<-as.POSIXct(format(lubridate::mdy_hms(as.character(input$clientTime)), "%d/%m/%Y; %H:%M:%S"),format="%d/%m/%Y; %H:%M:%S")
+      sd<-start_time_POSIXct
 
       sd<-as.character(strftime(sd+lubridate::seconds(lengthofsurvey)))
 
