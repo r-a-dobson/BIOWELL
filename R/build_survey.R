@@ -492,23 +492,23 @@ build_survey <- function(survey_title,
       rdrop2::drop_upload(filePath, path = drop_box_folder,dtoken=token)
 
       rdrop2::drop_dir(dtoken = token)
-
+      results<-read.csv(filePath)
       filesInfo <- rdrop2::drop_dir(drop_box_folder,dtoken=token)
       filePaths <- filesInfo$path_display
       filePaths <- filePaths[grepl("BIOWELL_RUNNING_AVERAGE.csv" , filePaths)]
       if(length(filePaths)==0){
         running_average<-results$mean_biowell_INVERTED
-        filePath <- file.path(paste0(tempdir(),"/BIOWELL_RUNNING_AVERAGE.csv"))
-        write.csv(results$mean_biowell_INVERTED, filePath, row.names = FALSE, quote = TRUE)
-        rdrop2::drop_upload(filePath, path = drop_box_folder,dtoken=token)}
+        filePath1 <- file.path(paste0(tempdir(),"/BIOWELL_RUNNING_AVERAGE.csv"))
+        write.csv(results$mean_biowell_INVERTED, filePath1, row.names = FALSE, quote = TRUE)
+        rdrop2::drop_upload(filePath1, path = drop_box_folder,dtoken=token)}
 
       if(length(filePaths)==1){
         x<-rdrop2::drop_read_csv(filePaths,dtoken=token)
         running_average<-x$x
         x$x<-(x$x+results$mean_biowell_INVERTED)/2
-        filePath <- file.path(paste0(tempdir(),"/BIOWELL_RUNNING_AVERAGE.csv"))
-        write.csv(x$x, filePath, row.names = FALSE, quote = TRUE)
-        rdrop2::drop_upload(filePath, path = drop_box_folder,dtoken=token)
+        filePath1 <- file.path(paste0(tempdir(),"/BIOWELL_RUNNING_AVERAGE.csv"))
+        write.csv(x$x, filePath1, row.names = FALSE, quote = TRUE)
+        rdrop2::drop_upload(filePath1, path = drop_box_folder,dtoken=token)
       }
 
 
