@@ -3,3 +3,5 @@
 ^README\.Rmd$
 ^\.httr-oauth$
 ^app/$
+^doc$
+^Meta$

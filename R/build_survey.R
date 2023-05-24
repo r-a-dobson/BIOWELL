@@ -58,9 +58,18 @@ build_survey <- function(survey_title,
     stop("Dropbox folder does not exist within your Dropbox App")
   })
 
+  if(!getwd() == BW_app_path){stop("Please set your app folder as the working directory")}
+  if(missing(survey_title)){survey_title<-""}
+  if(missing(start_message)){start_message<-""}
+  if(missing(end_message)){end_message<-""}
+  if(missing(sidepanel_message)){sidepanel_message<-""}
 
-  if(missing(start_questions_ID)){start_questions_ID<-start_questions}
-  if(missing(end_questions_ID)){end_questions_ID<-end_questions}
+  if(!missing(start_questions)){
+  if(missing(start_questions_ID)){start_questions_ID<-start_questions}}
+
+  if(missing(organisation_website)){organisation_website<-NULL}
+  if(!missing(end_questions)){
+  if(missing(end_questions_ID)){end_questions_ID<-end_questions}}
 
   if(missing(biowell_situations_ID)){biowell_situations_ID<-biowell_situations}
   if(missing(biowell_questions_ID)){biowell_questions_ID<-biowell_questions}
@@ -84,9 +93,9 @@ build_survey <- function(survey_title,
       shiny::div("Summary", style = "font-weight:bold; font-size: 20px"),
       if(!missing(sidepanel_message)){shiny::tags$div(style="",sidepanel_message)},
       shiny::br(),
-      shiny::tags$div(style="","\n Created by:"),
-      shiny::tags$a(organisation,
-                    href=organisation_website),
+      if(!missing(organisation)){shiny::tags$div(style="","\n Created by:")},
+      if(!missing(organisation)){shiny::tags$a(organisation,
+                    href=organisation_website)},
       shiny::br(),
       shiny::br(),
       shiny::p("Please do not close this window until you have submitted your responses." ,style = "font-weight: bold"),
@@ -199,7 +208,7 @@ build_survey <- function(survey_title,
                   shiny::tags$style('#mydiv6{
           list-style-position: inside;
           padding-left: 0;
-          font-size: 2vw;
+          font-size: 20px;
           color: black;
           text-align: center;
           position:absolute;
@@ -415,13 +424,19 @@ build_survey <- function(survey_title,
 
       results<-NULL
 
+      if(start_questions == "NULL"){start_questions<-NULL}
+      if(end_questions == "NULL"){end_questions<-NULL}
+      if(is.null(start_questions)){extracted_data<-NULL}
+      if(is.null(end_questions)){extracted_data_end<-NULL}
 
+      if(!is.null(start_questions)){
       startqnames<- add_questions(start_questions,start_questions_type,start_drop_down_options,return_names=T)
+      extracted_data<-sort_question_answers(startqnames,dataframe,start_questions_ID,start_drop_down_options)}
+
+      if(!is.null(end_questions)){
       endqnames<- add_questions(end_questions,end_questions_type,end_drop_down_options,return_names=T,type_q = "end",start_questions_pr=start_questions)
-
-      extracted_data<-sort_question_answers(startqnames,dataframe,start_questions_ID,start_drop_down_options)
       extracted_data_end<- sort_question_answers(endqnames,dataframe,end_questions_ID,end_drop_down_options)
-
+      }
 
       track<-0
 
@@ -530,7 +545,8 @@ build_survey <- function(survey_title,
       output$text <- renderText({paste(round(results$mean_biowell_INVERTED))})
       output$text1 <- renderText({paste("100")})
 
-
+      color1<-"black"
+      messagex<-"NA"
       if(dplyr::between(results$mean_biowell_INVERTED,0,49)){messagex<-"negative"
       color1<-"red"}
       if(dplyr::between(results$mean_biowell_INVERTED,51,100)){messagex<-"positive"
