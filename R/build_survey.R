@@ -58,7 +58,7 @@ build_survey <- function(survey_title,
     stop("Dropbox folder does not exist within your Dropbox App")
   })
 
-  if(!getwd() == BW_app_path){stop("Please set your app folder as the working directory")}
+  #if(!getwd() == BW_app_path){stop("Please set your app folder as the working directory")}
   if(missing(survey_title)){survey_title<-""}
   if(missing(start_message)){start_message<-""}
   if(missing(end_message)){end_message<-""}
