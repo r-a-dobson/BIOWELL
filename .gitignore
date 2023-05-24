@@ -2,3 +2,4 @@
 .httr-oauth
 app/
 inst/doc
+.Rhistory
