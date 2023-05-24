@@ -527,7 +527,7 @@ build_survey <- function(survey_title,
       if(n==0){words<-"equal to"
       color2<-"darkorange"}
 
-      output$text <- renderText({paste(results$mean_biowell_INVERTED)})
+      output$text <- renderText({paste(round(results$mean_biowell_INVERTED))})
       output$text1 <- renderText({paste("100")})
 
 
@@ -553,15 +553,15 @@ build_survey <- function(survey_title,
 
         spiritual_v<-100-as.numeric(as.character(results[, grep("Spiritual_INVERTED",colnames(results))]))
 
-        physicalaverage<-mean(physical_v,na.rm=T)
+        physicalaverage<-round(mean(physical_v,na.rm=T),2)
 
-        emotionalaverage<-mean(emotional_v,na.rm=T)
+        emotionalaverage<-round(mean(emotional_v,na.rm=T),2)
 
-        cognitiveaverage<-mean(cognitive_v,na.rm=T)
+        cognitiveaverage<-round(mean(cognitive_v,na.rm=T),2)
 
-        socialaverage<-mean(social_v,na.rm=T)
+        socialaverage<-round(mean(social_v,na.rm=T),2)
 
-        spiritualaverage<-mean(spiritual_v,na.rm=T)
+        spiritualaverage<-round(mean(spiritual_v,na.rm=T),2)
 
         types<-c("Physical wellbeing","Emotional wellbeing","Cognitive wellbeing",
                  "Social wellbeing","Spiritual wellbeing")
@@ -569,10 +569,10 @@ build_survey <- function(survey_title,
         return(list(
           shiny::HTML("<div id='mydiv6'>", paste0('<strong>This score indicates a <span style="color: ',color1,';">',messagex,'</span> wellbeing response to biodiversity.</strong><br>',
                                                   '<br><span style="text-align: left">Your strongest responses to biodiversity were in:</span>',
-                                                  '<ul style ="text-align: left;padding-left:20%"><li>',data_1[1,1],' (',data_1[1,3],'/100)</li>',
-                                                  '<li>',data_1[2,1],' (',data_1[2,3],'/100)</li>',
-                                                  '<li>',data_1[3,1],' (',data_1[3,3],'/100)</li></ul>',
-                                                  '<br><strong>Your score is <span style="color:',color2,';">',words,'</span> the average score of participants (',running_average,') .</strong><br>',
+                                                  '<ul style ="text-align: left;padding-left:20%"><li>',data_1[1,1],' (',round(data_1[1,3],2),'/100)</li>',
+                                                  '<li>',data_1[2,1],' (',round(data_1[2,3],2),'/100)</li>',
+                                                  '<li>',data_1[3,1],' (',round(data_1[3,3],2),'/100)</li></ul>',
+                                                  '<br><strong>Your score is <span style="color:',color2,';">',words,'</span> the average score of participants (',round(running_average,2),') .</strong><br>',
                                                   '<br><span style="text-decoration: underline;">How is your score calculated?</span>',
                                                   '<br>Your BIO-WELL score reflects your average response to biodiversity taken across a set of human wellbeing domains.<br>','<br><strong>See the breakdown of your score below:</strong><br>',
                                                   '<table id="mytable">
