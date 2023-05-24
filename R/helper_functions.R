@@ -21,7 +21,7 @@ add_biowell_scale<-function(biowell_situations,biowell_questions,all_sliders,...
         class = "page",
         id = paste0("page",x+1),
         shiny::h3(biowell_situations[x]),
-        br(),
+        shiny::br(),
         shiny::tags$head( shiny::tags$style('h3 {font-style: italic;color: #004A86;font-size:20px}')),
         shiny::tags$head( shiny::tags$style('h5 {font-weight: bold}')),
         shiny::tags$style(type = "text/css", "
@@ -98,8 +98,8 @@ sliders<-function(yy,biowell_questions,...){
                shiny::sliderInput(paste0("spiritual",yy,"ID"),step=0.0001,
                                   "", ticks = T,
                                   min = 0, max = 100, value = 50,width=800)),
-    br(),
-    br())}
+    shiny::br(),
+    shiny::br())}
 
 #' custom_slider_text Generates the custom labels for BIO-WELL slider scales.
 #' @param vvv a numerical value, the unique IDs for each BIO-WELL slider.

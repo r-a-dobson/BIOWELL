@@ -83,14 +83,14 @@ build_survey <- function(survey_title,
     shiny::sidebarPanel(
       shiny::div("Summary", style = "font-weight:bold; font-size: 20px"),
       if(!missing(sidepanel_message)){shiny::tags$div(style="",sidepanel_message)},
-      br(),
+      shiny::br(),
       shiny::tags$div(style="","\n Created by:"),
       shiny::tags$a(organisation,
                     href=organisation_website),
-      br(),
-      br(),
+      shiny::br(),
+      shiny::br(),
       shiny::p("Please do not close this window until you have submitted your responses." ,style = "font-weight: bold"),
-      br(),
+      shiny::br(),
       if(all_questions){shiny::p("In this survey, you will be unable to complete without answering all questions." ,style = "font-style: italic")},
       shiny::tags$script('
     $(function() {
