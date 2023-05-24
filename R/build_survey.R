@@ -423,9 +423,10 @@ build_survey <- function(survey_title,
       dataframe<- t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))
 
       results<-NULL
-
-      if(start_questions == "NULL"){start_questions<-NULL}
-      if(end_questions == "NULL"){end_questions<-NULL}
+if(length(start_questions)==1){
+      if(start_questions == "NULL"){start_questions<-NULL}}
+      if(length(end_questions)==1){
+      if(end_questions == "NULL"){end_questions<-NULL}}
       if(is.null(start_questions)){extracted_data<-NULL}
       if(is.null(end_questions)){extracted_data_end<-NULL}
 
