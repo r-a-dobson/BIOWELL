@@ -112,7 +112,7 @@ start_drop_down_options = list(c('0-17', '18-29', '30-39','40-49','50-59','60-69
                                c('woodlands', 'wetlands', 'grassland','moorlands','coastal','urban'))
 ```
 
-![Section 1 and 2](C:/Users/eerdo/Documents/GitHub/BIOWELL/data/V2/V2_1.png){width=75%}
+![Section 1 and 2](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/data/V2/V2_1.png){width=75%}
 
 # Section 3: BIO-WELL
 
@@ -176,7 +176,7 @@ data.frame(biowell_questions_ID = c("Encountering living things",
 ```
 
 
-![Section 3](C:/Users/eerdo/Documents/GitHub/BIOWELL/data/V2/V2_2.png){width=75%}
+![Section 3](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/data/V2/V2_2.png){width=75%}
 
 # Section 4: End
 + `end_message` - Text to finish the survey.
@@ -191,13 +191,13 @@ end_questions_type = "text"
 end_message= "Thank you for completing the survey. Click submit to generate report"
 ```
 
-![Section 4](C:/Users/eerdo/Documents/GitHub/BIOWELL/data/V2/V2_3.png){width=75%}
+![Section 4](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/data/V2/V2_3.png){width=75%}
 
 # Section 5: Report
 
 + `user_report` - a logical (TRUE or FALSE) indicating whether participants should receive a summary of their BIO-WELL answers for each questions and comparison with the answers of other participants. 
 
-![Section 5 User report](C:/Users/eerdo/Documents/GitHub/BIOWELL/data/V2/V2_4.png){width=75%}
+![Section 5 User report](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/data/V2/V2_4.png){width=75%}
 
 # Survey options 
 
@@ -224,7 +224,7 @@ BIO-WELL survey. An R script containing the below code should be saved manually
 in the directory for the app named "app.R".
 
 
-```{r}
+```{r, eval = FALSE}
 library(BIOWELL)
 build_survey(survey_title = "Woodland biodiversity and human wellbeing", 
              sidepanel_message = "The questions in this survey are designed to explore how woodland biodiversity impacts wellbeing.", 
