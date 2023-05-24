@@ -4,7 +4,7 @@
 #' @noRd
 
 
-add_biowell_scale<-function(biowell_situations,biowell_questions,...){
+add_biowell_scale<-function(biowell_situations,biowell_questions,all_sliders,...){
 
   no.sit<-length(biowell_situations)
   listofstuff<-vector(mode='list', length=no.sit)
@@ -21,7 +21,9 @@ add_biowell_scale<-function(biowell_situations,biowell_questions,...){
         class = "page",
         id = paste0("page",x+1),
         shiny::h3(biowell_situations[x]),
-        shiny::tags$head( shiny::tags$style('h3 {font-style: italic;color: #004A86;font-weight: bold}')),
+        br(),
+        shiny::tags$head( shiny::tags$style('h3 {font-style: italic;color: #004A86;font-size:20px}')),
+        shiny::tags$head( shiny::tags$style('h5 {font-weight: bold}')),
         shiny::tags$style(type = "text/css", "
               .irs-from {background-color: #df4ed8 !important;}
               .irs-min {visibility:visible !important;font-size: 15px;top: -12px !important;}
@@ -31,8 +33,8 @@ add_biowell_scale<-function(biowell_situations,biowell_questions,...){
         shiny::tags$script(shiny::HTML(custom_slider_text(c(record:(record+length(questions_for_sit)-1))))),
 
         lapply(sapply(c(record:(record+length(questions_for_sit)-1)),list),sliders,biowell_questions=biowell_questions),
-        shiny::tags$div(style="color:red","All sliders must be moved to continue to the next page."
-        ))
+        if(all_sliders){shiny::tags$div(style="color:red","All sliders must be moved to continue to the next page.")},
+        )
 
     record<-record+length(questions_for_sit)
 
@@ -56,11 +58,8 @@ add_biowell_scale<-function(biowell_situations,biowell_questions,...){
 sliders<-function(yy,biowell_questions,...){
   allquuestions<-unlist(biowell_questions)
   list(
-    shiny::h2("l"),
-    shiny::tags$head(shiny::tags$style('h2 {color:white; font: 1px}')),
     shiny::h4(allquuestions[yy]),
-    shiny::tags$head( shiny::tags$style('h4 {font-weight: bold;font-style: italic; color: #0097AD}')),
-
+    shiny::tags$head(shiny::tags$style('h4 {font-weight: bold;font-style: italic; color: #0097AD}')),
     shiny::tags$style(type = "text/css", "
               .irs-handle{background: white !important;size: 1px !important;
   border-radius: 4px !important;
@@ -98,7 +97,9 @@ sliders<-function(yy,biowell_questions,...){
                style="height: 70px;",
                shiny::sliderInput(paste0("spiritual",yy,"ID"),step=0.0001,
                                   "", ticks = T,
-                                  min = 0, max = 100, value = 50,width=800)))}
+                                  min = 0, max = 100, value = 50,width=800)),
+    br(),
+    br())}
 
 #' custom_slider_text Generates the custom labels for BIO-WELL slider scales.
 #' @param vvv a numerical value, the unique IDs for each BIO-WELL slider.

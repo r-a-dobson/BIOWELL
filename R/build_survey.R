@@ -79,14 +79,19 @@ build_survey <- function(survey_title,
     shinyjs::useShinyjs(),
     shinyFeedback::useShinyFeedback(),
 
-    shiny::titlePanel(shiny::div(survey_title, style = "color: #000000")),
+    shiny::titlePanel(shiny::div(survey_title, style = "color: #004A86;font-weight:bold")),
     shiny::sidebarPanel(
-      if(!missing(sidepanel_message)){shiny::h5(sidepanel_message)},
-      shiny::h5("Created by:"),
+      shiny::div("Summary", style = "font-weight:bold; font-size: 20px"),
+      if(!missing(sidepanel_message)){shiny::tags$div(style="",sidepanel_message)},
+      br(),
+      shiny::tags$div(style="","\n Created by:"),
       shiny::tags$a(organisation,
                     href=organisation_website),
+      br(),
+      br(),
       shiny::p("Please do not close this window until you have submitted your responses." ,style = "font-weight: bold"),
-      if(all_questions){shiny::h5(shiny::tags$b("Please do not skip any questions- you will be unable to complete the survey."))},
+      br(),
+      if(all_questions){shiny::p("In this survey, you will be unable to complete without answering all questions." ,style = "font-style: italic")},
       shiny::tags$script('
     $(function() {
       var time_now = new Date()
@@ -116,7 +121,7 @@ build_survey <- function(survey_title,
         shiny::div(
           class = "page",
           id = "page1",
-          shiny::h5(start_message),
+          shiny::tags$div(style="color:#004A86;font-size: 18px",start_message),
           lapply(add_questions(start_questions,start_questions_type,start_drop_down_options),FUN=function(x){shiny::HTML(paste(x))}),
           shiny::textOutput("textwarning"),
           shiny::tags$head(shiny::tags$style("#textwarning{color: red;
@@ -127,13 +132,13 @@ build_survey <- function(survey_title,
 
         ,
 
-        add_biowell_scale(biowell_situations,biowell_questions),
+        add_biowell_scale(biowell_situations,biowell_questions,all_sliders),
 
 
         shiny::div(
           class = "page",
           id = paste0("page", 2+length(biowell_situations)),
-          shiny::h5(end_message),
+          shiny::tags$div(style="color:#004A86;font-size: 18px",end_message),
           lapply(add_questions(end_questions,end_questions_type,end_drop_down_options,type_q = "end",start_questions_pr = start_questions),FUN=function(x){shiny::HTML(paste(x))}),
           shiny::actionButton("submit", "Submit")
 
