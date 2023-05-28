@@ -491,8 +491,6 @@ convert_data_frame<-function(data,biowell_situations_ID,biowell_questions_ID){
 #'@param qs a list of character strings or vectors, the questions for each separate `biowell_situations` for BIO-WELL responses.
 #'@param dropdownopt a list of character strings or vectors, the questions for each separate `biowell_situations` for BIO-WELL responses.
 #' @noRd
-dataframe<-data.frame(likert_five6=3,likert_five6=2,likert_five6=1,checkbox91 = TRUE,checkbox92=FALSE,checkbox93=TRUE)
-sort_question_answers(qnames=endqnames,response_df=dataframe,qs=end_questions_ID,dropdownopt=end_drop_down_options)
 
 sort_question_answers<-function(qnames,response_df,qs,dropdownopt){
 
