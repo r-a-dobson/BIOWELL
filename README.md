@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# **BIO-WELL**
+# **BIOWELL**
 
 **Introducing `BIOWELL`: An R package that empowers researchers and
 practitioners to effortlessly create and share customized surveys using
