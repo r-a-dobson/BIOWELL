@@ -26,6 +26,11 @@ build_survey <- function(survey_title,
                          biowell_situations_ID,
                          biowell_questions,
                          biowell_questions_ID,
+                         screening_message,
+                         screen_questions,
+                         screen_questions_ID,
+                         screen_questions_type,
+                         screen_drop_down_options=NULL,
                          start_message,
                          start_questions,
                          start_questions_ID,
@@ -65,11 +70,15 @@ build_survey <- function(survey_title,
   if(missing(sidepanel_message)){sidepanel_message<-""}
 
   if(!missing(start_questions)){
-  if(missing(start_questions_ID)){start_questions_ID<-start_questions}}
+    if(missing(start_questions_ID)){start_questions_ID<-start_questions}}
+
+
+  if(!missing(screen_questions)){
+    if(missing(screen_questions_ID)){screen_questions_ID<-screen_questions}}
 
   if(missing(organisation_website)){organisation_website<-NULL}
   if(!missing(end_questions)){
-  if(missing(end_questions_ID)){end_questions_ID<-end_questions}}
+    if(missing(end_questions_ID)){end_questions_ID<-end_questions}}
 
   if(missing(biowell_situations_ID)){biowell_situations_ID<-biowell_situations}
   if(missing(biowell_questions_ID)){biowell_questions_ID<-biowell_questions}
@@ -78,6 +87,13 @@ build_survey <- function(survey_title,
   start_questions_type<-"NA"
   start_drop_down_options<-NULL
   no_start<-"no_start"}
+
+  if(missing(screen_questions)){screen_questions<-"Do you want to continue to the survey?"
+  screen_questions_ID<-"continue_to_survey"
+  screen_questions_type<-"selectbox"
+  screen_drop_down_options<-c("yes")
+  no_screen<-"no_screen"
+ }
 
   if(missing(end_questions)){end_questions<-"NULL"
   end_questions_type<-"NA"
@@ -95,7 +111,7 @@ build_survey <- function(survey_title,
       shiny::br(),
       if(!missing(organisation)){shiny::tags$div(style="","\n Created by:")},
       if(!missing(organisation)){shiny::tags$a(organisation,
-                    href=organisation_website)},
+                                               href=organisation_website)},
       shiny::br(),
       shiny::br(),
       shiny::p("Please do not close this window until you have submitted your responses." ,style = "font-weight: bold"),
@@ -126,16 +142,28 @@ build_survey <- function(survey_title,
     ),
 
     shiny::mainPanel(
+
       shinyjs::hidden(
         shiny::div(
           class = "page",
           id = "page1",
-          shiny::tags$div(style="color:#004A86;font-size: 18px",start_message),
-          lapply(add_questions(start_questions,start_questions_type,start_drop_down_options),FUN=function(x){shiny::HTML(paste(x))}),
+          shiny::tags$div(style="color:#004A86;font-size: 18px;",screening_message),
+          lapply(add_questions(screen_questions,screen_questions_type,screen_drop_down_options,all_questions=all_questions),FUN=function(x){shiny::HTML(paste(x))}),
+          shiny::tags$div(id= "Proceed",style="color: red;
+                                     font-size: 20px;
+                                     font-style: bold","These questions must be answered to proceed."),
+          shiny::actionButton("continue", "Continue to the survey")),
+
+
+        shiny::div(
+          class = "page",
+          id = "page2",
+          shiny::tags$div(style="color:#004A86;font-size: 18px;",start_message),
+          lapply(add_questions(start_questions,start_questions_type,start_drop_down_options,all_questions=all_questions,start_questions_pr = screen_questions,type_q = "end"),FUN=function(x){shiny::HTML(paste(x))}),
           shiny::textOutput("textwarning"),
           shiny::tags$head(shiny::tags$style("#textwarning{color: red;
                                      font-size: 20px;
-                                     font-style: italic;
+                                     font-style: bold;
                                      }"))
         )
 
@@ -146,9 +174,14 @@ build_survey <- function(survey_title,
 
         shiny::div(
           class = "page",
-          id = paste0("page", 2+length(biowell_situations)),
+          id = paste0("page", 3+length(biowell_situations)),
           shiny::tags$div(style="color:#004A86;font-size: 18px",end_message),
-          lapply(add_questions(end_questions,end_questions_type,end_drop_down_options,type_q = "end",start_questions_pr = start_questions),FUN=function(x){shiny::HTML(paste(x))}),
+          lapply(add_questions(end_questions,end_questions_type,end_drop_down_options,type_q = "end",start_questions_pr = c(screen_questions,start_questions),all_questions=all_questions),FUN=function(x){shiny::HTML(paste(x))}),
+          shiny::textOutput("textwarning2"),
+          shiny::tags$head(shiny::tags$style("#textwarning2{color: red;
+                                     font-size: 20px;
+                                     font-style: bold;
+                                     }")),
           shiny::actionButton("submit", "Submit")
 
         ),
@@ -156,20 +189,16 @@ build_survey <- function(survey_title,
 
         shiny::div(
           class = "page",
-          id = paste0("page", 3+length(biowell_situations)),
-
-
-
-
+          id = paste0("page", 4+length(biowell_situations)),
           shiny::fluidRow(
             if(!user_report){shiny::textOutput("final_message")},
             if(user_report){
               shiny::div(style = "border-style: solid;border-color: #004A86;height: 1500px;width:100%;padding:9.5px;border-width: 5px; border-radius: 10px;justify-content: center;
   align-items: center; position:relative;",
-                  shiny::h1("Your BIO-WELL score is:"),
-                  shiny::tags$head(shiny::tags$style('h1 {font-size: 4vw;color:#0097AD;font-weight: bold;text-align: center; font: 1px}')),
-                  shiny::div(class="square", shiny::textOutput("text"),
-                      shiny::tags$head(shiny::tags$style('.square {
+                         shiny::h1("Your BIO-WELL score is:"),
+                         shiny::tags$head(shiny::tags$style('h1 {font-size: 4vw;color:#0097AD;font-weight: bold;text-align: center; font: 1px}')),
+                         shiny::div(class="square", shiny::textOutput("text"),
+                                    shiny::tags$head(shiny::tags$style('.square {
                          width: 60%;
                            height:15%;
                            line-height: 110%;
@@ -186,8 +215,8 @@ build_survey <- function(survey_title,
                           text-align: center;
                           background: #0097AD}'))),
 
-                  shiny::div(class="square2", shiny::textOutput("text1"),
-                      shiny::tags$head(shiny::tags$style('.square2 {
+                         shiny::div(class="square2", shiny::textOutput("text1"),
+                                    shiny::tags$head(shiny::tags$style('.square2 {
                          width: 60%;
                            height:15%;
                            line-height: 110%;
@@ -204,8 +233,8 @@ build_survey <- function(survey_title,
                           text-align: center;
                           background: transparent}'))),
 
-                  shiny::htmlOutput("biowell_results2"),
-                  shiny::tags$style('#mydiv6{
+                         shiny::htmlOutput("biowell_results2"),
+                         shiny::tags$style('#mydiv6{
           list-style-position: inside;
           padding-left: 0;
           font-size: 20px;
@@ -220,8 +249,8 @@ build_survey <- function(survey_title,
 
                             ;}
                             '),
-                  shiny::div(class ="line",
-                      shiny::tags$head(shiny::tags$style('.line {
+                         shiny::div(class ="line",
+                                    shiny::tags$head(shiny::tags$style('.line {
 
             width: 30%;
                            height:1%;
@@ -237,7 +266,7 @@ build_survey <- function(survey_title,
                           text-align: center;
                           background: white}'))),
 
-                  shiny::tags$head(shiny::tags$style('#mytable {
+                         shiny::tags$head(shiny::tags$style('#mytable {
 
                                                background: white}'))
 
@@ -259,7 +288,12 @@ build_survey <- function(survey_title,
 
 
 
-        )
+
+        ),
+        shiny::div(
+          class = "FINAL",
+          id = paste0("FINAL"),
+          shiny::p("Sorry you have not met the criteria for this survey. Please exit."))
 
       ),
       shiny::br(),
@@ -272,16 +306,16 @@ build_survey <- function(survey_title,
 
   server <- function(input, output, session) {
 
+    showNEXT<- reactiveVal(FALSE)
+    showEND <- reactiveVal(FALSE)
+    ENDQS <- reactiveVal(FALSE)
 
     start1<-Sys.time()
 
+if(exists("no_screen") ){shinyjs::hide(id="select1")
+  shinyjs::hide(id="Proceed")}
+
     rv <- shiny::reactiveValues(page = 1)
-
-
-    if(user_report){
-
-    }
-
 
 
 
@@ -316,7 +350,7 @@ build_survey <- function(survey_title,
 
           input_for_this<-t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))[,must_move_IDS]
           if(!length(input_for_this)==0){
-           if(all_sliders){showPlot(FALSE)}
+            if(all_sliders){showPlot(FALSE)}
             if(!all_sliders){ showPlot(TRUE)}
             if(any(!input_for_this==50)){
 
@@ -336,12 +370,21 @@ build_survey <- function(survey_title,
 
 
 
-    NUM_PAGES<-c(1+length(biowell_situations)+2)
+    NUM_PAGES<-c(2+length(biowell_situations)+2)
 
     shiny::observe({
+      if(NUM_PAGES-1 == rv$page){print("yep")
+        shinyjs::hide("nextBtn")
+        shinyjs::toggleState(id = "nextBtn", condition =  TRUE)}
       shinyjs::toggleState(id = "prevBtn", condition = rv$page > 1)
+      if(!NUM_PAGES-1 == rv$page){print("NOPE")
       shinyjs::toggleState(id = "nextBtn", condition = rv$page < NUM_PAGES+1)
       shinyjs::toggleState(id = "nextBtn", condition =  showPlot())
+      shinyjs::toggleState(id = "nextBtn", condition =  !showEND())
+      shinyjs::toggleState(id = "nextBtn", condition =  showNEXT())}
+      shinyjs::toggleState(id = "prevBtn", condition =  !showEND())
+      shinyjs::toggleState(id = "prevBtn", condition =  showNEXT())
+      shinyjs::toggle(id = "FINAL", condition =  showEND())
       shinyjs::hide(selector = ".page")
       shinyjs::show(
         paste0("page", rv$page)
@@ -355,23 +398,54 @@ build_survey <- function(survey_title,
 
     shiny::observeEvent(input$prevBtn, navPage(-1))
 
+    shiny::observeEvent(showEND(),
 
-    if(all_questions){
-      shiny::observeEvent(input$nextBtn,
+                        if(showEND()){
+                          navPage(NUM_PAGES)
+                        })
 
-                          if(answers(names11=add_questions(start_questions,start_questions_type,start_drop_down_options,return_names=T),names22=colnames(t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))))
-                             || "" %in% t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))[,add_questions(start_questions,start_questions_type,start_drop_down_options,return_names_text=T)]
+
+    output$textwarning2<- shiny::renderText("Please answer all questions.")
+      shiny::observeEvent(input$continue,
+
+                          if(rv$page ==1 && answers(names11=add_questions(screen_questions,screen_questions_type,screen_drop_down_options,return_names=T,all_questions =all_questions ),names22=colnames(t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))))
+                             || "" %in% t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))[,add_questions(screen_questions,screen_questions_type,screen_drop_down_options,return_names_text=T,all_questions =all_questions)]
                           )
 
                           {
 
-
                             output$textwarning<- shiny::renderText("Please answer all questions.")
                             shinyjs::show("textwarning")
-                          } else {navPage(1)
-                            shinyjs::hide("textwarning")})}
+                          } else {
+                            screening<-add_questions(screen_questions,screen_questions_type,screen_drop_down_options,all_questions=all_questions,return_screen=TRUE)
+
+                            if(!is.null(screening)){
+                              input_for_this<-as.data.frame(t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))[,screening$inputname])
+
+                              for(x in 1:nrow(input_for_this)){
+
+                                if(input_for_this[x,] == screening$inputresponse[x]){  showEND(TRUE)}
+                              }}
+                            if(!showEND()){
+                            navPage(1)
+                            showNEXT(TRUE)
+                            shinyjs::hide("textwarning")}})
 
 
+      if(all_questions){
+       shiny::observeEvent(input$nextBtn,
+
+                            if(rv$page >1 && answers(names11=add_questions(start_questions,start_questions_type,start_drop_down_options,return_names=T,all_questions =all_questions,start_questions_pr = screen_questions,type_q = "end" ),names22=colnames(t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))))
+                              || "" %in% t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))[,add_questions(start_questions,start_questions_type,start_drop_down_options,return_names_text=T,all_questions =all_questions,start_questions_pr = screen_questions,type_q = "end")]
+                            )
+
+                            {
+
+
+                              output$textwarning<- shiny::renderText("Please answer all questions.")
+                              shinyjs::show("textwarning")
+                           } else {navPage(1)
+                              shinyjs::hide("textwarning")})}
 
     if(!all_questions){
       shiny::observeEvent(input$nextBtn,
@@ -380,74 +454,93 @@ build_survey <- function(survey_title,
 
     shiny::observe({
 
-      if(rv$page == NUM_PAGES){
+      if(rv$page == NUM_PAGES-1){
         shinyjs::hide(id = "nextBtn")}
 
-      if(rv$page != NUM_PAGES){
+      if(rv$page != NUM_PAGES-1){
 
         shinyjs::show(id = "nextBtn")}
 
-      if(input$submit==1){
-        shinyjs::hide(id = "submit")
-        shinyjs::hide(id = "prevBtn")
-        shinyjs::hide(id = "nextBtn")
-        shinyjs::hide(id = "sidebarPanel")
-        shinyjs::show(
-          paste0("page", NUM_PAGES)
-        )
-        if(!user_report){
-          output$final_message<- shiny::renderText("Thank you. Please close your browser to finish the survey.")
-          shinyjs::show("final_message")
-        }
-        shinyjs::hide(
-          paste0("page", NUM_PAGES-1)
-        )
 
-      }
 
     })
 
 
+    shiny::observe({
 
+      if(!answers(names11=add_questions(end_questions,end_questions_type,end_drop_down_options,return_names=T,all_questions =all_questions,start_questions_pr = c(screen_questions,start_questions),type_q = "end" ),names22=colnames(t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))))
+         && !"" %in% t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))[,add_questions(end_questions,end_questions_type,end_drop_down_options,return_names_text=T,all_questions =all_questions,start_questions_pr = c(screen_questions,start_questions),type_q = "end")]
+      ){
 
+        ENDQS(TRUE)}})
 
-
-
-
-
-
+    shinyjs::hide(id = "textwarning2")
 
     # When the Submit button is clicked, save the form data
     shiny::observeEvent(input$submit, {
+      if(!all_questions){ENDQS(TRUE)}
+      if(!ENDQS()){ shinyjs::show(id = "textwarning2")}
+if(ENDQS()){
+
+
+    shinyjs::hide(id = "submit")
+    shinyjs::hide(id = "prevBtn")
+    shinyjs::hide(id = "nextBtn")
+    shinyjs::hide(id = "sidebarPanel")
+    shinyjs::show(
+      paste0("page", NUM_PAGES)
+    )
+    if(!user_report){
+      output$final_message<- shiny::renderText("Thank you. Please close your browser to finish the survey.")
+      shinyjs::show("final_message")
+    }
+    shinyjs::hide(
+      paste0("page", NUM_PAGES-1)
+    )
+
+
 
       dataframe<- t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))
 
       results<-NULL
-if(length(start_questions)==1){
-      if(start_questions == "NULL"){start_questions<-NULL}}
+      if(length(start_questions)==1){
+        if(start_questions == "NULL"){start_questions<-NULL}}
       if(length(end_questions)==1){
-      if(end_questions == "NULL"){end_questions<-NULL}}
+        if(end_questions == "NULL"){end_questions<-NULL}}
+      if(length(screen_questions)==1){
+        if(screen_questions == "NULL"){screen_questions<-NULL}}
+print("a")
+
       if(is.null(start_questions)){extracted_data<-NULL}
       if(is.null(end_questions)){extracted_data_end<-NULL}
+      if(is.null(screen_questions)){extracted_data_screen<-NULL}
+print("b")
+
+      if(!is.null(screen_questions)){
+        screenqnames<- add_questions(screen_questions,screen_questions_type,screen_drop_down_options,return_names=T,all_questions =all_questions)
+        extracted_data_screen<-sort_question_answers(screenqnames,dataframe,screen_questions_ID,screen_drop_down_options)}
+
 
       if(!is.null(start_questions)){
-      startqnames<- add_questions(start_questions,start_questions_type,start_drop_down_options,return_names=T)
-      extracted_data<-sort_question_answers(startqnames,dataframe,start_questions_ID,start_drop_down_options)}
-
+        startqnames<- add_questions(start_questions,start_questions_type,start_drop_down_options,return_names=T,all_questions =all_questions,start_questions_pr = screen_questions,type_q = "end" )
+        extracted_data<-sort_question_answers(startqnames,dataframe,start_questions_ID,start_drop_down_options)}
+print("c")
       if(!is.null(end_questions)){
-      endqnames<- add_questions(end_questions,end_questions_type,end_drop_down_options,return_names=T,type_q = "end",start_questions_pr=start_questions)
-      extracted_data_end<- sort_question_answers(endqnames,dataframe,end_questions_ID,end_drop_down_options)
+        endqnames<- add_questions(end_questions,end_questions_type,end_drop_down_options,return_names=T,type_q = "end",start_questions_pr = c(screen_questions,start_questions),all_questions =all_questions)
+        print(endqnames)
+        print(dataframe)
+        extracted_data_end<- sort_question_answers(endqnames,dataframe,end_questions_ID,end_drop_down_options)
       }
 
       track<-0
 
-
+      print("d")
       start_time_POSIXct<-as.POSIXct(paste(strsplit(input$clientTime,",")[[1]][1],"",strsplit(input$clientTime,", ")[[1]][2]),format="%d/%m/%Y %H:%M:%S")
       start_time_ch<-as.character(start_time_POSIXct)
       start_time<-as.character(strsplit(start_time_ch," ")[[1]][2])
       start_date<-as.character(strsplit(start_time_ch," ")[[1]][1])
 
-
+      print("e")
       end1<-Sys.time()
 
       lengthofsurvey<-round(as.numeric(difftime(end1,start1,units="secs")),2)
@@ -455,7 +548,7 @@ if(length(start_questions)==1){
       sd<-start_time_POSIXct
 
       sd<-as.character(strftime(sd+lubridate::seconds(lengthofsurvey)))
-
+      print("f")
       end_date<-strsplit(sd," ")[[1]][1]
       end_time<-strsplit(sd," ")[[1]][2]
       timezone<-strsplit(paste(input$client_time_zone_char, sep = "; ")," ")[[1]][2]
@@ -464,15 +557,15 @@ if(length(start_questions)==1){
 
       server_time<-as.character(strftime(Sys.time(), '%F %T', usetz = TRUE))
 
-
+      print("g")
       for(situation in 1:length(biowell_situations)){
-
+        print(situation)
         situationquestions<-biowell_questions[[situation]]
 
         for(question in 1:length(situationquestions)){
           track<-track+1
-
-          row<-c(lengthofsurvey,start_date,start_time,end_date,end_time,timezone,timezonelocation,server_time,
+          print(question)
+          row<-c(lengthofsurvey,start_date,start_time,end_date,end_time,timezone,timezonelocation,server_time,extracted_data_screen,
                  extracted_data,situation,
                  biowell_situations[situation],question,situationquestions[question],
                  dataframe[,paste0("physical",track,"ID")],100-as.numeric(dataframe[,paste0("physical",track,"ID")]),
@@ -485,12 +578,12 @@ if(length(start_questions)==1){
           results<-rbind(results,row)
         }}
 
-
+print("n")
       results<-as.data.frame(results)
-      if(!exists("no_start") & !exists("no_end")){colnames(results)<-c("survey_duration","start_date","start_time","end_date","end_time","timezone","timezone_location","server_submit_time",colnames(extracted_data),"Situation","Situation_Description","Question","Question_txt","Physical_RAW","Physical_INVERTED","Emotional_RAW","Emotional_INVERTED","Cognitive_RAW","Cognitive_INVERTED","Social_RAW","Social_INVERTED","Spiritual_RAW","Spiritual_INVERTED",colnames(extracted_data_end))}
-      if(exists("no_start") & !exists("no_end")){colnames(results)<-c("survey_duration","start_date","start_time","end_date","end_time","timezone","timezone_location","server_submit_time","Situation","Situation_Description","Question","Question_txt","Physical_RAW","Physical_INVERTED","Emotional_RAW","Emotional_INVERTED","Cognitive_RAW","Cognitive_INVERTED","Social_RAW","Social_INVERTED","Spiritual_RAW","Spiritual_INVERTED",colnames(extracted_data_end))}
-      if(!exists("no_start") & exists("no_end")){colnames(results)<-c("survey_duration","start_date","start_time","end_date","end_time","timezone","timezone_location","server_submit_time",colnames(extracted_data),"Situation","Situation_Description","Question","Question_txt","Physical_RAW","Physical_INVERTED","Emotional_RAW","Emotional_INVERTED","Cognitive_RAW","Cognitive_INVERTED","Social_RAW","Social_INVERTED","Spiritual_RAW","Spiritual_INVERTED")}
-      if(exists("no_start") & exists("no_end")){colnames(results)<-c("survey_duration","start_date","start_time","end_date","end_time","timezone","timezone_location","server_submit_time","Situation","Situation_Description","Question","Question_txt","Physical_RAW","Physical_INVERTED","Emotional_RAW","Emotional_INVERTED","Cognitive_RAW","Cognitive_INVERTED","Social_RAW","Social_INVERTED","Spiritual_RAW","Spiritual_INVERTED")}
+      if(!exists("no_start") & !exists("no_end")){colnames(results)<-c("survey_duration","start_date","start_time","end_date","end_time","timezone","timezone_location","server_submit_time",colnames(extracted_data_screen),colnames(extracted_data),"Situation","Situation_Description","Question","Question_txt","Physical_RAW","Physical_INVERTED","Emotional_RAW","Emotional_INVERTED","Cognitive_RAW","Cognitive_INVERTED","Social_RAW","Social_INVERTED","Spiritual_RAW","Spiritual_INVERTED",colnames(extracted_data_end))}
+      if(exists("no_start") & !exists("no_end")){colnames(results)<-c("survey_duration","start_date","start_time","end_date","end_time","timezone","timezone_location","server_submit_time",colnames(extracted_data_screen),"Situation","Situation_Description","Question","Question_txt","Physical_RAW","Physical_INVERTED","Emotional_RAW","Emotional_INVERTED","Cognitive_RAW","Cognitive_INVERTED","Social_RAW","Social_INVERTED","Spiritual_RAW","Spiritual_INVERTED",colnames(extracted_data_end))}
+      if(!exists("no_start") & exists("no_end")){colnames(results)<-c("survey_duration","start_date","start_time","end_date","end_time","timezone","timezone_location","server_submit_time",colnames(extracted_data_screen),colnames(extracted_data),"Situation","Situation_Description","Question","Question_txt","Physical_RAW","Physical_INVERTED","Emotional_RAW","Emotional_INVERTED","Cognitive_RAW","Cognitive_INVERTED","Social_RAW","Social_INVERTED","Spiritual_RAW","Spiritual_INVERTED")}
+      if(exists("no_start") & exists("no_end")){colnames(results)<-c("survey_duration","start_date","start_time","end_date","end_time","timezone","timezone_location","server_submit_time",colnames(extracted_data_screen),"Situation","Situation_Description","Question","Question_txt","Physical_RAW","Physical_INVERTED","Emotional_RAW","Emotional_INVERTED","Cognitive_RAW","Cognitive_INVERTED","Social_RAW","Social_INVERTED","Spiritual_RAW","Spiritual_INVERTED")}
 
       results <- apply(results,2,as.character)
 
@@ -631,7 +724,7 @@ if(length(start_questions)==1){
                                                   '<br> You have completed the survey. Please close this window now.</div>'),
                       shiny::HTML("<div id='mydiv66'>", paste0("<br>","</div>")))))})
 
-    })
+   } })
 
 
     # Automatically stop a Shiny app when closing the browser tab
