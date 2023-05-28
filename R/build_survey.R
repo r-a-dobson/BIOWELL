@@ -102,6 +102,8 @@ build_survey <- function(survey_title,
 
   ui <- shiny::fluidPage(
     shinyjs::useShinyjs(),
+    title = survey_title,
+   shinytitle::use_shiny_title(),
     shinyFeedback::useShinyFeedback(),
 
     shiny::titlePanel(shiny::div(survey_title, style = "color: #004A86;font-weight:bold")),
@@ -653,15 +655,15 @@ print("n")
 
       output$biowell_results2<- shiny::renderUI({
 
-        physical_v<-100-as.numeric(as.character(results[,  grep("Physical_INVERTED",colnames(results))]))
+        physical_v<-as.numeric(as.character(results[,  grep("Physical_INVERTED",colnames(results))]))
 
-        emotional_v<-100-as.numeric(as.character(results[,  grep("Emotional",colnames(results))]))
+        emotional_v<-as.numeric(as.character(results[,  grep("Emotional",colnames(results))]))
 
-        cognitive_v<-100-as.numeric(as.character(results[,   grep("Cognitive_INVERTED",colnames(results))]))
+        cognitive_v<-as.numeric(as.character(results[,   grep("Cognitive_INVERTED",colnames(results))]))
 
-        social_v<-100-as.numeric(as.character(results[,   grep("Social_INVERTED",colnames(results))]))
+        social_v<-as.numeric(as.character(results[,   grep("Social_INVERTED",colnames(results))]))
 
-        spiritual_v<-100-as.numeric(as.character(results[, grep("Spiritual_INVERTED",colnames(results))]))
+        spiritual_v<-as.numeric(as.character(results[, grep("Spiritual_INVERTED",colnames(results))]))
 
         physicalaverage<-round(mean(physical_v,na.rm=T),2)
 
