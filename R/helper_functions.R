@@ -250,24 +250,24 @@ hide_from_to: true
 #'@param drop_down  a list of character strings or vectors, the options to offer for each `questions` of type `checkbox` or `selectbox`.
 #'@param return_names a logical, indicating whether to return the unique ID names for each response box.
 #'@param type_q a character string, the position of questions being added. One of `start` or `end`.
-#'@param start_questions_pr optional; a character string, the start questions of the survey. Required if `type_q = "end"`.
+#'@param prior_qs optional; a character string, the start questions of the survey. Required if `type_q = "end"`.
 #' @noRd
 
-add_questions<-function(questions,type,drop_down,return_names=FALSE,return_names_text=FALSE,return_screen=FALSE, type_q="start",start_questions_pr=NULL,all_questions,...){
+add_questions<-function(questions,type,drop_down,return_names=FALSE,return_names_text=FALSE,return_screen=FALSE, type_q="start",prior_qs=NULL,all_questions,...){
 
   listofstuff<-vector(mode='list', length=length(questions))
   dropcount<-0
   names<-NULL
   names_text<-NULL
   xx<-1
-  if(type_q=="end"){xx<-length(start_questions_pr)+1}
+  if(type_q=="end"){xx<-length(prior_qs)+1}
   yy<-length(questions)
-  if(type_q=="end"){yy<-length(start_questions_pr)+length(questions)}
+  if(type_q=="end"){yy<-length(prior_qs)+length(questions)}
   screenanswer<-NULL
   for(sq in xx:yy){
 
     sq2<-sq
-    if(type_q=="end"){sq2<-sq-length(start_questions_pr)}
+    if(type_q=="end"){sq2<-sq-length(prior_qs)}
     question1<-questions[sq2]
     answertype<-type[sq2]
 
