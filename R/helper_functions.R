@@ -254,6 +254,7 @@ hide_from_to: true
 #' @noRd
 
 add_questions<-function(questions,type,drop_down,return_names=FALSE,return_names_text=FALSE,return_screen=FALSE, type_q="start",prior_qs=NULL,all_questions,...){
+if(!is.null(questions)){
 
   listofstuff<-vector(mode='list', length=length(questions))
   dropcount<-0
@@ -317,10 +318,11 @@ add_questions<-function(questions,type,drop_down,return_names=FALSE,return_names
 
 
       listofstuff[[sq2]]<- shiny::selectizeInput(paste0("select",sq), label =  shiny::HTML(paste0("<br>",shiny::h5(question1))),
-                                                 choices = drop_down_options_select,
+                                                 choices = c("",drop_down_options_select),
                                                  options = list(placeholder = 'Choose answer',
                                                                 onInitialize = I('function() { this.setValue(""); }')))
       names<-c(names,paste0("select",sq))
+      names_text<-c(names_text,paste0("select",sq))
     }
 
 
@@ -380,17 +382,17 @@ add_questions<-function(questions,type,drop_down,return_names=FALSE,return_names
                                <input class="js-range-slider" id="likert_five',sq,'" data-skin="shiny" data-min="1" data-max="5" data-from="2" data-step="1" data-grid="true" data-grid-num="10" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number" data-type="single" data-values="Strongly&lt;br&gt;&lt;br&gt; agree,Agree,Neither agree&lt;br&gt;&lt;br&gt; nor disagree,Disagree,Strongly&lt;br&gt;&lt;br&gt; disagree" data-drag-interval="false"/>
                                </div>'))))
       names<-c(names,paste0("likert_five",sq))
-
+}
     }
 
 
-  }
+
   if(return_names_text){return(names_text)}
   if(return_names){return(names)}
   if(return_screen){return(screenanswer)}
 
   return(listofstuff)
-
+}
 
 }
 
@@ -590,3 +592,219 @@ sort_question_answers<-function(qnames,response_df,qs,dropdownopt){
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+generate_report<-function(results,running_average){
+  n<-results$mean_biowell_INVERTED-running_average
+
+  color2<-"black"
+  words<-"NA"
+
+  if(!is.na(n)){
+  if(n<0){words<-"lower than"
+  color2<-"red"}
+  if(n>0){words<-"higher than"
+  color2<-"green"}
+  if(n==0){words<-"equal to"
+  color2<-"darkorange"}}
+
+
+  color1<-"black"
+  messagex<-"NA"
+  if(!is.na(n)){
+  if(dplyr::between(results$mean_biowell_INVERTED,0,49)){messagex<-"negative"
+  color1<-"red"}
+  if(dplyr::between(results$mean_biowell_INVERTED,51,100)){messagex<-"positive"
+  color1<-"green"}
+  if(results$mean_biowell_INVERTED==50){messagex<-"neutral"
+  color1<-"darkorange"}}
+
+  data_1<-explore_data(data=results,plot=FALSE)[[2]]
+  data_1<-data_1[rev(order(data_1$mean_biowell)),]
+
+
+  physical_v<-as.numeric(as.character(results[,  grep("Physical_INVERTED",colnames(results))]))
+
+  emotional_v<-as.numeric(as.character(results[,  grep("Emotional_INVERTED",colnames(results))]))
+
+  cognitive_v<-as.numeric(as.character(results[,   grep("Cognitive_INVERTED",colnames(results))]))
+
+  social_v<-as.numeric(as.character(results[,   grep("Social_INVERTED",colnames(results))]))
+
+  spiritual_v<-as.numeric(as.character(results[, grep("Spiritual_INVERTED",colnames(results))]))
+
+  physicalaverage<-round(mean(physical_v,na.rm=T),2)
+
+  emotionalaverage<-round(mean(emotional_v,na.rm=T),2)
+
+  cognitiveaverage<-round(mean(cognitive_v,na.rm=T),2)
+
+  socialaverage<-round(mean(social_v,na.rm=T),2)
+
+  spiritualaverage<-round(mean(spiritual_v,na.rm=T),2)
+
+  types<-c("Physical wellbeing","Emotional wellbeing","Cognitive wellbeing",
+           "Social wellbeing","Spiritual wellbeing")
+
+  return(list(
+    shiny::HTML("<div id='mydiv6'>", paste0('<strong>This score indicates a <span style="color: ',color1,';">',messagex,'</span> wellbeing response to biodiversity.</strong><br>',
+                                            '<br><span style="text-align: left">Your strongest responses to biodiversity were in:</span>',
+                                            '<ul style ="text-align: left;padding-left:20%"><li>',data_1[1,3],' (',round(data_1[1,4],2),'/100)</li>',
+                                            '<li>',data_1[2,3],' (',round(data_1[2,4],2),'/100)</li>',
+                                            '<li>',data_1[3,3],' (',round(data_1[3,4],2),'/100)</li></ul>',
+                                            '<br><strong>Your score is <span style="color:',color2,';">',words,'</span> the average score of participants (',round(running_average,2),') .</strong><br>',
+                                            '<br><span style="text-decoration: underline;">How is your score calculated?</span>',
+                                            '<br>Your BIO-WELL score reflects your average response to biodiversity taken across a set of human wellbeing domains.<br>','<br><strong>See the breakdown of your score below:</strong><br>',
+                                            '<table id="mytable">
+ <thead>
+  <tr>
+   <th style="text-align:center;border: solid;padding-left:5px;padding-right:5px;border-color: black;background:#0097AD;color:white"> Category </th>
+   <th style="text-align:center;border: solid;padding-left:5px;padding-right:5px;border-color: black;background:#0097AD;color:white"> Description </th>
+   <th style="text-align:center;border: solid;padding-left:5px;padding-right:5px;border-color: black;background:#0097AD;color:white"> Your score </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:center;border: solid;padding-left:5px;font-weight: bold;background:#ebfafc "> Physical wellbeing </td>
+   <td style="text-align:left;border: solid;padding-left:5px"> related to the functioning of the physical body and how one feels physically, including recovery from stress. </td>
+   <td style="text-align:right;border: solid;text-align:center"> ',physicalaverage,' </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;padding-left:5px; border: solid;font-weight: bold;background:#ebfafc "> Emotional wellbeing </td>
+   <td style="text-align:left;border: solid;padding-left:5px;background:#EBEBEB"> the experience of positive and negative emotions and mood. </td>
+   <td style="text-align:right;border: solid;text-align:center;background:#EBEBEB"> ',emotionalaverage,' </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;border: solid;padding-left:5px;font-weight: bold;background:#ebfafc "> Cognitive wellbeing </td>
+   <td style="text-align:left;border: solid;padding-left:5px"> an individuals thoughts about their life and cognitive capacity to direct attention. </td>
+                                              <td style="text-align:right;border: solid;text-align:center"> ',cognitiveaverage,' </td>
+                                              </tr>
+                                              <tr>
+                                              <td style="text-align:center;border: solid;padding-left:5px;font-weight: bold;background:#ebfafc  "> Social wellbeing </td>
+                                              <td style="text-align:left;border: solid;padding-left:5px;background:#EBEBEB"> how an individual perceives their connections with others. </td>
+                                              <td style="text-align:right;border: solid;text-align:center;background:#EBEBEB"> ',socialaverage,' </td>
+                                              </tr>
+                                              <tr>
+                                              <td style="text-align:center;border: solid;padding-left:5px;font-weight: bold;background:#ebfafc "> Spiritual wellbeing </td>
+                                              <td style="text-align:left;border: solid;padding-left:5px"> concerned with meaning and connection to something greater than oneself. </td>
+                                              <td style="text-align:right;border: solid;text-align:center"> ',spiritualaverage,' </td>
+                                              </tr>
+                                              </tbody>
+                                              </table>',
+                                            '<br> You have completed the survey. Please close this window now.</div>'),
+                shiny::HTML("<div id='mydiv66'>", paste0("<br>","</div>")))))}
+
+
+
+sort_running_average<-function(filePath,Dropbox_App_folder,token,results){
+
+  if(curl::has_internet()) {
+
+    rdrop2::drop_upload(filePath, path = Dropbox_App_folder,dtoken=token)
+
+    rdrop2::drop_dir(dtoken = token)
+
+    filesInfo <- rdrop2::drop_dir(Dropbox_App_folder,dtoken=token)
+    filePaths <- filesInfo$path_display
+    filePaths <- filePaths[grepl("BIOWELL_RUNNING_AVERAGE.csv" , filePaths)]
+    if(length(filePaths)==0){
+      running_average<-results$mean_biowell_INVERTED
+      filePath1 <- file.path(paste0(tempdir(),"/BIOWELL_RUNNING_AVERAGE.csv"))
+      write.csv(results$mean_biowell_INVERTED, filePath1, row.names = FALSE, quote = TRUE)
+      rdrop2::drop_upload(filePath1, path = Dropbox_App_folder,dtoken=token)}
+
+    if(length(filePaths)==1){
+      x<-rdrop2::drop_read_csv(filePaths,dtoken=token)
+      running_average<-x$x
+      x$x<-(x$x+results$mean_biowell_INVERTED)/2
+      filePath1 <- file.path(paste0(tempdir(),"/BIOWELL_RUNNING_AVERAGE.csv"))
+      write.csv(x$x, filePath1, row.names = FALSE, quote = TRUE)
+      rdrop2::drop_upload(filePath1, path = Dropbox_App_folder,dtoken=token)
+    }
+  }
+
+  if(!curl::has_internet()) {
+    running_average<-NA}
+
+  return(running_average)
+}
+
+
+
+
+
+generate_results_data<-function(start1,dataframe,biowell_questions,biowell_situations,extracted_data_screen,extracted_data_end,extracted_data,input_client ,input_tz  ,input_tz_ch,biowell_situations_ID,biowell_questions_ID ){
+
+  track<-0
+  results<-NULL
+
+  start_time_POSIXct<-as.POSIXct(paste(strsplit(input_client,",")[[1]][1],"",strsplit(input_client,", ")[[1]][2]),format="%d/%m/%Y %H:%M:%S")
+  start_time_ch<-as.character(start_time_POSIXct)
+  start_time<-as.character(strsplit(start_time_ch," ")[[1]][2])
+  start_date<-as.character(strsplit(start_time_ch," ")[[1]][1])
+
+
+  end1<-Sys.time()
+
+  lengthofsurvey<-round(as.numeric(difftime(end1,start1,units="secs")),2)
+
+  sd<-start_time_POSIXct
+
+  sd<-as.character(strftime(sd+lubridate::seconds(lengthofsurvey)))
+
+  end_date<-strsplit(sd," ")[[1]][1]
+  end_time<-strsplit(sd," ")[[1]][2]
+  timezone<-strsplit(paste(input_tz, sep = "; ")," ")[[1]][2]
+  timezonelocation<-paste(input_tz_ch, sep = "; ")
+
+  server_time<-as.character(strftime(Sys.time(), '%F %T', usetz = TRUE))
+
+
+  for(situation in 1:length(biowell_situations)){
+
+    situationquestions<-biowell_questions[[situation]]
+
+    for(question in 1:length(situationquestions)){
+      track<-track+1
+
+      row<-c(lengthofsurvey,start_date,start_time,end_date,end_time,timezone,timezonelocation,server_time,extracted_data_screen,
+             extracted_data,situation,
+             biowell_situations[situation],question,situationquestions[question],
+             dataframe[,paste0("physical",track,"ID")],100-as.numeric(dataframe[,paste0("physical",track,"ID")]),
+             dataframe[,paste0("emotional",track,"ID")],100-as.numeric(dataframe[,paste0("emotional",track,"ID")]),
+             dataframe[,paste0("cognitive",track,"ID")], 100-as.numeric(dataframe[,paste0("cognitive",track,"ID")]),
+             dataframe[,paste0("social",track,"ID")], 100-as.numeric(dataframe[,paste0("social",track,"ID")]),
+             dataframe[,paste0("spiritual",track,"ID")],100-as.numeric(dataframe[,paste0("spiritual",track,"ID")]),
+             extracted_data_end)
+
+      results<-rbind(results,row)
+    }}
+
+
+  results<-as.data.frame(results)
+  if(!exists("no_start") & !exists("no_end")){colnames(results)<-c("survey_duration","start_date","start_time","end_date","end_time","timezone","timezone_location","server_submit_time",colnames(extracted_data_screen),colnames(extracted_data),"Situation","Situation_Description","Question","Question_txt","Physical_RAW","Physical_INVERTED","Emotional_RAW","Emotional_INVERTED","Cognitive_RAW","Cognitive_INVERTED","Social_RAW","Social_INVERTED","Spiritual_RAW","Spiritual_INVERTED",colnames(extracted_data_end))}
+  if(exists("no_start") & !exists("no_end")){colnames(results)<-c("survey_duration","start_date","start_time","end_date","end_time","timezone","timezone_location","server_submit_time",colnames(extracted_data_screen),"Situation","Situation_Description","Question","Question_txt","Physical_RAW","Physical_INVERTED","Emotional_RAW","Emotional_INVERTED","Cognitive_RAW","Cognitive_INVERTED","Social_RAW","Social_INVERTED","Spiritual_RAW","Spiritual_INVERTED",colnames(extracted_data_end))}
+  if(!exists("no_start") & exists("no_end")){colnames(results)<-c("survey_duration","start_date","start_time","end_date","end_time","timezone","timezone_location","server_submit_time",colnames(extracted_data_screen),colnames(extracted_data),"Situation","Situation_Description","Question","Question_txt","Physical_RAW","Physical_INVERTED","Emotional_RAW","Emotional_INVERTED","Cognitive_RAW","Cognitive_INVERTED","Social_RAW","Social_INVERTED","Spiritual_RAW","Spiritual_INVERTED")}
+  if(exists("no_start") & exists("no_end")){colnames(results)<-c("survey_duration","start_date","start_time","end_date","end_time","timezone","timezone_location","server_submit_time",colnames(extracted_data_screen),"Situation","Situation_Description","Question","Question_txt","Physical_RAW","Physical_INVERTED","Emotional_RAW","Emotional_INVERTED","Cognitive_RAW","Cognitive_INVERTED","Social_RAW","Social_INVERTED","Spiritual_RAW","Spiritual_INVERTED")}
+
+  results <- apply(results,2,as.character)
+
+  results<-as.data.frame(results)
+
+  results$mean_biowell_INVERTED<-rep(mean(as.numeric(as.matrix(results[,c("Physical_INVERTED","Emotional_INVERTED","Cognitive_INVERTED","Social_INVERTED","Spiritual_INVERTED")]))),nrow(results))
+  results$mean_biowell_RAW<-100-results$mean_biowell_INVERTED
+
+  results<-convert_data_frame(results,biowell_situations_ID,biowell_questions_ID)
+  return(results)
+}

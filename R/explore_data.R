@@ -112,9 +112,6 @@ explore_data <- function(data,
     )
   }
 
-  if (nrow(data) == 1) {
-    stop("Only one response in data. Cannot compute survey statistics.")
-  }
 
   #--------------------------------------------------------------------
   # Process data and plot BIO-WELL scores across column categories

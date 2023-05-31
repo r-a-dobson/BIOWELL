@@ -257,17 +257,17 @@
 #'
 #'}
 
-build_survey <- function(survey_title,
-                         sidepanel_message,
+build_survey <- function(survey_title = NULL,
+                         sidepanel_message = NULL,
                          Dropbox_App_folder,
                          BW_app_path,
                          organisation,
-                         organisation_website,
-                         screen_message,
+                         organisation_website = NULL,
+                         screen_message = NULL,
                          screen_questions,
                          screen_questions_ID,
                          screen_response_options=NULL,
-                         start_message,
+                         start_message = NULL,
                          start_questions,
                          start_questions_ID,
                          start_questions_type,
@@ -276,7 +276,7 @@ build_survey <- function(survey_title,
                          biowell_situations_ID,
                          biowell_questions,
                          biowell_questions_ID,
-                         end_message,
+                         end_message = NULL,
                          end_questions,
                          end_questions_type,
                          end_questions_ID,
@@ -305,48 +305,19 @@ build_survey <- function(survey_title,
       stop("No Dropbox token found. Use activate_dropbox()")
     }
 
-  token<-readRDS(".secrets/dropbox_token.rds")
+    token<-readRDS(".secrets/dropbox_token.rds")
 
-  rdrop2::drop_dir(dtoken = token)
+    rdrop2::drop_dir(dtoken = token)
 
-  # Check folder exists within the Dropbox app
-  tryCatch({
-    nresponses <- nrow(rdrop2::drop_dir(Dropbox_App_folder, dtoken = token))
-  }, error = function(e) {
-    stop("Dropbox folder does not exist within your Dropbox App")
-  })
+    # Check folder exists within the Dropbox app
+    tryCatch({
+      nresponses <- nrow(rdrop2::drop_dir(Dropbox_App_folder, dtoken = token))
+    }, error = function(e) {
+      stop("Dropbox folder does not exist within your Dropbox App")
+    })
   }
-
-  # Set defaults to prevent error
-
-  if (missing(screen_message)) {
-    screen_message <- ""
-  }
-
-  if(missing(survey_title)) {
-    survey_title <- ""
-  }
-
-  if (missing(sidepanel_message)) {
-    sidepanel_message <- ""
-  }
-
-  if (missing(start_message)) {
-    start_message <- ""
-  }
-
-  if (missing(end_message)) {
-    end_message <- ""
-  }
-
-
-  if (missing(organisation_website)) {
-    organisation_website <- NULL
-  }
-
 
   # Check screen question input
-
   if(!missing(screen_questions)) {
 
     if (missing(screen_questions_ID)) {
@@ -354,12 +325,10 @@ build_survey <- function(survey_title,
     }
     screen_questions_type <- rep("selectbox",length(screen_questions))
 
-    n<- sum(screen_questions_type=="checkbox", screen_questions_type=="selectbox")
-
-   if (!length(screen_response_options) == n) {
-     stop("total screen_response_options not equal to total checkbox + selectbox screen_questions_type"
-     )
-   }
+    if (!length(screen_response_options) == length(screen_questions)) {
+      stop("total screen_response_options not equal to total checkbox + selectbox screen_questions_type"
+      )
+    }
   }
 
 
@@ -369,10 +338,6 @@ build_survey <- function(survey_title,
 
     if (missing(start_questions_ID)) {
       start_questions_ID <- start_questions
-    }
-
-    if(missing(start_questions_type)){
-      stop("Please specify start question response type")
     }
 
     if(!length(start_questions) == length(start_questions_type)){
@@ -389,17 +354,12 @@ build_survey <- function(survey_title,
   }
 
 
-
   # Check end question input
 
   if(!missing(end_questions)) {
 
     if (missing(end_questions_ID)) {
       end_questions_ID <- end_questions
-    }
-
-    if(missing(end_questions_type)){
-      stop("Please specify end question response type")
     }
 
     if(!length(end_questions) == length(end_questions_type)){
@@ -452,20 +412,14 @@ build_survey <- function(survey_title,
   }
 
   if (missing(start_questions)) {
-    start_questions <- "NULL"
-    start_questions_type <- "NA"
-    start_response_options <- NULL
-    no_start <- "no_start"
+    start_questions <- NULL
+    extracted_data <- NULL
   }
 
   if (missing(end_questions)) {
-    end_questions <- "NULL"
-    end_questions_type <- "NA"
-    end_response_options <- NULL
-    no_end <- "no_end"
+    end_questions <- NULL
+    extracted_data_end <- NULL
   }
-
-
 
   #----------------------------------------------------------------------------
   # Create survey's Shiny App UI element
@@ -473,40 +427,39 @@ build_survey <- function(survey_title,
 
   # Default messages
 
-sb <- "Please do not close the window until your responses have been submitted."
-aq <- "In this survey, you must answer all questions to complete."
-pc <- "These questions must be answered to proceed."
-gb <- "Sorry you have not met the criteria for this survey. Please exit."
+  sb <- "Please do not close the window until your responses have been submitted."
+  aq <- "In this survey, you must answer all questions to complete."
+  pc <- "These questions must be answered to proceed."
+  gb <- "Sorry you have not met the criteria for this survey. Please exit."
 
-ui <- shiny::fluidPage(
-  shinyjs::useShinyjs(),
-  title = survey_title,     # Set the name that will appear on browser tab
-  shinytitle::use_shiny_title(),
-  shinyFeedback::useShinyFeedback(),
-  shiny::titlePanel(shiny::div(survey_title,
-                               style = "color: #004A86;font-weight: bold")),
-  shiny::sidebarPanel(
-  shiny::div("Summary", style = "font-weight: bold; font-size: 20px"),
-  if(!missing(sidepanel_message)){shiny::tags$div(sidepanel_message)},
-  shiny::br(),
-  if(!missing(organisation)){shiny::tags$div("\n Created by:")},
-  if(!missing(organisation)){shiny::tags$a(organisation,
-                                           href=organisation_website)},
-  shiny::br(),
-  shiny::br(),
-  shiny::p(sb , style = "font-weight: bold"),
-  shiny::br(),
-  if(all_questions){shiny::p(aq ,style = "font-style: italic")},
-  shiny::tags$script('
+  ui <- shiny::fluidPage(
+    shinyjs::useShinyjs(),
+    title = survey_title,     # Set the name that will appear on browser tab
+    shinytitle::use_shiny_title(),
+    shinyFeedback::useShinyFeedback(),
+    shiny::titlePanel(shiny::div(survey_title,
+                                 style = "color: #004A86;font-weight: bold")),
+    shiny::sidebarPanel(
+      shiny::div("Summary", style = "font-weight: bold; font-size: 20px"),
+      if(!missing(sidepanel_message)){shiny::tags$div(sidepanel_message)},
+      shiny::br(),
+      if(!missing(organisation)){shiny::tags$div("\n Created by:")},
+      if(!missing(organisation)){shiny::tags$a(organisation,
+                                               href=organisation_website)},
+      shiny::br(),
+      shiny::br(),
+      shiny::p(sb , style = "font-weight: bold"),
+      shiny::br(),
+      if(all_questions){shiny::p(aq ,style = "font-style: italic")},
+      shiny::tags$script('
     $(function() {
       var time_now = new Date()
       $("input#client_time").val(time_now.getTime())
-      $("input#client_time_zone_offset").val(time_now.getTimezoneOffset())
       $("input#client_time_zone_char").val(time_now.toTimeString())
       $("input#tz_intern").val(Intl.DateTimeFormat().resolvedOptions().timeZone)
     });
   '),
-  shiny::tags$script('
+      shiny::tags$script('
             $(document).ready(function(){
             var d = new Date();
             var target = $("#clientTime");
@@ -514,27 +467,24 @@ ui <- shiny::fluidPage(
             target.trigger("change");
             });
             '),
-  shiny::conditionalPanel('false',shiny::textInput("clientTime",
-                                                   "Client Time",
-                                                   value = "")),
-  shiny::conditionalPanel('false', shiny::textInput("client_time",
-                                                    "Client Time",
-                                                    value = "")),
-  shiny::conditionalPanel('false', shiny::textInput("client_time_zone_offset",
-                                                    "Time zone offset",
-                                                    value = "")),
-  shiny::conditionalPanel('false', shiny::textInput("client_time_zone_char",
-                                                    "Time zone verbatim",
-                                                    value = "")),
-  shiny::conditionalPanel('false', shiny::textInput("tz_intern",
-                                                    "Time zone international",
-                                                    value = ""))
+      shiny::conditionalPanel('false',shiny::textInput("clientTime",
+                                                       "Client Time",
+                                                       value = "")),
+      shiny::conditionalPanel('false', shiny::textInput("client_time",
+                                                        "Client Time",
+                                                        value = "")),
+      shiny::conditionalPanel('false', shiny::textInput("client_time_zone_char",
+                                                        "Time zone verbatim",
+                                                        value = "")),
+      shiny::conditionalPanel('false', shiny::textInput("tz_intern",
+                                                        "Time zone international",
+                                                        value = ""))
 
-  ),
+    ),
 
-  shiny::mainPanel(
-    shinyjs::hidden(
-      shiny::div(
+    shiny::mainPanel(
+      shinyjs::hidden(
+        shiny::div(
           class = "page",
           id = "page1",
           shiny::tags$div(style = "color:# 004A86;font-size: 18px;",
@@ -550,39 +500,39 @@ ui <- shiny::fluidPage(
           shiny::actionButton("continue", "Continue to the survey")),
 
 
-      shiny::div(
-        class = "page",
-        id = "page2",
-        shiny::tags$div(style = "color: #004A86;font-size: 18px;",
-                        start_message),
-        lapply(add_questions(start_questions,
-                             start_questions_type,
-                             start_response_options,
-                             all_questions = all_questions,
-                             prior_qs = screen_questions,
-                             type_q = "end"),
-               FUN = function(x){shiny::HTML(paste(x))}),
-        shiny::textOutput("textwarning"),
-        shiny::tags$head(shiny::tags$style("#textwarning{color: red;
+        shiny::div(
+          class = "page",
+          id = "page2",
+          shiny::tags$div(style = "color: #004A86;font-size: 18px;",
+                          start_message),
+          if (!is.null(start_questions)) {lapply(add_questions(start_questions,
+                               start_questions_type,
+                               start_response_options,
+                               all_questions = all_questions,
+                               prior_qs = screen_questions,
+                               type_q = "end"),
+                 FUN = function(x){shiny::HTML(paste(x))})},
+          shiny::textOutput("textwarning"),
+          shiny::tags$head(shiny::tags$style("#textwarning{color: red;
                                      font-size: 20px;
                                      font-style: bold;}"))
         ),
 
-      add_biowell_scale(biowell_situations, biowell_questions, all_sliders),
+        add_biowell_scale(biowell_situations, biowell_questions, all_sliders),
 
-      shiny::div(
-        class = "page",
-        id = paste0("page", 3+length(biowell_situations)),
-        shiny::tags$div(style="color: #004A86;font-size: 18px",end_message),
-        lapply(add_questions(end_questions,
-                             end_questions_type,
-                             end_response_options,
-                             type_q = "end",
-                             prior_qs = c(screen_questions,start_questions),
-                             all_questions = all_questions),
-               FUN=function(x){shiny::HTML(paste(x))}),
-        shiny::textOutput("textwarning2"),
-        shiny::tags$head(shiny::tags$style("#textwarning2{color: red;
+        shiny::div(
+          class = "page",
+          id = paste0("page", 3+length(biowell_situations)),
+          shiny::tags$div(id="end_m", style="color: #004A86;font-size: 18px",end_message),
+          if (!is.null(end_questions)) {lapply(add_questions(end_questions,
+                               end_questions_type,
+                               end_response_options,
+                               type_q = "end",
+                               prior_qs = c(screen_questions,start_questions),
+                               all_questions = all_questions),
+                 FUN=function(x){shiny::HTML(paste(x))})},
+          shiny::textOutput("textwarning2"),
+          shiny::tags$head(shiny::tags$style("#textwarning2{color: red;
                                            font-size: 20px;
                                            font-style: bold;}")),
           shiny::actionButton("submit", "Submit")
@@ -590,13 +540,13 @@ ui <- shiny::fluidPage(
         ),
 
 
-      shiny::div(
-        class = "page",
-        id = paste0("page", 4+length(biowell_situations)),
-        shiny::fluidRow(
-          if(!user_report){shiny::textOutput("final_message")},
-          if(user_report){
-            shiny::div(style = "border-style: solid;
+        shiny::div(
+          class = "page",
+          id = paste0("page", 4+length(biowell_situations)),
+          shiny::fluidRow(
+            if(!user_report){shiny::p("Thank you. Please close your browser to finish the survey.")},
+            if(user_report){
+              shiny::div(style = "border-style: solid;
                                 border-color: #004A86;
                                 height: 1500px;
                                 width:100%;
@@ -606,14 +556,14 @@ ui <- shiny::fluidPage(
                                 justify-content: center;
                                 align-items: center;
                                 position: relative;",
-        shiny::h1("Your BIO-WELL score is:"),
-        shiny::tags$head(shiny::tags$style('h1 {font-size: 4vw;
+                         shiny::h1("Your BIO-WELL score is:"),
+                         shiny::tags$head(shiny::tags$style('h1 {font-size: 4vw;
                                            color:#0097AD;
                                            font-weight: bold;
                                            text-align: center;
                                            font: 1px}')),
-        shiny::div(class = "square", shiny::textOutput("text"),
-                   shiny::tags$head(shiny::tags$style('.square {
+                         shiny::div(class = "square", shiny::textOutput("text"),
+                                    shiny::tags$head(shiny::tags$style('.square {
                                       width: 60%;
                                       height:15%;
                                       line-height: 110%;
@@ -630,10 +580,10 @@ ui <- shiny::fluidPage(
                                       text-align: center;
                                       background: #0097AD}'))),
 
-        shiny::div(
-          class = "square2",
-          shiny::textOutput("text1"),
-          shiny::tags$head(shiny::tags$style('.square2 {
+                         shiny::div(
+                           class = "square2",
+                           "100",
+                           shiny::tags$head(shiny::tags$style('.square2 {
                                               width: 60%;
                                               height:15%;
                                               line-height: 110%;
@@ -650,8 +600,8 @@ ui <- shiny::fluidPage(
                                               text-align: center;
                                               background: transparent}'))),
 
-        shiny::htmlOutput("biowell_results2"),
-        shiny::tags$style('#mydiv6{list-style-position: inside;
+                         shiny::htmlOutput("rep"),
+                         shiny::tags$style('#mydiv6{list-style-position: inside;
                                    padding-left: 0;
                                    font-size: 20px;
                                    color: black;
@@ -662,8 +612,8 @@ ui <- shiny::fluidPage(
                                    right:5%;
                                    left:5%;
                                    ul {margin-left: 0;text-align: left};}'),
-        shiny::div(class = "line",
-                   shiny::tags$head(shiny::tags$style('.line {
+                         shiny::div(class = "line",
+                                    shiny::tags$head(shiny::tags$style('.line {
                                                       width: 30%;
                                                       height:1%;
                                                       line-height: 5%;
@@ -677,30 +627,28 @@ ui <- shiny::fluidPage(
                                                       vertical-align: middle;
                                                       text-align: center;
                                                       background: white}'))),
-        shiny::tags$head(shiny::tags$style('#mytable {background: white}'))
+                         shiny::tags$head(shiny::tags$style('#mytable {background: white}'))
 
-            )}
+              )}
+          ),
         ),
+        shiny::div(class = "FINAL",
+                   id = paste0("FINAL"),
+                   shiny::p(gb))
       ),
-      shiny::div(class = "FINAL",
-                 id = paste0("FINAL"),
-                 shiny::p(gb))
-    ),
-    shiny::br(),
-    shiny::actionButton("prevBtn", "< Previous"),
-    shiny::actionButton("nextBtn", "Next >")
-  ))
+      shiny::br(),
+      shiny::actionButton("prevBtn", "< Previous"),
+      shiny::actionButton("nextBtn", "Next >")
+    ))
 
-
-#----------------------------------------------------------------------------
-# Create survey's Shiny App server element
-#----------------------------------------------------------------------------
-
+  #----------------------------------------------------------------------------
+  # Create survey's Shiny App server element
+  #----------------------------------------------------------------------------
 
   server <- function(input, output, session) {
 
     # Get system time on survey start
-    start1<-Sys.time()
+    start1 <- Sys.time()
 
     # If no screening questions given, hide screening page
     if(exists("no_screen")) {
@@ -710,54 +658,47 @@ ui <- shiny::fluidPage(
 
     # Create reactive values for controlling
     rv <- shiny::reactiveValues(page = 1)
-    showNEXT<- reactiveVal(FALSE)
-    showEND <- reactiveVal(FALSE)
-    ENDQS <- reactiveVal(FALSE)
+    showNEXT<- reactiveVal(FALSE) # Only TRUE if requirements are reached - next page
+    showEND <- reactiveVal(FALSE) # Screened out page
+    showSUBMIT <- reactiveVal(FALSE) # Submit - to report / allow data upload
 
 
-    showPlot <- reactiveVal(TRUE)
-
+    # Code to ensure if all_slider = TRUE, can only click next if all moved
     shiny::observe({
 
-      if(rv$page==1){  showPlot(TRUE)}
-      if(rv$page == NUM_PAGES){showPlot(TRUE)}
-      if(!rv$page==1){
+      if (rv$page > 2 && rv$page <= 2 + length(biowell_situations)) {
 
-        if(rv$page<=1+length(biowell_situations)){
+        if (!all_sliders) {
+          showNEXT(TRUE)
+        }
 
-          page_working<-NULL
-          for(sit in 1:length(biowell_situations)){
+        if (all_sliders) {
 
-            n<-length(biowell_questions[[sit]])
-
-            page_working<-c(page_working, rep(sit,n))}
-
-          page_working<-data.frame(page=1+page_working)
+          page_working <- data.frame(page=2+unlist(lapply(1:length(biowell_questions),
+                                                          FUN = function(x) {rep(x, length(biowell_questions[[x]]))})))
           page_working$number<-1:nrow(page_working)
 
           page_split<-page_working[page_working$page==rv$page,]
 
           must_move_IDS<-c(paste0("physical",  page_split$number,"ID"),
-                           paste0("social",  page_split$number,"ID"),
-                           paste0("emotional",  page_split$number,"ID"),
-                           paste0("cognitive",  page_split$number,"ID"),
-                           paste0("spiritual",  page_split$number,"ID"))
-
+                           paste0("social",    page_split$number,"ID"),
+                           paste0("emotional", page_split$number,"ID"),
+                           paste0("cognitive", page_split$number,"ID"),
+                           paste0("spiritual", page_split$number,"ID"))
 
           input_for_this<-t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))[,must_move_IDS]
-          if(!length(input_for_this)==0){
-            if(all_sliders){showPlot(FALSE)}
-            if(!all_sliders){ showPlot(TRUE)}
-            if(any(!input_for_this==50)){
 
-              input_for_this<-input_for_this[-which(!input_for_this==50)]
+          if (!length(input_for_this) == 0) {
+
+            showNEXT(FALSE)
+
+
+            if (any(!input_for_this == 50)) {
+              input_for_this <- input_for_this[-which(!input_for_this == 50)]
             }}
 
-          if(length(input_for_this)==0){
-
-            showPlot(TRUE)
-
-
+          if (length(input_for_this) == 0) {
+            showNEXT(TRUE)
           }
 
         }}
@@ -765,21 +706,34 @@ ui <- shiny::fluidPage(
     })
 
 
+    # Controlling the page
 
-    NUM_PAGES<-c(2+length(biowell_situations)+2)
+    NUM_PAGES <- c(2 + length(biowell_situations) + 2)
+    navPage <- function(direction) {rv$page <- rv$page + direction}
+    shiny::observeEvent(input$prevBtn, navPage(-1))
+    shiny::observeEvent(input$nextBtn, navPage(1))
 
     shiny::observe({
-      if(NUM_PAGES-1 == rv$page){print("yep")
+
+      # Hide next button - must click submit to generate report
+      if (NUM_PAGES - 1 == rv$page) {
         shinyjs::hide("nextBtn")
-        shinyjs::toggleState(id = "nextBtn", condition =  TRUE)}
+
+      }
+      # Previous button active unless first page
       shinyjs::toggleState(id = "prevBtn", condition = rv$page > 1)
-      if(!NUM_PAGES-1 == rv$page){print("NOPE")
-      shinyjs::toggleState(id = "nextBtn", condition = rv$page < NUM_PAGES+1)
-      shinyjs::toggleState(id = "nextBtn", condition =  showPlot())
-      shinyjs::toggleState(id = "nextBtn", condition =  !showEND())
-      shinyjs::toggleState(id = "nextBtn", condition =  showNEXT())}
-      shinyjs::toggleState(id = "prevBtn", condition =  !showEND())
-      shinyjs::toggleState(id = "prevBtn", condition =  showNEXT())
+
+      # On any other page...
+      if(!NUM_PAGES-1 == rv$page){
+        # Turn off if we are showing the end page (screening)
+        shinyjs::toggleState(id = "nextBtn", condition =  !showEND())
+        if(showEND()){shinyjs::hide("prevBtn")
+          }
+
+        # Turn on if other rules met (showNEXT = TRUE)
+        shinyjs::toggleState(id = "nextBtn", condition =  showNEXT())}
+
+
       shinyjs::toggle(id = "FINAL", condition =  showEND())
       shinyjs::hide(selector = ".page")
       shinyjs::show(
@@ -788,353 +742,139 @@ ui <- shiny::fluidPage(
 
     })
 
-    navPage <- function(direction) {
-      rv$page <- rv$page + direction
-    }
-
-    shiny::observeEvent(input$prevBtn, navPage(-1))
-
-    shiny::observeEvent(showEND(),
-
-                        if(showEND()){
-                          navPage(NUM_PAGES)
-                        })
-
-
-    output$textwarning2<- shiny::renderText("Please answer all questions.")
-      shiny::observeEvent(input$continue,
-
-                          if(rv$page ==1 && answers(names11=add_questions(screen_questions,screen_questions_type,screen_response_options,return_names=T,all_questions =all_questions ),names22=colnames(t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))))
-                             || "" %in% t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))[,add_questions(screen_questions,screen_questions_type,screen_response_options,return_names_text=T,all_questions =all_questions)]
-                          )
-
-                          {
-
-                            output$textwarning<- shiny::renderText("Please answer all questions.")
-                            shinyjs::show("textwarning")
-                          } else {
-                            screening<-add_questions(screen_questions,screen_questions_type,screen_response_options,all_questions=all_questions,return_screen=TRUE)
-
-                            if(!is.null(screening)){
-                              input_for_this<-as.data.frame(t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))[,screening$inputname])
-
-                              for(x in 1:nrow(input_for_this)){
-
-                                if(input_for_this[x,] == screening$inputresponse[x]){  showEND(TRUE)}
-                              }}
-                            if(!showEND()){
-                            navPage(1)
-                            showNEXT(TRUE)
-                            shinyjs::hide("textwarning")}})
-
-
-      if(all_questions){
-       shiny::observeEvent(input$nextBtn,
-
-                            if(rv$page >1 && answers(names11=add_questions(start_questions,start_questions_type,start_response_options,return_names=T,all_questions =all_questions,prior_qs = screen_questions,type_q = "end" ),names22=colnames(t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))))
-                              || "" %in% t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))[,add_questions(start_questions,start_questions_type,start_response_options,return_names_text=T,all_questions =all_questions,prior_qs = screen_questions,type_q = "end")]
-                            )
-
-                            {
-
-
-                              output$textwarning<- shiny::renderText("Please answer all questions.")
-                              shinyjs::show("textwarning")
-                           } else {navPage(1)
-                              shinyjs::hide("textwarning")})}
-
-    if(!all_questions){
-      shiny::observeEvent(input$nextBtn,
-                          navPage(1))}
-
-
+    # Ensure next button is only hidden if on penultimate page
     shiny::observe({
-
       if(rv$page == NUM_PAGES-1){
         shinyjs::hide(id = "nextBtn")}
-
       if(rv$page != NUM_PAGES-1){
-
         shinyjs::show(id = "nextBtn")}
-
-
-
     })
 
 
+    output$textwarning2<- shiny::renderText("Please answer all questions.")
+
+    # Have the screen questions been answered?
+    shiny::observeEvent(input$continue,
+
+       if (!is.null(screen_questions)) {
+         # Get screening response options
+        screening<-add_questions(screen_questions,screen_questions_type,screen_response_options,all_questions=all_questions,return_screen=TRUE)
+         # Get user input
+         input_for_this<-as.data.frame(t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))[,screening$inputname])
+
+                          # For every screening q, check input is not the disallowed response
+                          for (x in 1:nrow(input_for_this)) {
+                            if (input_for_this[x,] == screening$inputresponse[x]) {
+                              showEND(TRUE)
+                              navPage(NUM_PAGES)
+                            }
+                          }
+
+                          # If after all checked, met screen criteria - move to next page of survey!
+                          if (!showEND()) {
+
+                            if(!"" %in% t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))[,paste0("select",1:length(screen_questions))]
+                            )
+
+                            navPage(1)
+                          }
+                        })
+
+    # Have the start questions been answered?
     shiny::observe({
+      if(is.null(start_questions) && rv$page == 2){showNEXT(TRUE)}
+      if(all_questions){
 
-      if(!answers(names11=add_questions(end_questions,end_questions_type,end_response_options,return_names=T,all_questions =all_questions,prior_qs = c(screen_questions,start_questions),type_q = "end" ),names22=colnames(t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))))
-         && !"" %in% t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))[,add_questions(end_questions,end_questions_type,end_response_options,return_names_text=T,all_questions =all_questions,prior_qs = c(screen_questions,start_questions),type_q = "end")]
-      ){
+        if(!is.null(start_questions)){
+          if(rv$page == 2){
 
-        ENDQS(TRUE)}})
+            if(answers(names11=add_questions(start_questions,start_questions_type,start_response_options,return_names=T,all_questions =all_questions,prior_qs = screen_questions,type_q = "end" ),names22=colnames(t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))))
+               || "" %in% t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))[,add_questions(start_questions,start_questions_type,start_response_options,return_names_text=T,all_questions =all_questions,prior_qs = screen_questions,type_q = "end")]
+            )
+
+            {
+              output$textwarning<- shiny::renderText("Please answer all questions.")
+              shinyjs::show("textwarning")
+              showNEXT(FALSE)
+            } else {showNEXT(TRUE)
+              shinyjs::hide("textwarning")}
+          }}}
+
+    })
+
+    # Have the end questions been answered?
+    if(!is.null(end_questions)){
+      shiny::observe({
+
+        if(!answers(names11=add_questions(end_questions,end_questions_type,end_response_options,return_names=T,all_questions =all_questions,prior_qs = c(screen_questions,start_questions),type_q = "end" ),names22=colnames(t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))))
+           && !"" %in% t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))[,add_questions(end_questions,end_questions_type,end_response_options,return_names_text=T,all_questions =all_questions,prior_qs = c(screen_questions,start_questions),type_q = "end")]
+        ){
+
+          showSUBMIT(TRUE)}})} else
+            (showSUBMIT(TRUE))
 
     shinyjs::hide(id = "textwarning2")
 
     # When the Submit button is clicked, save the form data
     shiny::observeEvent(input$submit, {
-      if(!all_questions){ENDQS(TRUE)}
-      if(!ENDQS()){ shinyjs::show(id = "textwarning2")}
-if(ENDQS()){
+      if(!all_questions){showSUBMIT(TRUE)}
+      if(!showSUBMIT()){ shinyjs::show(id = "textwarning2")}
+      if(showSUBMIT()){
+        shinyjs::hide(id = "submit")
+        shinyjs::hide(id = "prevBtn")
+        shinyjs::hide(id = "nextBtn")
+        shinyjs::hide(id = "end_m")
+        shinyjs::show(
+          paste0("page", NUM_PAGES)
+        )
 
+        dataframe<- t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))
 
-    shinyjs::hide(id = "submit")
-    shinyjs::hide(id = "prevBtn")
-    shinyjs::hide(id = "nextBtn")
-    shinyjs::hide(id = "sidebarPanel")
-    shinyjs::show(
-      paste0("page", NUM_PAGES)
-    )
-    if(!user_report){
-      output$final_message<- shiny::renderText("Thank you. Please close your browser to finish the survey.")
-      shinyjs::show("final_message")
-    }
-    shinyjs::hide(
-      paste0("page", NUM_PAGES-1)
-    )
+        extracted_data_screen<-sort_question_answers(paste0("select",length(screen_questions)),dataframe,screen_questions_ID,screen_response_options)
 
+        if(!is.null(start_questions)){
+          startqnames<- add_questions(start_questions,
+                                      start_questions_type,
+                                      start_response_options,
+                                      return_names = T,
+                                      all_questions = all_questions,
+                                      prior_qs = screen_questions,
+                                      type_q = "end" )
 
+          extracted_data<-sort_question_answers(startqnames,dataframe,start_questions_ID,start_response_options)}
 
-      dataframe<- t(as.data.frame(unlist(shiny::reactiveValuesToList(input))))
+        if(!is.null(end_questions)){
 
-      results<-NULL
-      if(length(start_questions)==1){
-        if(start_questions == "NULL"){start_questions<-NULL}}
-      if(length(end_questions)==1){
-        if(end_questions == "NULL"){end_questions<-NULL}}
-      if(length(screen_questions)==1){
-        if(screen_questions == "NULL"){screen_questions<-NULL}}
-print("a")
+          extracted_data_end<- sort_question_answers(endqnames,dataframe,end_questions_ID,end_response_options)
+        }
 
-      if(is.null(start_questions)){extracted_data<-NULL}
-      if(is.null(end_questions)){extracted_data_end<-NULL}
-      if(is.null(screen_questions)){extracted_data_screen<-NULL}
-print("b")
+        results<-generate_results_data(start1,dataframe,biowell_questions,biowell_situations,extracted_data_screen,extracted_data_end,extracted_data,input$clientTime,input$client_time_zone_char, input$tz_intern,biowell_situations_ID,biowell_questions_ID)
 
-      if(!is.null(screen_questions)){
-        screenqnames<- add_questions(screen_questions,screen_questions_type,screen_response_options,return_names=T,all_questions =all_questions)
-        extracted_data_screen<-sort_question_answers(screenqnames,dataframe,screen_questions_ID,screen_response_options)}
+        nresponses <- length(list.files(tempdir()))
 
+        if(curl::has_internet()) {
+          nresponses <- nrow(rdrop2::drop_dir(Dropbox_App_folder, dtoken = token))}
 
-      if(!is.null(start_questions)){
-        startqnames<- add_questions(start_questions,start_questions_type,start_response_options,return_names=T,all_questions =all_questions,prior_qs = screen_questions,type_q = "end" )
-        extracted_data<-sort_question_answers(startqnames,dataframe,start_questions_ID,start_response_options)}
-print("c")
-      if(!is.null(end_questions)){
-        endqnames<- add_questions(end_questions,end_questions_type,end_response_options,return_names=T,type_q = "end",prior_qs = c(screen_questions,start_questions),all_questions =all_questions)
-        print(endqnames)
-        print(dataframe)
-        extracted_data_end<- sort_question_answers(endqnames,dataframe,end_questions_ID,end_response_options)
-      }
+       filePath <- file.path(paste0(tempfile(),"_ID_",nresponses,".csv"))
 
-      track<-0
+        # Upload the file to Dropbox
+        write.csv(results, filePath, row.names = FALSE, quote = TRUE)
 
-      print("d")
-      start_time_POSIXct<-as.POSIXct(paste(strsplit(input$clientTime,",")[[1]][1],"",strsplit(input$clientTime,", ")[[1]][2]),format="%d/%m/%Y %H:%M:%S")
-      start_time_ch<-as.character(start_time_POSIXct)
-      start_time<-as.character(strsplit(start_time_ch," ")[[1]][2])
-      start_date<-as.character(strsplit(start_time_ch," ")[[1]][1])
+        results <- read.csv(filePath)
 
-      print("e")
-      end1<-Sys.time()
+        running_average <- sort_running_average(filePath,
+                                                Dropbox_App_folder,
+                                                token,
+                                                results)
 
-      lengthofsurvey<-round(as.numeric(difftime(end1,start1,units="secs")),2)
+    output$text <- renderText({paste(round(results$mean_biowell_INVERTED))})
+    output$rep <- shiny::renderUI({generate_report(results, running_average)})
 
-      sd<-start_time_POSIXct
-
-      sd<-as.character(strftime(sd+lubridate::seconds(lengthofsurvey)))
-      print("f")
-      end_date<-strsplit(sd," ")[[1]][1]
-      end_time<-strsplit(sd," ")[[1]][2]
-      timezone<-strsplit(paste(input$client_time_zone_char, sep = "; ")," ")[[1]][2]
-      timezonelocation<-paste(input$tz_intern, sep = "; ")
-
-
-      server_time<-as.character(strftime(Sys.time(), '%F %T', usetz = TRUE))
-
-      print("g")
-      for(situation in 1:length(biowell_situations)){
-        print(situation)
-        situationquestions<-biowell_questions[[situation]]
-
-        for(question in 1:length(situationquestions)){
-          track<-track+1
-          print(question)
-          row<-c(lengthofsurvey,start_date,start_time,end_date,end_time,timezone,timezonelocation,server_time,extracted_data_screen,
-                 extracted_data,situation,
-                 biowell_situations[situation],question,situationquestions[question],
-                 dataframe[,paste0("physical",track,"ID")],100-as.numeric(dataframe[,paste0("physical",track,"ID")]),
-                 dataframe[,paste0("emotional",track,"ID")],100-as.numeric(dataframe[,paste0("emotional",track,"ID")]),
-                 dataframe[,paste0("cognitive",track,"ID")], 100-as.numeric(dataframe[,paste0("cognitive",track,"ID")]),
-                 dataframe[,paste0("social",track,"ID")], 100-as.numeric(dataframe[,paste0("social",track,"ID")]),
-                 dataframe[,paste0("spiritual",track,"ID")],100-as.numeric(dataframe[,paste0("spiritual",track,"ID")]),
-                 extracted_data_end)
-
-          results<-rbind(results,row)
-        }}
-
-print("n")
-      results<-as.data.frame(results)
-      if(!exists("no_start") & !exists("no_end")){colnames(results)<-c("survey_duration","start_date","start_time","end_date","end_time","timezone","timezone_location","server_submit_time",colnames(extracted_data_screen),colnames(extracted_data),"Situation","Situation_Description","Question","Question_txt","Physical_RAW","Physical_INVERTED","Emotional_RAW","Emotional_INVERTED","Cognitive_RAW","Cognitive_INVERTED","Social_RAW","Social_INVERTED","Spiritual_RAW","Spiritual_INVERTED",colnames(extracted_data_end))}
-      if(exists("no_start") & !exists("no_end")){colnames(results)<-c("survey_duration","start_date","start_time","end_date","end_time","timezone","timezone_location","server_submit_time",colnames(extracted_data_screen),"Situation","Situation_Description","Question","Question_txt","Physical_RAW","Physical_INVERTED","Emotional_RAW","Emotional_INVERTED","Cognitive_RAW","Cognitive_INVERTED","Social_RAW","Social_INVERTED","Spiritual_RAW","Spiritual_INVERTED",colnames(extracted_data_end))}
-      if(!exists("no_start") & exists("no_end")){colnames(results)<-c("survey_duration","start_date","start_time","end_date","end_time","timezone","timezone_location","server_submit_time",colnames(extracted_data_screen),colnames(extracted_data),"Situation","Situation_Description","Question","Question_txt","Physical_RAW","Physical_INVERTED","Emotional_RAW","Emotional_INVERTED","Cognitive_RAW","Cognitive_INVERTED","Social_RAW","Social_INVERTED","Spiritual_RAW","Spiritual_INVERTED")}
-      if(exists("no_start") & exists("no_end")){colnames(results)<-c("survey_duration","start_date","start_time","end_date","end_time","timezone","timezone_location","server_submit_time",colnames(extracted_data_screen),"Situation","Situation_Description","Question","Question_txt","Physical_RAW","Physical_INVERTED","Emotional_RAW","Emotional_INVERTED","Cognitive_RAW","Cognitive_INVERTED","Social_RAW","Social_INVERTED","Spiritual_RAW","Spiritual_INVERTED")}
-
-      results <- apply(results,2,as.character)
-
-      results<-as.data.frame(results)
-
-      results$mean_biowell_INVERTED<-rep(mean(as.numeric(as.matrix(results[,c("Physical_INVERTED","Emotional_INVERTED","Cognitive_INVERTED","Social_INVERTED","Spiritual_INVERTED")]))),nrow(results))
-      results$mean_biowell_RAW<-100-results$mean_biowell_INVERTED
-
-      results<-convert_data_frame(results,biowell_situations_ID,biowell_questions_ID)
-
-      if(!curl::has_internet()) {nresponses<-length(list.files(tempdir()))
-      running_average<-NA}
-
-      if(curl::has_internet()) {
-      tryCatch({
-        nresponses <- nrow(rdrop2::drop_dir(Dropbox_App_folder, dtoken = token))
-      }, error = function(e) {
-        stop("Dropbox folder does not exist within your Dropbox App")
-      })}
-
-      filePath <- file.path(paste0(tempfile(),"_ID_",nresponses,".csv"))
-
-      write.csv(results, filePath, row.names = FALSE, quote = TRUE)
-      # Upload the file to Dropbox
-
-      results<-read.csv(filePath)
-
-      if(curl::has_internet()) {
-
-      rdrop2::drop_upload(filePath, path = Dropbox_App_folder,dtoken=token)
-
-      rdrop2::drop_dir(dtoken = token)
-
-      filesInfo <- rdrop2::drop_dir(Dropbox_App_folder,dtoken=token)
-      filePaths <- filesInfo$path_display
-      filePaths <- filePaths[grepl("BIOWELL_RUNNING_AVERAGE.csv" , filePaths)]
-      if(length(filePaths)==0){
-        running_average<-results$mean_biowell_INVERTED
-        filePath1 <- file.path(paste0(tempdir(),"/BIOWELL_RUNNING_AVERAGE.csv"))
-        write.csv(results$mean_biowell_INVERTED, filePath1, row.names = FALSE, quote = TRUE)
-        rdrop2::drop_upload(filePath1, path = Dropbox_App_folder,dtoken=token)}
-
-      if(length(filePaths)==1){
-        x<-rdrop2::drop_read_csv(filePaths,dtoken=token)
-        running_average<-x$x
-        x$x<-(x$x+results$mean_biowell_INVERTED)/2
-        filePath1 <- file.path(paste0(tempdir(),"/BIOWELL_RUNNING_AVERAGE.csv"))
-        write.csv(x$x, filePath1, row.names = FALSE, quote = TRUE)
-        rdrop2::drop_upload(filePath1, path = Dropbox_App_folder,dtoken=token)
-      }
-
-}
-      n<-results$mean_biowell_INVERTED-running_average
-      if(n<0){words<-"lower than"
-      color2<-"red"}
-      if(n>0){words<-"higher than"
-      color2<-"green"}
-      if(n==0){words<-"equal to"
-      color2<-"darkorange"}
-
-      output$text <- renderText({paste(round(results$mean_biowell_INVERTED))})
-      output$text1 <- renderText({paste("100")})
-
-      color1<-"black"
-      messagex<-"NA"
-      if(dplyr::between(results$mean_biowell_INVERTED,0,49)){messagex<-"negative"
-      color1<-"red"}
-      if(dplyr::between(results$mean_biowell_INVERTED,51,100)){messagex<-"positive"
-      color1<-"green"}
-      if(results$mean_biowell_INVERTED==50){messagex<-"neutral"
-      color1<-"darkorange"}
-
-      data_1<-explore_data(data=results,type="situation_question",plot=FALSE)[[2]]
-      data_1<-data_1[rev(order(data_1$mean_biowell)),]
-
-      output$biowell_results2<- shiny::renderUI({
-
-        physical_v<-as.numeric(as.character(results[,  grep("Physical_INVERTED",colnames(results))]))
-
-        emotional_v<-as.numeric(as.character(results[,  grep("Emotional",colnames(results))]))
-
-        cognitive_v<-as.numeric(as.character(results[,   grep("Cognitive_INVERTED",colnames(results))]))
-
-        social_v<-as.numeric(as.character(results[,   grep("Social_INVERTED",colnames(results))]))
-
-        spiritual_v<-as.numeric(as.character(results[, grep("Spiritual_INVERTED",colnames(results))]))
-
-        physicalaverage<-round(mean(physical_v,na.rm=T),2)
-
-        emotionalaverage<-round(mean(emotional_v,na.rm=T),2)
-
-        cognitiveaverage<-round(mean(cognitive_v,na.rm=T),2)
-
-        socialaverage<-round(mean(social_v,na.rm=T),2)
-
-        spiritualaverage<-round(mean(spiritual_v,na.rm=T),2)
-
-        types<-c("Physical wellbeing","Emotional wellbeing","Cognitive wellbeing",
-                 "Social wellbeing","Spiritual wellbeing")
-
-        return(list(
-          shiny::HTML("<div id='mydiv6'>", paste0('<strong>This score indicates a <span style="color: ',color1,';">',messagex,'</span> wellbeing response to biodiversity.</strong><br>',
-                                                  '<br><span style="text-align: left">Your strongest responses to biodiversity were in:</span>',
-                                                  '<ul style ="text-align: left;padding-left:20%"><li>',data_1[1,1],' (',round(data_1[1,3],2),'/100)</li>',
-                                                  '<li>',data_1[2,1],' (',round(data_1[2,3],2),'/100)</li>',
-                                                  '<li>',data_1[3,1],' (',round(data_1[3,3],2),'/100)</li></ul>',
-                                                  '<br><strong>Your score is <span style="color:',color2,';">',words,'</span> the average score of participants (',round(running_average,2),') .</strong><br>',
-                                                  '<br><span style="text-decoration: underline;">How is your score calculated?</span>',
-                                                  '<br>Your BIO-WELL score reflects your average response to biodiversity taken across a set of human wellbeing domains.<br>','<br><strong>See the breakdown of your score below:</strong><br>',
-                                                  '<table id="mytable">
- <thead>
-  <tr>
-   <th style="text-align:center;border: solid;padding-left:5px;padding-right:5px;border-color: black;background:#0097AD;color:white"> Category </th>
-   <th style="text-align:center;border: solid;padding-left:5px;padding-right:5px;border-color: black;background:#0097AD;color:white"> Description </th>
-   <th style="text-align:center;border: solid;padding-left:5px;padding-right:5px;border-color: black;background:#0097AD;color:white"> Your score </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:center;border: solid;padding-left:5px;font-weight: bold;background:#ebfafc "> Physical wellbeing </td>
-   <td style="text-align:left;border: solid;padding-left:5px"> related to the functioning of the physical body and how one feels physically, including recovery from stress. </td>
-   <td style="text-align:right;border: solid;text-align:center"> ',physicalaverage,' </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;padding-left:5px; border: solid;font-weight: bold;background:#ebfafc "> Emotional wellbeing </td>
-   <td style="text-align:left;border: solid;padding-left:5px;background:#EBEBEB"> the experience of positive and negative emotions and mood. </td>
-   <td style="text-align:right;border: solid;text-align:center;background:#EBEBEB"> ',emotionalaverage,' </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;border: solid;padding-left:5px;font-weight: bold;background:#ebfafc "> Cognitive wellbeing </td>
-   <td style="text-align:left;border: solid;padding-left:5px"> an individuals thoughts about their life and cognitive capacity to direct attention. </td>
-                                              <td style="text-align:right;border: solid;text-align:center"> ',cognitiveaverage,' </td>
-                                              </tr>
-                                              <tr>
-                                              <td style="text-align:center;border: solid;padding-left:5px;font-weight: bold;background:#ebfafc  "> Social wellbeing </td>
-                                              <td style="text-align:left;border: solid;padding-left:5px;background:#EBEBEB"> how an individual perceives their connections with others. </td>
-                                              <td style="text-align:right;border: solid;text-align:center;background:#EBEBEB"> ',socialaverage,' </td>
-                                              </tr>
-                                              <tr>
-                                              <td style="text-align:center;border: solid;padding-left:5px;font-weight: bold;background:#ebfafc "> Spiritual wellbeing </td>
-                                              <td style="text-align:left;border: solid;padding-left:5px"> concerned with meaning and connection to something greater than oneself. </td>
-                                              <td style="text-align:right;border: solid;text-align:center"> ',spiritualaverage,' </td>
-                                              </tr>
-                                              </tbody>
-                                              </table>',
-                                                  '<br> You have completed the survey. Please close this window now.</div>'),
-                      shiny::HTML("<div id='mydiv66'>", paste0("<br>","</div>")))))})
-
-   } })
-
+      }})
 
     # Automatically stop a Shiny app when closing the browser tab
     session$onSessionEnded(shiny::stopApp)
   }
-
 
   shiny::shinyApp(ui, server)
 
