@@ -2,50 +2,62 @@
 % Please edit documentation in R/evaluate_survey.R
 \name{evaluate_survey}
 \alias{evaluate_survey}
-\title{Create shiny survey with BIOWELL scale}
+\title{Evaluate BIO-WELL survey}
 \usage{
-evaluate_survey(data, type = "situation_question")
+evaluate_survey(data)
 }
 \arguments{
-\item{survey_title}{a character string, the title of the survey to display on each page.}
-
-\item{biowell_situations}{a character string or vector, describing the environmental space setting for BIO-WELL questions.}
-
-\item{biowell_questions}{a list of character strings or vectors, the questions for each separate \code{biowell_situations} for BIO-WELL responses.}
-
-\item{start_message}{a character string, a message to display to participants at the start of the survey.}
-
-\item{start_questions}{optional; a character string or vector, the questions to ask participants at the start of the survey.}
-
-\item{start_questions_type}{optional; a character string or vector, the type of response for each start question. Must be length of \code{start_questions}. One of; \code{text}, \code{checkbox} or \code{selectbox}. See details for information.}
-
-\item{start_drop_down_options}{optional; a list of character strings or vectors, the options to offer for each \code{start_questions} of type \code{checkbox} or \code{selectbox}.}
-
-\item{end_message}{a character string, a message to display to participants at the end of the survey.}
-
-\item{end_questions}{optional; a character string or vector, the questions to ask participants at the end of the survey.}
-
-\item{end_questions_type}{optional; a character string or vector, the type of response for each end question. Must be length of \code{end_questions}. One of; \code{text}, \code{checkbox} or \code{selectbox}. See details for information.}
-
-\item{end_drop_down_options}{optional; a list of character strings or vectors, the options to offer for each \code{end_questions} of type \code{checkbox} or \code{selectbox}.}
-
-\item{organisation_website}{a character string, the web address for the organisation running the survey.}
-
-\item{organisation}{a character string, the name of the organisation running the survey.}
-
-\item{drop_box_folder}{path to folder in Dropbox to save responses to. Defaults to the root directory.}
+\item{data}{a data frame containing the combined response data frames from a
+\code{BIOWELL} package survey. See \code{download_data()} to obtain this.}
 }
 \value{
-runs a customised shiny survey app or returns UI / server components for a shiny survey.
+Returns a list containing a data frame of processed BIO-WELL scores,
+Cronbach's alpha statistic and item-total.
 }
 \description{
-Function to generate custom shiny survey with BIOWELL scale
+Function to calculate key survey evaluation statistics on BIO-WELL survey
+responses.
 }
 \details{
-df
+Once you have combined all responses to your BIO-WELL survey (created using
+the \code{build_survey()} function) into a single data frame using the
+\code{download_data()} function, this data frame can be input into
+\code{evaluate_survey()}.
+
+\code{evaluate_survey()} returns three outputs in a list object:
+\enumerate{
+\item A processed data frame containing the average BIO-WELL scores for each
+participant for each questions within your custom \code{BIOWELL} package survey.
+\item Cronbach's Alpha: the computed Cronbach's Alpha statistic for your survey,
+which measures the internal consistency of responses. This calculated using
+\code{cronbach.alpha()} function from the \code{ltm} R package (Rizopoulos et al.,
+2007).
+\item Item-total correlation: the computed item-total statistic for each BIO-WELL
+question within your survey (Cronbach et al., 1951). This is calculated using
+the \code{item.total()} function from the \code{multilevel} \href{https://CRAN.R-project.org/package=multilevel}{R package}.
+}
 }
 \examples{
-results<-evaluate_survey(data = example_survey_data, type = "situation_question")
-results<-evaluate_survey(data = example_survey_data, type = "question")
+# Read in sample BIO-WELL survey data
+data("sample_BW_data")
 
+results<-evaluate_survey(sample_BW_data)
+
+# Data frame containing average BIO-WELL scores for each participant x
+# question
+
+head(results[[1]])
+
+# Cronbach's alpha
+results[[2]]
+
+# Item total
+results[[3]]
+}
+\references{
+Cronbach, L. J. (1951) Coefficient alpha and the internal structure of tests.
+Psychometrika, 16, 297–334.
+
+Rizopoulos, D., 2007. ltm: An R package for latent variable modeling and item
+response analysis. Journal of statistical software, 17, pp.1-25.
 }

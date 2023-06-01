@@ -95,7 +95,7 @@ Below, we outline and describe the arguments that can be used to customise the s
 + `start_message` - Text introducing the survey to participants. 
 + `start_questions`- String (s) containing text for each question to be asked before the BIO-WELL questions. 
 + `start_questions_type`- String (s) specifying the type of response box to provide for each `start_questions` (provide these in the same order as `start_questions`). There are three types: `text`, where participants can freely type their responses; `selectbox`, where participants can select one option from a drop down list; and `checkbox`, where participants can select one or more from list using checkboxes. 
-+ `start_drop_down_options` - list of vectors containing `selectbox` or `checkbox` options for `start_questions.` The length of this list should be equal to the number of `selectbox` or `checkbox` responses used in `start_questions`.
++ `start_response_options` - list of vectors containing `selectbox` or `checkbox` options for `start_questions.` The length of this list should be equal to the number of `selectbox` or `checkbox` responses used in `start_questions`.
 
 ```{r}
 # Arguments that would be input into build_survey to reach outcome of below screenshot:
@@ -108,7 +108,7 @@ all_questions = TRUE
 start_message= "Welcome to the survey. Please fill out the questions below."
 start_questions = c("What is your name?","How old are you?","Which of the following environments have you visited in the past month?")
 start_questions_type = c("text","selectbox","checkbox")
-start_drop_down_options = list(c('0-17', '18-29', '30-39','40-49','50-59','60-69', '70 or over'),
+start_response_options = list(c('0-17', '18-29', '30-39','40-49','50-59','60-69', '70 or over'),
                                c('woodlands', 'wetlands', 'grassland','moorlands','coastal','urban'))
 ```
 
@@ -182,7 +182,7 @@ data.frame(biowell_questions_ID = c("Encountering living things",
 + `end_message` - Text to finish the survey.
 + `end_questions` - String (s) containing text for each question to be asked after the BIO-WELL questions. 
 + `end_questions_type`- String (s) specifying the type of response box to provide for each `end_questions` (provide these in the same order as `end_questions`). There are three types: `text`, where participants can freely type their responses; `selectbox`, where participants can select one option from a drop down list; and `checkbox`, where participants can select one or more from list using check boxes. 
-+ `end_drop_down_options` - list of vectors containing `selectbox` or `checkbox` options for `end_questions`. The length of this list should be equal to the number of `selectbox` or `checkbox` responses used in `end_questions`.
++ `end_response_options` - list of vectors containing `selectbox` or `checkbox` options for `end_questions`. The length of this list should be equal to the number of `selectbox` or `checkbox` responses used in `end_questions`.
 
 ```{r}
 # Arguments that would be input into build_survey to reach outcome of below screenshot:
@@ -201,7 +201,7 @@ end_message= "Thank you for completing the survey. Click submit to generate repo
 
 # Survey options 
 
-+ `drop_box_folder` - Name of the folder within your Dropbox App (Vignette 1) for response data to be stored within. 
++ `Dropbox_App_folder` - Name of the folder within your Dropbox App (Vignette 1) for response data to be stored within. 
 
 **Note: You need to create this folder before trying to save survey data**
 
@@ -233,7 +233,7 @@ build_survey(survey_title = "Woodland biodiversity and human wellbeing",
                                  "How old are you?",
                                  "Which of the following environments have you visited in the past month?"),
              start_questions_type = c("text", "selectbox", "checkbox"), 
-             start_drop_down_options = list(
+             start_response_options = list(
                c('0-17', '18-29', '30-39', '40-49', '50-59', '60-69', '70 or over'),
                c('woodlands', 'wetlands', 'grassland', 'moorlands', 'coastal', 'urban')
              ), 
@@ -304,7 +304,7 @@ build_survey(survey_title = "Woodland biodiversity and human wellbeing",
             end_questions = "Please provide your email if you wanted us to contact you with our research outputs!", 
             end_questions_type = "text", 
             end_message = "Thank you for completing the survey. Click submit to generate report",
-            drop_box_folder = "survey_responses",
+            Dropbox_App_folder = "survey_responses",
             BW_app_path = "C:/Users/eerdo/Desktop/my_app_name_1",
             organisation = "University of Kent",
             organisation_website = "https://www.kent.ac.uk/",

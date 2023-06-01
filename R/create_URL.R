@@ -82,7 +82,7 @@ create_URL <- function(BW_app_path,
                               secret = Shiny_Server_secret)
   }
 
-  if(!dir.exists(BW_app_path)){error("Cannot find BIO-WELL app folder.")}
+  if(!dir.exists(BW_app_path)){stop("Cannot find BIO-WELL app folder.")}
 
 
   files <- list.files(BW_app_path)
@@ -90,7 +90,7 @@ create_URL <- function(BW_app_path,
   # Check for app R script
 
   if (!"app.R" %in% files) {
-    error("No app.R file in BIO-WELL app folder. See details for guidance.")
+    stop("No app.R file in BIO-WELL app folder. See details for guidance.")
   }
 
   # Check for Dropbox token directory
@@ -98,7 +98,7 @@ create_URL <- function(BW_app_path,
   directories <- list.dirs(BW_app_path, full.names = F)
 
   if (!".secrets" %in% directories) {
-    error("No .secrets folder in BIO-WELL app folder. See activate_dropbox().")
+    stop("No .secrets folder in BIO-WELL app folder. See activate_dropbox().")
   }
 
   files <- list.files(paste0(BW_app_path,"/.secrets"))
@@ -106,7 +106,7 @@ create_URL <- function(BW_app_path,
   # Check for Dropbox token in .secrets folder
 
   if (!"dropbox_token.rds" %in% files) {
-    error("No dropbox_token.rds in BIO-WELL .secrets. See activate_dropbox().")
+    stop("No dropbox_token.rds in BIO-WELL .secrets. See activate_dropbox().")
   }
 
   message("Deploying survey - be patient this will take a couple of minutes")
@@ -123,7 +123,7 @@ create_URL <- function(BW_app_path,
 
   if (length(URL) == 0) {
 
-    error("Error deploying survey - please read function details & vignettes")
+    stop("Error deploying survey - please read function details & vignettes")
 
   }
 

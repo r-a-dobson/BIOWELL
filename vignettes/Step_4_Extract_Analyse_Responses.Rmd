@@ -55,16 +55,13 @@ https://www.frontiersin.org/articles/10.3389/fpsyg.2018.02298/full
 
 ```{r}
 library(BIOWELL)
-data("example_survey_data")
-survey_data <- example_survey_data
+data("sample_BW_data")
+survey_data <- sample_BW_data
 
-results<-evaluate_survey(survey_data, type = "situation_question")
+results<-evaluate_survey(survey_data)
 results[[2]]
 results[[3]]
 
-results<-evaluate_survey(survey_data, type = "question")
-results[[2]]
-results[[3]]
 ```
 
 
@@ -84,17 +81,16 @@ For example, this would input would generate a boxplot comparing BIO-WELL scores
 between each age category of participants.
 
 ```{r fig.width=7}
-results <- explore_data(data = example_survey_data,
-                        type = "column",
+
+results <- explore_data(data = survey_data,
                         column_name = "Age",
                         var_name = "Participants age range",
                         plot = TRUE)
 
 
-results <- explore_data(data = example_survey_data,
-                        type = "column",
-                        column_name = "Visit.moorlands",
-                        var_name = "Whether participants had recently visited moorlands",
+results <- explore_data(data = survey_data,
+                        column_name = "Urbanicity",
+                        var_name = "Whether participants live in Urban or Rural areas",
                         plot = TRUE)
 ```
 
@@ -105,8 +101,7 @@ For situations, analysis can be trickier as more than one column contains releva
 By using `explore_data()` with argument `type = "situation"`, this function collates the average BIO-WELL score for each participant for each BIO-WELL situation included within the survey (e.g. "Woodland" and "Urban"). The function returns a processed data frame and generates a boxplot to compare BIO-WELL scores between situations. 
 
 ```{r, fig.width=7}
-results <- explore_data(data = example_survey_data, 
-                        type = "situation",
+results <- explore_data(data = survey_data, 
                         plot = TRUE)
 ```
 
@@ -120,8 +115,7 @@ By using `explore_data()` with argument `type = "question"`, this function colla
 The function returns a processed data frame and generates a boxplot to compare BIO-WELL scores between questions.  
 
 ```{r fig.width=7, fig.height=10}
-results <- explore_data(data = example_survey_data,
-                        type = "question",
+results <- explore_data(data = survey_data,
                         plot = TRUE)
 ```
 
@@ -132,8 +126,7 @@ If questions are repeated across situations, but you want to compare these separ
 The function then collates the BIO-WELL score for each participant for each question in each situation, generates a boxplot of BIO-WELL scores for comparison, and returns a processed data frame. 
 
 ```{r fig.width=7, fig.height=10}
-results <- explore_data(data = example_survey_data,
-                        type = "situation_question",
+results <- explore_data(data = survey_data,
                         plot = FALSE)
 
 results[[1]][1]

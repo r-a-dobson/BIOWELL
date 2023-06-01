@@ -53,14 +53,14 @@ download_data <- function(Dropbox_App_folder,
                           BW_app_path) {
 
 
-  if(!dir.exists(BW_app_path)){error("Cannot find BIO-WELL app folder.")}
+  if(!dir.exists(BW_app_path)){stop("Cannot find BIO-WELL app folder.")}
 
   files <- list.files(paste0(BW_app_path,"/.secrets"))
 
   # Check for Dropbox token in .secrets folder
 
   if (!"dropbox_token.rds" %in% files) {
-    error("No dropbox_token.rds in BIO-WELL .secrets. See `activate_dropbox()`.")
+    stop("No dropbox_token.rds in BIO-WELL .secrets. See `activate_dropbox()`.")
   }
 
   # Get Dropbox access token

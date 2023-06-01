@@ -79,8 +79,8 @@ retrieve a URL for sharing the survey with participants.
 ```{r, eval = FALSE}
 create_URL(
   BW_app_path = "C:/Users/eerdo/Desktop/my_app_name_1",
-  appName = "my_app_name_1",
-  shiny_server_username = 'biowell-app-testing'
+  BW_app_name = "my_app_name_1",
+  Shiny_Server_user = 'biowell-app-testing'
 )
 ```
 

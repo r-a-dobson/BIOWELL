@@ -44,7 +44,7 @@
 #'results<-evaluate_survey(sample_BW_data)
 #'
 #'# Data frame containing average BIO-WELL scores for each participant x
-#'question
+#'# question
 #'
 #'head(results[[1]])
 #'

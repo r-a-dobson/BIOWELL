@@ -2,61 +2,97 @@
 % Please edit documentation in R/explore_data.R
 \name{explore_data}
 \alias{explore_data}
-\title{Create shiny survey with BIOWELL scale}
+\title{Process and plot BIO-WELL scores}
 \usage{
-explore_data(
-  data,
-  type = "situation_question",
-  column_name,
-  var_name,
-  biowell_scale,
-  plot = TRUE
-)
+explore_data(data, column_name, var_name, biowell_scale, plot = TRUE)
 }
 \arguments{
-\item{survey_title}{a character string, the title of the survey to display on each page.}
+\item{data}{a data frame containing the combined response data frames from a
+\code{BIOWELL} package survey. See \code{download_data()} to obtain this.}
 
-\item{biowell_situations}{a character string or vector, describing the environmental space setting for BIO-WELL questions.}
+\item{column_name}{optional; a character string, the name of the column in
+\code{data} that contains categorical responses to plot BIO-WELL scores between.}
 
-\item{biowell_questions}{a list of character strings or vectors, the questions for each separate \code{biowell_situations} for BIO-WELL responses.}
+\item{var_name}{optional; the name for the variable to appear on the y axis of
+plot.}
 
-\item{start_message}{a character string, a message to display to participants at the start of the survey.}
+\item{biowell_scale}{optional; a character string, the wellbeing domain to
+solely plot instead of full BIO-WELL scores. One of; \code{physical},
+\code{emotional}, \code{cognitive}, \code{social} and \code{spiritual.} See details for more
+information.}
 
-\item{start_questions}{optional; a character string or vector, the questions to ask participants at the start of the survey.}
-
-\item{start_questions_type}{optional; a character string or vector, the type of response for each start question. Must be length of \code{start_questions}. One of; \code{text}, \code{checkbox} or \code{selectbox}. See details for information.}
-
-\item{start_drop_down_options}{optional; a list of character strings or vectors, the options to offer for each \code{start_questions} of type \code{checkbox} or \code{selectbox}.}
-
-\item{end_message}{a character string, a message to display to participants at the end of the survey.}
-
-\item{end_questions}{optional; a character string or vector, the questions to ask participants at the end of the survey.}
-
-\item{end_questions_type}{optional; a character string or vector, the type of response for each end question. Must be length of \code{end_questions}. One of; \code{text}, \code{checkbox} or \code{selectbox}. See details for information.}
-
-\item{end_drop_down_options}{optional; a list of character strings or vectors, the options to offer for each \code{end_questions} of type \code{checkbox} or \code{selectbox}.}
-
-\item{organisation_website}{a character string, the web address for the organisation running the survey.}
-
-\item{organisation}{a character string, the name of the organisation running the survey.}
-
-\item{drop_box_folder}{path to folder in Dropbox to save responses to. Defaults to the root directory.}
+\item{plot}{optional; a logical, indicating whether to show plots in R window.
+Default is \code{TRUE.}}
 }
 \value{
-runs a customised shiny survey app or returns UI / server components for a shiny survey.
+a list object containing the plots and processed data frame.
 }
 \description{
-Function to generate custom shiny survey with BIOWELL scale
+Function to generate plots of BIO-WELL scores across questions and groups from
+BIO-WELL survey response data.
 }
 \details{
-df
-}
-\examples{
-data("example_survey_data")
+This function can be used to plot average BIO-WELL scores from participant
+reponses to your custom BIO-well survey (generated using \code{build_survey()}).
+Please see function \code{download_data()} for extracting your BIO-WELL survey
+response data from Dropbox.
 
-results <- explore_data(data = example_survey_data, type = "column", column_name = "Age", plot = FALSE)
-results <- explore_data(data = example_survey_data, type = "column", column_name = "Visit.moorlands", plot = FALSE)
-results <- explore_data(data = example_survey_data, type = "situation", plot = FALSE)
-results <- explore_data(data = example_survey_data, type = "question", plot = FALSE)
-results <- explore_data(data = example_survey_data, type = "situation_question", plot = FALSE)
+All plots are created using the R package \code{ggplot2} (Wickham and Chang, 2016).
+
+There are two approaches:
+\itemize{
+\item Default: This will generate a box plot of BIO-WELL scores for each BIO-WELL
+question (\code{biowell_questions} in \code{build_survey()}) within each BIO-WELL situation
+(\code{biowell_situations} in \code{build_surveys()})
+\item Column: If a \code{column_name} is provided, for each unique category in this
+column, a box plot of average BIO-WELL scores for each participant will be
+generated. This can be used to compare average BIO-WELL scores across
+responses to other questions with your BIO-WELL survey (e.g. age categories,
+likert scale responses)
+}
+}
+\section{BIO-WELL scores}{
+By default, the typical, inverted BIO-well score is plotted. This is
+calculated by taking the average score from across five wellbeing domains
+(physical, emotional, cognitive, social and spiritual). When inverted, the
+BIO-WELL score can be interpreted as 0-49, a negative wellbeing response to
+biodiversity, 50, a neutral wellbeing responses and 51-100 representing a
+positive wellbeing response to biodiversity.
+
+Please see Irvine et al., (2023) for more details on the BIO-WELL score.
+
+However, if you would like to only look at one of the domains in your plots,
+then you can use the argument \code{biowell_scale} to specify which to plot.
+}
+
+\examples{
+
+data("sample_BW_data")
+
+# Average BIO-WELL scores for each question across all participants
+results <- explore_data(sample_BW_data)
+
+# Average BIO-WELL score for each Gender response category
+results <- explore_data(sample_BW_data,
+                       column_name = "Gender")
+
+# Average score in the emotional wellbeing domain of BIO-WELL across age groups.
+results <- explore_data(sample_BW_data,
+                       column_name = "Age",
+                       biowell_scale = "emotional")
+
+# Average BIO-WELL scores across sight impairment responses
+results <- explore_data(sample_BW_data,
+                       column_name = "impairment.sight")
+
+}
+\references{
+Irvine, K.N., Fisher, J.C., Bentley, P.R., Nawrath, M., Dallimer,
+M., Austen, G.E., Fish, R. and Davies, Z.G., 2023. BIO-WELL: The development
+and validation of a human wellbeing scale that measures responses to
+biodiversity. Journal of Environmental Psychology, 85, p.101921.
+
+Wickham, H. and Chang, W. , 2016. Package ‘ggplot2’. Create
+elegant data visualisations using the grammar of graphics. Version, 2(1),
+pp.1-189.
 }

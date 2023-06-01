@@ -21,7 +21,7 @@ Authors@R:
  person("Zoe G.", "Davies", , "Z.G.Davies@kent.ac.uk", role = c("aut", "ctb"),
            comment = c(ORCID = "YOUR-ORCID-ID")))
 Description: The BIO-WELL scale is a valid and relaible scale with strong psychometric properties that can be used to measure the human wellbeing responses to biodiversity. This package contains functions for developing and deploying customised shiny surveys that utilise the BIO-WELL scale. 
-License: 
+License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
@@ -37,7 +37,10 @@ Imports:
     lubridate,
     shinyFeedback,
     stringr,
-    magrittr
+    magrittr,
+    curl,
+    graphics,
+    utils
 Suggests: 
     knitr,
     ltm,

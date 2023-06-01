@@ -61,7 +61,7 @@ activate_dropbox <- function(Dropbox_App_Name,
 
   message("Ensure that you have followed prior steps given in Vignette 1")
 
-  if(!dir.exists(BW_app_path)){error("Cannot find BIO-WELL app folder.")}
+  if(!dir.exists(BW_app_path)){stop("Cannot find BIO-WELL app folder.")}
 
   .dstate <- new.env(parent = emptyenv())
 
@@ -98,7 +98,7 @@ activate_dropbox <- function(Dropbox_App_Name,
   }
 
   if (!refreshable_token$can_refresh()) {
-    error("Error creating refreshable token. See advice in Vignette 1.")
+    stop("Error creating refreshable token. See advice in Vignette 1.")
   }
 
 }

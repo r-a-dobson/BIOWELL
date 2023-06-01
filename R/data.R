@@ -15,7 +15,8 @@
 #'   \item{timezone_location}{The geographic location of the time zone.}
 #'   \item{server_submit_time}{The time when participants finished the survey in the server's time zone.}
 #'   \item{Consent}{Participants responses to the survey consent question.}
-#'   \item{Gender}{How participants would describe their gender.}
+#'   \item{Age}{Participants responses to the survey consent question.}
+#'   \item{Gender}{The age range of participants.}
 #'   \item{Country}{The country in which participants reside.}
 #'   \item{Urbanicity}{Whether participants considered themselves to be living in a rural or urban area.}
 #' \item{forest_Encountering.living.things_Physical_RAW}{The raw score from the physical wellbeing domain slider scale (component of the BIO-WELL scale) in response to the question 'encountering the living things (e.g. plants, fungi and animals) in this woodland makes me feel…'})
@@ -204,6 +205,3 @@
 #'and validation of a human wellbeing scale that measures responses to
 #'biodiversity. Journal of Environmental Psychology, 85, p.101921.
 "sample_BW_data"
-
-
-

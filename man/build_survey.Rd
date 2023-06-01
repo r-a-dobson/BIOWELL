@@ -2,70 +2,318 @@
 % Please edit documentation in R/build_survey.R
 \name{build_survey}
 \alias{build_survey}
-\title{Create shiny survey with BIOWELL scale}
+\title{Create BIO-WELL survey Shiny App}
 \usage{
 build_survey(
-  survey_title,
-  sidepanel_message,
+  survey_title = NULL,
+  sidepanel_message = NULL,
+  Dropbox_App_folder,
+  BW_app_path,
+  organisation,
+  organisation_website = NULL,
+  screen_message = NULL,
+  screen_questions,
+  screen_questions_ID,
+  screen_response_options = NULL,
+  start_message = NULL,
+  start_questions,
+  start_questions_ID,
+  start_questions_type,
+  start_response_options = NULL,
   biowell_situations,
   biowell_situations_ID,
   biowell_questions,
   biowell_questions_ID,
-  start_message,
-  start_questions,
-  start_questions_ID,
-  start_questions_type,
-  start_drop_down_options = NULL,
-  end_message,
+  end_message = NULL,
   end_questions,
   end_questions_type,
   end_questions_ID,
-  end_drop_down_options = NULL,
-  drop_box_folder,
-  BW_app_path,
-  organisation,
-  organisation_website,
+  end_response_options = NULL,
   all_questions = TRUE,
   all_sliders = TRUE,
-  user_report = TRUE,
-  ...
+  user_report = TRUE
 )
 }
 \arguments{
-\item{survey_title}{a character string, the title of the survey to display on each page.}
+\item{survey_title}{a character string, the title of the survey to display on
+each page.}
 
-\item{biowell_situations}{a character string or vector, describing the environmental space setting for BIO-WELL questions.}
+\item{sidepanel_message}{a character string, text to display on side panel
+throughout survey.}
 
-\item{biowell_questions}{a list of character strings or vectors, the questions for each separate \code{biowell_situations} for BIO-WELL responses.}
+\item{Dropbox_App_folder}{path to folder in Dropbox App to save survey
+responses to. Defaults to the root directory.}
 
-\item{start_message}{a character string, a message to display to participants at the start of the survey.}
+\item{BW_app_path}{a character string, the path to your BIO-WELL Shiny App
+folder.}
 
-\item{start_questions}{optional; a character string or vector, the questions to ask participants at the start of the survey.}
+\item{organisation}{a character string, the name of the organisation running
+the survey.}
 
-\item{start_questions_type}{optional; a character string or vector, the type of response for each start question. Must be length of \code{start_questions}. One of; \code{text}, \code{checkbox} or \code{selectbox}. See details for information.}
+\item{organisation_website}{a character string, the web address for the
+organisation running the survey.}
 
-\item{start_drop_down_options}{optional; a list of character strings or vectors, the options to offer for each \code{start_questions} of type \code{checkbox} or \code{selectbox}.}
+\item{screen_message}{a character string, text to display above screening
+questions.}
 
-\item{end_message}{a character string, a message to display to participants at the end of the survey.}
+\item{screen_questions}{a character string or vector, the screening questions
+to ask.}
 
-\item{end_questions}{optional; a character string or vector, the questions to ask participants at the end of the survey.}
+\item{screen_questions_ID}{a character string or vector the length of
+screen_questions, IDs for screen questions in output response data frame.}
 
-\item{end_questions_type}{optional; a character string or vector, the type of response for each end question. Must be length of \code{end_questions}. One of; \code{text}, \code{checkbox} or \code{selectbox}. See details for information.}
+\item{screen_response_options}{a list the length of screen_questions with each
+element containing vector of choices for answering screen questions. To
+specify answers to screen again add :SCREEN to the option. See details for
+an example.}
 
-\item{end_drop_down_options}{optional; a list of character strings or vectors, the options to offer for each \code{end_questions} of type \code{checkbox} or \code{selectbox}.}
+\item{start_message}{a character string, text to display above the start
+questions.}
 
-\item{drop_box_folder}{path to folder in Dropbox to save responses to. Defaults to the root directory.}
+\item{start_questions}{a character string or vector, the questions to ask
+participants prior to the bio-well questions.}
 
-\item{organisation}{a character string, the name of the organisation running the survey.}
+\item{start_questions_ID}{a character string or vector the length of
+start_questions, IDs for start questions in output response data frame.}
 
-\item{organisation_website}{a character string, the web address for the organisation running the survey.}
+\item{start_questions_type}{optional; a character string or vector, the type
+of response for each start question. Must be length of \code{start_questions}.
+One of; \code{text}, \code{checkbox}, \code{selectbox}, \code{likert_five} and \code{likert_seven}.
+See details for more information.}
+
+\item{start_response_options}{optional; a list of character strings or
+vectors, the options to offer for each \code{start_questions} of type \code{checkbox}
+or \code{selectbox}.}
+
+\item{biowell_situations}{a character string or vector, describing the
+environmental space setting for BIO-WELL questions.}
+
+\item{biowell_situations_ID}{a character string or vector the length of
+biowell_situation, IDs for each bio-well situation in output response data
+frame.}
+
+\item{biowell_questions}{a list of character strings or vectors, the questions
+for each separate \code{biowell_situations} for BIO-WELL responses.}
+
+\item{biowell_questions_ID}{a character string or vector the length of
+biowell_questions, IDs for bio-well questions in output response data frame.}
+
+\item{end_message}{a character string, text to display above the end
+questions.}
+
+\item{end_questions}{optional; a character string or vector, the questions to
+ask participants following the bio-well questions.}
+
+\item{end_questions_type}{optional; a character string or vector, the type of
+response for each end question. Must be length of \code{end_questions}. One of;
+\code{text}, \code{checkbox}, \code{selectbox}, \code{likert_five} and \code{likert_seven}. See
+details for more information.}
+
+\item{end_questions_ID}{a character string or vector the length of
+end_questions, IDs for end questions in output response data frame.}
+
+\item{end_response_options}{optional; a list of character strings or vectors,
+the options to offer for each \code{end_questions} of type \code{checkbox} or
+\code{selectbox}.}
+
+\item{all_questions}{a logical, indicating whether all start and end questions
+must be answered to continue with the survey.}
+
+\item{all_sliders}{a logical, indicating whether all sliders must be moved at
+least once to continue with the survey.}
+
+\item{user_report}{a logical, indicating whether to generate a BIO-WELL score
+report for participants. See details for more information.}
 }
 \value{
-runs a customised shiny survey app or returns UI / server components for a shiny survey.
+Generates a custom BIO-WELL survey Shiny App.
 }
 \description{
-Function to generate custom shiny survey with BIOWELL scale
+Function to generate custom BIO-WELL survey with R Shiny
 }
-\details{
-df
+\section{BIO-WELL survey Shiny App structure}{
+\itemize{
+\item Screening: This section allows you to set questions where certain responses
+will prevent users from completing the survey. For instance, if they are not
+of a certain age, or do not consent their involvement.
+\item Start: This section allows you to set questions that precede the BIO-well
+questions. For example, these may be generic questions, such as gaining
+information on participants location, gender or employment.
+\item BIO-WELL: The questions in this section are all responded to be participants
+using the five sliders that comprise the BIO-WELL scale. For each situation
+given (although often there may be only be one environment of interest), a new
+page is added to the survey. See Irvine et al., (2023) for more details on the
+BIO-WELL scale and survey set-up.
+\item End: This section allows you to set questions that follow the BIO-WELL
+questions. This may include asking participants for their contact details or
+questions that may help disentangle patterns in BIO-WELL scores, such as
+whether individuals spend a lot of time outdoors.
+\item Report: This section will calculate the participants average BIO-WELL score
+across the five wellbeing domains in the BIO-WELL scale (physical, emotional,
+cognitive, social and spiritual) and provide users some interpretation of
+their BIO-WELL scores compared to other survey participants.
+}
+}
+
+\section{Structure: messages, question, IDs, types and options.}{
+Each section can be specified using arguments relating to the following aspects:
+\subsection{Messages}{
+
+Text that will accompany each section or display throughout the survey.
+}
+
+\subsection{Questions and IDs}{
+
+Questions provide the exact text for each question to ask participants.
+
+IDs provide shorted versions or codes for each question that can be used in
+the output data frame or participants responses. This streamlines the data
+frame and facilitates analyses of results.
+
+For example, the question "The variety of textures in this forest makes me
+feel…" could be given the ID "Variety of textures", so that output data frame
+and plots do not have lengthy names.
+}
+
+\subsection{Response types and options}{
+
+There are five response type options to accompany non-bio-well questions.
+These include:
+\enumerate{
+\item text - This is a simple text box that the participant can type their answer
+into.
+\item selectbox* - This is a drop down box that the participant can choose one
+answer from.
+\item checkbox* - This is a list of checkboxes that the participant can choose
+multiple or none of.
+\item likert_five - This is a five point likert slider scale going from "strongly
+agree" to "strongly disagree".
+\item likert_seven - This is a seven point likert slider scale that also includes
+"somewhat agree" and "somewhat disagree".
+}
+
+For selectbox and checkbox response types, you will want to set the options
+that participants have available to them. This can be done using the
+"...response_options" arguments.
+
+*To specify this, for each selectbox and checkbox response type in each
+section, create a list the same length, with each element within the list
+containing a vector of options for each. This must be in the same order as
+the questions come within the section.
+
+For example:
+start_questions <- c("How old are you?",
+"What is your current employment?",
+"Which of the following pets do you own?")
+start_questions_ID <- c("Age","Employment","Pets")
+start_questions_type <- c("selectbox", "text", "checkbox")
+start_response_options <- list(c("0-17", "18-49", "51+"),
+c("dog", "cat", "rabbit", "fish", "snake"))
+}
+}
+
+\section{Screening questions}{
+Screening questions offer you the opportunity to remove participants from
+taking part if they do not meet certain criteria. These all must be selectbox
+response types. It is recommended to set the screening answer as the first
+option, as it will default to this and so users will have to actively deselect
+them to continue. This can be done by adding ":SCREEN" to the response options
+for which, if chosen, the participant should be removed.
+
+For example:
+screen_questions <- c("Do you consent to this study?","How old are you?")
+screen_questions_ID <- c("Consent","Age")
+screen_response_options <- list(c("No:SCREEN", "Yes"),
+c("0-17:SCREEN", "18-49", "51+"))
+}
+
+\section{Happy with your BIO-WELL survey design?}{
+Once you have customised your survey, you need to save the R script as "app.R"
+with a designated folder for your BIOWELL survey Shiny App.
+
+This R script should contain nothing other than "BIOWELL::build_survey()" with
+the arguments to the function in-filled between the brackets. See Vignette 3
+for more details.
+
+You can then deploy your survey onto the Shiny Server using the \code{create_URL()}
+function.
+}
+
+\examples{
+\dontrun{
+build_survey(
+ survey_title = "Forest biodiversity and human wellbeing",
+ sidepanel_message= "The questions in this survey are designed to explore how forest biodiversity impacts wellbeing.",
+ start_message= "Welcome to the survey. Please fill out the questions below.",
+ screening_message="Consent to participate in research",
+ screen_questions = c("I confirm I have read and understood the Participant Information Sheet for the Forest Questionnaire. I understand that my participation is voluntary and that I am free to withdraw at any time without giving any reason. I agree to take part in this research project.",
+                      "What is your age?"),
+ screen_questions_ID = c("Consent", "Age"),
+ screen_questions_type = c("selectbox", "selectbox"),
+ screen_drop_down_options = list(c("No:SCREEN", "Yes"), c('0-17:SCREEN',  '18-29',  '30-59', 'Over 60',  'Prefer not to say')),
+ start_questions = c("How would you describe your gender?", "What country do you currently live in?", "Do you live in an area that you consider mainly…"),
+ start_questions_ID = c("Gender", "Country", "Urbanicity"),
+ start_questions_type = c("selectbox", "selectbox", "selectbox"),
+ start_drop_down_options = list(c('Male',  'Female',  'In another way', 'Prefer not to say'),
+                                c('Scotland',  'England',  'Wales'),
+                                c("Urban", "Rural")),
+ biowell_situations=c("For each of the following questions,  imagine yourself in a nearby forest at this time of year. Please think about the living things,  including the plants,  fungi and animals (but not pets,  horses,  cows,  sheep),  in that forest."),
+ biowell_situations_ID=c("forest"),
+ biowell_questions = list(c("encountering the living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
+                            "The number of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
+                            "The variety of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
+                            "The interactions between plants,  fungi and animals (e.g. pollination,  predator-prey) in this forest make me feel…",
+                            "The living processes (e.g. decomposing,  growing) that happen in this forest make me feel…",
+                            "The variety of sounds in this forest makes me feel…",
+                            "The distinctive sounds in this forest make me feel…",
+                            "The variety of colours in this forest makes me feel…",
+                            "The vivid colours in this forest make me feel…",
+                            "The variety of shapes in this forest make me feel…",
+                            "The maturity of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
+                            "The variety of textures in this forest makes me feel…",
+                            "The sponginess of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
+                            "The variety of smells in this forest makes me feel…",
+                            "The woody smells in this forest make me feel…",
+                            "Changes in this season make me feel...",
+                            "The presence of animals in this forest makes me feel…")),
+ biowell_questions_ID = list(c("Encountering living things",
+                               "Number of living things",
+                               "Variety of living things",
+                               "Interactions between living things",
+                               "Living processes",
+                               "Variety of sounds",
+                               "Distinctive sounds",
+                               "Variety of colours",
+                               "Vivid colours",
+                               "Variety of shapes",
+                               "Maturity of living things",
+                               "Variety of textures",
+                               "Sponginess of living things",
+                               "Variety of smells",
+                               "Woody smells",
+                               "Changes in this season",
+                               "Presence of animals")),
+ end_questions = c("How much do you agree that you spent a lot of time in forests as a child?",
+                   "How much do you agree that you spent a lot of time in forests as a teenager?",
+                   "How much do you agree that you spent a lot of time in forests as a adult?",
+                   "Please select any sensory impairments (e.g. difficulty hearing) that you have:"),
+ end_questions_type = c("likert_five", "likert_five", "likert_five", "checkbox"),
+ end_questions_ID = c("visits_aschild", "visits_asteen", "visits_asadult", "impairment"),
+ end_drop_down_options=list(c("smell", "sound", "sight")),
+ end_message = "Thank you for completing the survey. Click submit to generate report",
+ drop_box_folder = "survey_responses",
+ BW_app_path = paste0(tempdir(),"/my_app_name_1"),
+ organisation = "BIOWELL package example",
+ organisation_website = "https://github.com/r-a-dobson/BIOWELL",
+ all_questions=TRUE,
+ all_sliders = TRUE,
+ user_report = TRUE)
+
+}
+}
+\references{
+Irvine, K.N., Fisher, J.C., Bentley, P.R., Nawrath, M., Dallimer,
+M., Austen, G.E., Fish, R. and Davies, Z.G., 2023. BIO-WELL: The development
+and validation of a human wellbeing scale that measures responses to
+biodiversity. Journal of Environmental Psychology, 85, p.101921.
 }

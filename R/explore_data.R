@@ -148,7 +148,8 @@ explore_data <- function(data,
     if (missing(var_name)) {
       var_name <- column_name
     }
-
+    variable <- NULL
+    mean_biowell <- NULL
     # Plot data in ggplot and store as object
     plot1 <- ggplot2::ggplot(data = plot_data,
                              ggplot2::aes(x = variable,

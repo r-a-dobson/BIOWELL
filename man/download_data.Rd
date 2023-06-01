@@ -2,27 +2,61 @@
 % Please edit documentation in R/download_data.R
 \name{download_data}
 \alias{download_data}
-\title{Combine survey responses into data frame}
+\title{Combine BIO-WELL survey responses into data frame}
 \usage{
-download_data(drop_box_folder, BW_app_path)
+download_data(Dropbox_App_folder, BW_app_path)
 }
 \arguments{
-\item{drop_box_folder}{path to folder in Dropbox. Defaults to the root directory.}
+\item{Dropbox_App_folder}{path to folder in Dropbox App. Defaults to the root
+folder of Dropbox App.}
+
+\item{BW_app_path}{a character string, the path to your BIO-WELL Shiny App
+folder.}
 }
 \value{
-Data frame containing combined responses to survey
+Data frame containing combined responses to BIO-WELL survey
 }
 \description{
-Function accesses survey responses from Dropbox folder and combines into single data frame.
+Function accesses survey responses from Dropbox App folder and combines into
+single data frame.
 }
 \details{
-With multiple survey responses stored in a Dropbox cloud storage folder, this
-function downloads all responses and combined into a single data frame for
-analysis of BIO-WELL scores across participants.
-}
-\examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+Each set of participant responses to your BIO-WELL survey is stored as a
+single csv file within your Dropbox App folder.
 
-data<-extract_biowell("responses")
-\dontshow{\}) # examplesIf}
+This function downloads all responses and combines them into a single data
+frame for analysing BIO-WELL scores across participants. Each row represents
+responses from a participant.
+}
+\section{BIO-WELL score columns}{
+For each BIO-WELL question, the scores for each of the five scales are given
+(Physical, Emotional, Cognitive, Social and Spiritual) in RAW and INVERTED
+format.
+\itemize{
+\item The "_RAW" value is the actual value between 0 and 100 that users specify with
+the sliders, whereby 0 is a positive wellbeing response to biodiversity and
+100 is a negative response.
+\item The "_INVERTED" value is calculated as 100 minus the RAW value. This is to
+improve interpretability  of the BIO-WELL scores: 0 is a negative wellbeing
+response and 100 is a positive wellbeing response.
+}
+
+The final columns are overall inverted and raw BIOWELL scores. This is the
+average across all five scales across all BIO-WELL questions.
+
+Please see Irvine et al., (2023) for more details on the BIO-WELL score.
+}
+
+\examples{
+
+\dontrun{
+ data <- extract_biowell(Dropbox_App_folder = "survey_responses",
+                         BW_app_path = paste0(temp_dir(), "/my_app_name_1"))
+}
+}
+\references{
+Irvine, K.N., Fisher, J.C., Bentley, P.R., Nawrath, M., Dallimer,
+M., Austen, G.E., Fish, R. and Davies, Z.G., 2023. BIO-WELL: The development
+and validation of a human wellbeing scale that measures responses to
+biodiversity. Journal of Environmental Psychology, 85, p.101921.
 }
