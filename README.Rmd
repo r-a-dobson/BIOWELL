@@ -33,7 +33,7 @@ development, validation, and psychometric properties (Irvine et al., 2023). BIO-
 valuable tool for researchers and decision-makers to understand the
 biodiversity-health/wellbeing relationship and evaluate interventions.
 
-<a href='https://github.com/r-a-dobson/BIO-WELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/data/BIOWELL_SCALE.jpg" align="centre" height="300"/></a>
+<a href='https://github.com/r-a-dobson/BIO-WELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/scale/BIOWELL_SCALE.jpg" align="centre" height="300"/></a>
 
 **Read more about the development and application of BIO-WELL in:**
 

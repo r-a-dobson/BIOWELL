@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# **BIOWELL**
+# **BIO-WELL**
 
 **Introducing `BIOWELL`: An R package that empowers researchers and
 practitioners to effortlessly create and share customized surveys using
@@ -29,7 +29,7 @@ properties (Irvine et al., 2023). BIO-WELL provides a valuable tool for
 researchers and decision-makers to understand the
 biodiversity-health/wellbeing relationship and evaluate interventions.
 
-<a href='https://github.com/r-a-dobson/BIO-WELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/data/BIOWELL_SCALE.jpg" align="centre" height="300"/></a>
+<a href='https://github.com/r-a-dobson/BIO-WELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/scale/BIOWELL_SCALE.jpg" align="centre" height="300"/></a>
 
 **Read more about the development and application of BIO-WELL in:**
 
@@ -52,7 +52,7 @@ Psychology, 85, p.101921.*\*\*
   emotional, cognitive, social, and spiritual domains of wellbeing**
 
 - Combines measures of the environment and wellbeing into a **single
-  scale**
+  scale** ranging from 0 to 100.
 
 - Applicable to **diverse research settings**, including scenario-based
   studies, in situ evaluations, and studies that incorporate measures of
