@@ -45,7 +45,7 @@ If this is not the case, please revisit the previous vignettes before trying to 
 
 The first stage is to register for a Shiny Server account via the [website](https://www.shinyapps.io/?_gl=1*1gtg1gf*_ga*MTkxOTUyMTUuMTY3NjM1NDY2OA..*_ga_2C0WZ1JHG0*MTY4NDY4NDc0NC4xNS4wLjE2ODQ2ODQ3NDQuMC4wLjA.). 
 
-![Creating Shiny Server account](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/data/V3/V3_1.png){width=75%}
+![Creating Shiny Server account](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V3/V3_1.png){width=75%}
 
 # Step 2: Connect account to R
 
@@ -60,7 +60,7 @@ library(BIOWELL)
 
 On the website, click on your profile photo in the top right, and choose `Tokens` from the drop down list. Click to show the token and reveal your account's secret code.
 
-![Finding Shiny Server token](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/data/V3/V3_2.png){width=75%}
+![Finding Shiny Server token](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V3/V3_2.png){width=75%}
 
 This will provide code for you to run in R to connect your Shiny Server account. 
 
@@ -69,7 +69,7 @@ rsconnect::setAccountInfo(name='biowell-app-testing',
 			  token='string of letters and numbers',  # Input your Shiny Server token number here
 			  secret='string of letters and numbers') # Input your Shiny Server token secret here
 ```
-![Revealing Shiny Server secret](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/data/V3/V3_3.png){width=75%}
+![Revealing Shiny Server secret](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V3/V3_3.png){width=75%}
 
 # Step 3: Create survey URL
 

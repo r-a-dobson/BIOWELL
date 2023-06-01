@@ -44,7 +44,7 @@ library(rdrop2)
 
 Next, you need to create a free account on the [Dropbox website](https://www.dropbox.com/).
 
-![Create Dropbox account](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/data/V1/V1_0.png){width=75%}
+![Create Dropbox account](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_0.png){width=75%}
 
 # Step 3: Dropbox App
 
@@ -55,7 +55,7 @@ Here you should:
 * Select "app folder"
 * Provide name for your app (this will be needed in later functions so make it memorable!)
 
-![Create Dropbox App](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/data/V1/V1_1.png){width=75%}
+![Create Dropbox App](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_1.png){width=75%}
 
 # Step 4: Dropbox App set-up
 
@@ -63,16 +63,16 @@ Now you can access your [Dropbox App Console](https://www.dropbox.com/developers
 
 Scroll down to OAUTH2: Redirect URIs and add http://localhost:1410/
 
-![Add redirect URI](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/data/V1/V1_2.png){width=75%}
+![Add redirect URI](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_2.png){width=75%}
 
 Then, go to the Permissions tab and tick the relevant boxes. You will probably
 want to give the App permission to read and write files.
 
-![Add Dropbox App permissions](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/data/V1/V1_3.png){width=75%}
+![Add Dropbox App permissions](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_3.png){width=75%}
 
 Return back to the app's Settings tab, and scroll down to reveal your App's key and secret. This is required for activating the access token for your Dropbox
 
-![Get Dropbox name, key and secret](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/data/V1/V1_4.png){width=75%}
+![Get Dropbox name, key and secret](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_4.png){width=75%}
 
 Below lets save our Dropbox App details. 
 
@@ -110,7 +110,7 @@ activate_dropbox(Dropbox_App_Name = Dropbox_App_Name,
                  BW_app_path = paste0(path_to_folder,"/",appName))
 ```
 
-![Authenticate Dropbox access token](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/data/V1/V1_5.png){width=75%}
+![Authenticate Dropbox access token](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_5.png){width=75%}
 
 Once you have authenticated the token, the token will be saved in a ".secrets"
 folder within your app directory. This will be uploaded with your app when you
