@@ -1,8 +1,8 @@
 ---
-title: "Step 4: Extract and analyse BIO-WELL scores"
+title: "Step 4: Analysing BIO-WELL scores"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Step 4: Extract and analyse BIO-WELL scores}
+  %\VignetteIndexEntry{Step 4: Analysing BIO-WELL scores}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,140 +14,175 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Introduction
+# <span style="color:#0097AD;">Introduction</span>
 
 After your BIO-WELL survey URL has been shared to participants and their
-responses have been saved to your Dropbox, it is time to download the data,
-evaluate your survey and explore patterns in BIO-WELL scores.
+responses have been remotely stored to your Dropbox App's folder, it is time to
+move to the analysis stage.
 
-# Step 1: Download survey response data
+In this vignette, we will be using the `BIOWELL` package functions
+`download_data()`, `evaluate_survey()` and `explore_data()` to download the
+survey response data, evaluate your survey and explore patterns in BIO-WELL
+scores.
 
-Participant responses have been saved as individual `csv` files within your designated Dropbox folder. 
 
-`BIOWELL` package function `download_data()` collates survey responses and returns a single data frame for analysis. 
+# <span style="color:#0097AD;">Step 1: Download survey response data</span>
+
+Participant responses have been saved as individual `csv` files within your
+designated Dropbox App's folder.
+
+The `BIOWELL` package function `download_data()` collates all survey responses
+and returns a single data frame for analysis.
 
 ```{r, eval = FALSE}
-survey_data <- download_data(drop_box_folder = "survey_responses",
-                             BW_app_path = "C:/Users/eerdo/Desktop/my_app_name_1")
+path_to_folder <- tempdir() # Replace with path to a local folder. 
+appName <- "my_app_name" # Replace with name for your app. 
+dir.create(paste0(path_to_folder,"/",appName)) 
 
-head(survey_data)
+
+survey_data <- download_data(Dropbox_App_folder = "survey_responses",
+                             BW_app_path = paste0(path_to_folder,"/",appName))
+
 ```
 
-# Step 2: Evaluate survey 
+# <span style="color:#0097AD;">Step 2: Evaluate survey </span>
 
-When analysing survey response data, it is important to evaluate the reliability of questions asked and the use of the BIO-WELL scale.  
+When analysing survey response data, it is important to evaluate the reliability
+of your survey.  
 
-The function `evaluate_survey()` offers multiple methods to evaluate the reliability of surveys. 
+The function `evaluate_survey()` offers multiple methods to evaluate the
+reliability of surveys.
 
-1) Cronbach's alpha 
+1) **<span style="color:#004A86;">Cronbach's alpha</span>**
 
-Cronbach's alpha is a way of assessing reliability by comparing the amount of shared variance, or covariance, among the items making up an instrument to the amount of overall variance (Cronbach, 1951). The idea is that if the instrument is reliable, there should be a great deal of covariance among the items relative to the variance.
+Cronbach's alpha can be used to assess the reliability of your survey by testing
+the internal consistency of BIO-WELL scores for each question by each
+participant.
 
-This function calculates Cronbach's alpha to test the internal consistency of BIO-WELL scores for each question by each participant. A threshold of >0.7 typically indicates acceptable reliability; Nunnally, 1978.
+The statistical calculation involves comparing the covariance among the BIO-WELL
+scores from each question making up the survey to the overall variance
+(Cronbach, 1951).
 
-2) Item-total correlation (corrected) (threshold >0.3, Boateng et al., 2018) 
+If your survey is reliable, their should be higher covariance among the
+questions relative to the overall variance. A threshold Cronbach's alpha of >
+0.7 typically indicates acceptable reliability (Nunnally, 1978)
 
-The item total correlation is a correlation between the question score (e.g., 0 or 1 for multiple choice) and the overall assessment score (e.g., 67%). It is expected that if a participant gets a question correct they should, in general, have higher overall assessment scores than participants who get a question wrong.
 
-First, look at the Corrected Item-Total Correlation. This is the correlation between each item and a scale score that excludes that item (uses all the other items, but not that one). Items with negative item-total correlations probably aren’t good items. But don’t discard more than 1-2 at a time.
+2) **<span style="color:#004A86;">Item-total correlation</span>**
 
-https://www.frontiersin.org/articles/10.3389/fpsyg.2018.02298/full
+The item-total correlation can also be used to test the reliability of your
+survey. This statistic measures the correlation between the score for each
+question and a score that excludes that question (uses all the other question,
+but not that one).
+
+Typically, participant's BIO-WELL scores for each BIO-WELL question should
+correlate to their overall BIO-WELL scores. Item-total correlation measures this
+relationship across all survey participants.
+
+Questions with negative item-total correlations probably aren’t good items. A
+threshold of >0.3 is typically interpreted as a good question (Boateng et al.,
+2018).
+
 
 ```{r}
 library(BIOWELL)
 data("sample_BW_data")
-survey_data <- sample_BW_data
-
-results<-evaluate_survey(survey_data)
+results <- evaluate_survey(sample_BW_data)
 results[[2]]
 results[[3]]
-
 ```
 
+# <span style="color:#0097AD;">Step 3: Explore survey responses</span>
 
-# Step 3: Explore survey responses
+To facilitate preliminary analyses of survey response data, the `BIOWELL`
+package includes the function `explore_data`.
 
-To facilitate preliminary analyses of survey response data, the `BIOWELL` package includes the function `explore_data`.
+The arguments of the function are:
 
-The function returns a plot comparing BIO-WELL scores across various categories, including:
++ `data` - the imported participant survey response data frame (from Step 1!).
 
-1) Column
++ `var_name` - a character string, text for the y-axis of the returned box plot.
 
-The survey response data frame contains multiple columns including for each start and end question. 
++ `plot`  - a logical, whether you want the box plots to be displayed in the R
+plot window.
 
-Using argument `type = "column"` and `column_name = "what is your age?"`, you can specify the comparison to make. 
++ `column_name` - an optional argument, the name of a column within data to
+split BIO-WELL scores by in the returned box plot.
 
-For example, this would input would generate a boxplot comparing BIO-WELL scores
-between each age category of participants.
++ `biowell_scale` - an optional feature, the name of the wellbeing domain of
+interest. If specified, plotted BIO-WELL scores only incorporate the slider
+input for this domain. One of; `physical`, `emotional`, `cognitive`, `social`
+and `spiritual`.
+
+
+1) **<span style="color:#004A86;">Default</span>**
+
+If you only provide `explore_data()` with the participant survey response data
+frame, by default, the function will collate the BIO-WELL scores for each
+participant by situation x question. The function returns this processed data
+frame and generates a box plot for each situation to display the BIO-WELL scores
+for each question within the situation.
+
+```{r fig.width=7, fig.height=10}
+results <- explore_data(data = sample_BW_data,
+                        plot = FALSE)
+results[[1]][1]
+```
+
+Using the argument `biowell_scale`, you could alter the default to plot the
+BIO-WELL score calculated from only one well-being domain.
+
+
+```{r fig.width=7, fig.height=10}
+results <- explore_data(data = sample_BW_data,
+                        biowell_scale = "emotional",
+                        plot = FALSE)
+results[[1]][1]
+```
+
+2) **<span style="color:#004A86;">Column</span>**
+
+The survey response data frame contains multiple columns including for responses
+to any start or end questions.
+
+Using the `column_name` argument in `explore_data()` you can specify a column
+that contains categorical data to split participant BIO-WELL scores by instead
+of by situation x question (the default).
+
+For example, this would input would generate a box plot comparing BIO-WELL
+scores between each age category of participants.
 
 ```{r fig.width=7}
-
-results <- explore_data(data = survey_data,
+results <- explore_data(data = sample_BW_data,
                         column_name = "Age",
                         var_name = "Participants age range",
                         plot = TRUE)
-
-
-results <- explore_data(data = survey_data,
+results <- explore_data(data = sample_BW_data,
                         column_name = "Urbanicity",
                         var_name = "Whether participants live in Urban or Rural areas",
                         plot = TRUE)
 ```
 
-2) Situation 
 
-For situations, analysis can be trickier as more than one column contains relevant data. 
+Using the argument `biowell_scale`, you could further alter the `column_name`
+plot to plot the BIO-WELL score calculated from only one well-being domain.
 
-By using `explore_data()` with argument `type = "situation"`, this function collates the average BIO-WELL score for each participant for each BIO-WELL situation included within the survey (e.g. "Woodland" and "Urban"). The function returns a processed data frame and generates a boxplot to compare BIO-WELL scores between situations. 
 
-```{r, fig.width=7}
-results <- explore_data(data = survey_data, 
+```{r fig.width=7}
+results <- explore_data(data = sample_BW_data,
+                        column_name = "Age",
+                        var_name = "Participants age range",
+                        biowell_scale = "cognitive",
                         plot = TRUE)
 ```
 
+# <span style="color:#0097AD;">Further analyses</span>
 
-3) Question 
+We hope the functions covered in this Vignette facilitate preliminary analysis
+of BIO-WELL scores from your `BIOWELL` package surveys.
 
-For BIO-WELL questions, analysis can also be tricky as more than one column may contain relevant data. 
-
-By using `explore_data()` with argument `type = "question"`, this function collates the average BIO-WELL score for each participant for each BIO-WELL question included within the survey (e.g. "Biodiversity Abundance" and "Distnctiveness of sounds"). 
-
-The function returns a processed data frame and generates a boxplot to compare BIO-WELL scores between questions.  
-
-```{r fig.width=7, fig.height=10}
-results <- explore_data(data = survey_data,
-                        plot = TRUE)
-```
-
-3) Situation-question 
-
-If questions are repeated across situations, but you want to compare these separately then input `type = "situation-question"`. This treats each questions within each situation as a unique category. 
-
-The function then collates the BIO-WELL score for each participant for each question in each situation, generates a boxplot of BIO-WELL scores for comparison, and returns a processed data frame. 
-
-```{r fig.width=7, fig.height=10}
-results <- explore_data(data = survey_data,
-                        plot = FALSE)
-
-results[[1]][1]
-results[[1]][2]
-```
-
-
-
-# Further analyses
-
-We hope the functions covered in this vignette facilitate preliminary analysis
-of BIO-WELL scores from your surveys.This concludes our vignettes for the
-`BIOWELL` package.
-
-Please visit the package's GitHub page to report any bugs or to ask questions on
-how to use the package.
-
-
-
-
-
-
+This concludes our vignettes for the `BIOWELL` package. Please visit the
+package's [GitHub page](https://github.com/r-a-dobson/BIOWELL) to report any
+bugs or to ask questions on how to use the package.
 
 

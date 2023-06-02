@@ -195,7 +195,6 @@
 #'  screen_questions = c("I confirm I have read and understood the Participant Information Sheet for the Forest Questionnaire. I understand that my participation is voluntary and that I am free to withdraw at any time without giving any reason. I agree to take part in this research project.",
 #'                       "What is your age?"),
 #'  screen_questions_ID = c("Consent", "Age"),
-#'  screen_questions_type = c("selectbox", "selectbox"),
 #'  screen_drop_down_options = list(c("No:SCREEN", "Yes"), c('0-17:SCREEN',  '18-29',  '30-59', 'Over 60',  'Prefer not to say')),
 #'  start_questions = c("How would you describe your gender?", "What country do you currently live in?", "Do you live in an area that you consider mainly…"),
 #'  start_questions_ID = c("Gender", "Country", "Urbanicity"),
@@ -246,7 +245,7 @@
 #'  end_questions_type = c("likert_five", "likert_five", "likert_five", "checkbox"),
 #'  end_questions_ID = c("visits_aschild", "visits_asteen", "visits_asadult", "impairment"),
 #'  end_drop_down_options=list(c("smell", "sound", "sight")),
-#'  end_message = "Thank you for completing the survey. Click submit to generate report",
+#'  end_message = "Please answer the following questions, and then click submit to generate a report.",
 #'  drop_box_folder = "survey_responses",
 #'  BW_app_path = paste0(tempdir(),"/my_app_name_1"),
 #'  organisation = "BIOWELL package example",
@@ -494,7 +493,7 @@ build_survey <- function(survey_title = NULL,
                }),
 
         shiny::tags$div(id = "Proceed", style = "color: red;
-                                                 font-size: 20px;
+                                                 font-size: 16px;
                                                  font-style: bold",pc),
         shiny::actionButton("continue", "Continue to the survey")),
 
@@ -561,7 +560,7 @@ build_survey <- function(survey_title = NULL,
                                   shiny::h1("Your BIO-WELL score is:"),
                                   shiny::tags$head(
                                   shiny::tags$style('h1 {font-size: 4vw;
-                                           color:#0097AD;
+                                           color: #0097AD;
                                            font-weight: bold;
                                            text-align: center;
                                            font: 1px}')),

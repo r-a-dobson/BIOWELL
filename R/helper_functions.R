@@ -44,7 +44,9 @@ for (x in 1:length(biowell_situations)) {
     shiny::tags$script(shiny::HTML(custom_slider_text(rc))),
     lapply(sapply(rc, list), sliders, biowell_questions = biowell_questions),
     if(all_sliders) {
-      shiny::tags$div(style = "color: red",
+      shiny::tags$div(style = "color: red;
+                               font-size: 16px;
+                               font-style: bold",
                     "All sliders must be moved to continue to the next page.")},
   )
 
@@ -803,7 +805,6 @@ generate_report <- function(results, running_average) {
   messagex <- "NA"
   # Depending on value interpret BIO-WELL score colour and text
 
-   if (!is.na(n)) {
     if (dplyr::between(results$mean_biowell_INVERTED, 0, 49)) {
       messagex <- "negative"
       color1 <- "red"
@@ -816,7 +817,7 @@ generate_report <- function(results, running_average) {
       messagex <- "neutral"
       color1 <- "darkorange"
     }
-  }
+
 
   # Get the average BIO-WELL for each question
   bw <- explore_data(data = results, plot = FALSE)[[2]]

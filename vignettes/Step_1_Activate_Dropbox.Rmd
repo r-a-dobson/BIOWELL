@@ -14,25 +14,36 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Introduction
+# <span style="color:#0097AD;">Introduction </span>
 
-In this vignette, we will outline how to generate a long-lived [Dropbox](https://www.dropbox.com/)
-access token for your BIO-WELL survey.
+The `BIOWELL` package includes functions for building a custom survey in `Shiny`
+using the BIO-WELL scale and sharing the survey with
+participants via the internet by deploying them onto the [Posit Shiny Server](https://posit.co/products/open-source/shinyserver/).
 
-When your survey is uploaded to the [Posit Shiny Server](https://posit.co/products/open-source/shinyserver/), participant survey response data cannot be stored locally. Therefore, the `BIOWELL` package utilizes Dropbox for
-free remote storage of survey response data.
+In this vignette, we will outline how to generate a long-lived
+[Dropbox](https://www.dropbox.com/) access token for storing response data from
+your BIO-WELL survey.
 
-To store data to a Dropbox account over long periods of time, an access
-token needs to be generated and stored where your Shiny App can access it whilst
-uploaded to the [Posit Shiny Server](https://posit.co/products/open-source/shinyserver/).
+## <span style="color:#004A86;">Why is this important?</span>
+
+When your survey is uploaded to the [Posit Shiny
+Server](https://posit.co/products/open-source/shinyserver/), participant
+response data cannot be stored locally. Therefore, the `BIOWELL` package
+integrates Dropbox for free remote storage of survey response data.
+
+To store data to a Dropbox account over long periods of time, an access token
+needs to be generated and stored where your Shiny BIO-WELL survey can access it
+whilst uploaded to the [Posit Shiny Server](https://posit.co/products/open-source/shinyserver/).
 
 To find out more about access tokens for applications, including Dropbox, visit [this website](https://www.oauth.com/oauth2-servers/access-tokens/).
 
 **You only need to do this once when creating your BIO-WELL survey!** 
 
-# Step 1: Installation
+# <span style="color:#0097AD;">Step 1: Installation</span>
 
-Before starting, install the `BIOWELL` and `rdrop2` packages in R, and load the libraries.  
+Before starting, install the `BIOWELL` and `rdrop2` packages in R. Then load the
+libraries.
+
 ```{r setup}
 # install.packages("BIOWELL")
 # install.packages("rdrop2")
@@ -40,24 +51,44 @@ library(BIOWELL)
 library(rdrop2)
 ```
 
-# Step 2: Dropbox account
+# <span style="color:#0097AD;">Step 2: BIO-WELL survey folder </span>
+
+Throughout the `BIOWELL` framework, your BIO-WELL survey will need to have its
+own folder. This is where you will save an R script named 'app.R' which
+contains the survey script (`build_survey()` - Vignette 2), as well as the
+Dropbox access token (Vignette 1).
+
+Let's create a folder to store our BIOWELL survey and associated data to!
+
+```{r app_directory}
+path_to_folder <- tempdir() # Replace with path to a local folder. 
+
+appName <- "my_app_name" # Replace with name for your app. 
+
+dir.create(paste0(path_to_folder,"/",appName)) 
+```
+
+# <span style="color:#0097AD;">Step 3: Dropbox account</span>
 
 Next, you need to create a free account on the [Dropbox website](https://www.dropbox.com/).
 
 ![Create Dropbox account](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_0.png){width=75%}
 
-# Step 3: Dropbox App
+# <span style="color:#0097AD;">Step 4: Dropbox App</span>
 
 To save your survey data into, you now need to create a [Dropbox app](https://www.dropbox.com/developers/apps/create?_tk=pilot_lp&_ad=ctabtn1&_camp=create) within your Dropbox account. 
 
 Here you should:
+
 * Select "scoped access"
+
 * Select "app folder"
-* Provide name for your app (this will be needed in later functions so make it memorable!)
+
+* Choose a name for your app 
 
 ![Create Dropbox App](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_1.png){width=75%}
 
-# Step 4: Dropbox App set-up
+# <span style="color:#0097AD;">Step 5: Dropbox App set-up</span>
 
 Now you can access your [Dropbox App Console](https://www.dropbox.com/developers/apps?_tk=pilot_lp&_ad=topbar4&_camp=myapps).
 
@@ -65,19 +96,21 @@ Scroll down to OAUTH2: Redirect URIs and add http://localhost:1410/
 
 ![Add redirect URI](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_2.png){width=75%}
 
-Then, go to the Permissions tab and tick the relevant boxes. You will probably
-want to give the App permission to read and write files.
+Then, go to the Permissions tab and tick the relevant boxes. You need to give
+the app permission to read and write files.
 
 ![Add Dropbox App permissions](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_3.png){width=75%}
 
-Return back to the app's Settings tab, and scroll down to reveal your App's key and secret. This is required for activating the access token for your Dropbox
+Return back to the app's Settings tab, and scroll down to reveal your app's key
+and secret. This is required for activating the access token! Remember to never
+share your app's key and secret.
 
-![Get Dropbox name, key and secret](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_4.png){width=75%}
+[Get Dropbox name, key and secret](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_4.png){width=75%}
 
-Below lets save our Dropbox App details. 
 
-```{r dropbox_app, eval=FALSE}
+Let's save our Dropbox App details in the R environment. 
 
+```{r dropbox_app}
 Dropbox_App_Name <- "my_app_name" # Replace with your Dropbox App name. 
 
 Dropbox_App_Key <- "string-of-letters-and-numbers" # Replace with your Dropbox App key.  
@@ -86,22 +119,14 @@ Dropbox_App_Secret <- "string-of-letters-and-numbers" # Replace with your Dropbo
 ```
 
 
-# Step 5: App folder 
+# <span style="color:#0097AD;">Step 6: Activate Dropbox access token</span>
 
-Throughout the *BIOWELL* framework, your Shiny App needs to have its own directory. Lets create a folder to store our BIOWELL survey and associated data to (including your Dropbox token!)
+Now you have all the details needed to generate the Dropbox access token. Run
+the code below. This will open a window in your browser to authenticate the
+token. 
 
-```{r app_directory}
-
-path_to_folder <- tempdir() # Replace with path to a local folder. 
-
-appName <- "my_app_name" # Replace with name for your app. 
-
-dir.create(paste0(path_to_folder,"/",appName)) 
-```
-
-# Step 6: Activate Dropbox access token
-
-Now you have all the details needed to generate the Dropbox access token. Run the code below. This will open a tab in your Browers to authenticate the token. 
+**Remember to provide the function with the path to the BIO-WELL survey folder (`BW_app_path`) that
+you created in Step 1 of the vignette.**
 
 ```{r activate_token, eval=FALSE}
 activate_dropbox(Dropbox_App_Name = Dropbox_App_Name,
@@ -113,8 +138,10 @@ activate_dropbox(Dropbox_App_Name = Dropbox_App_Name,
 ![Authenticate Dropbox access token](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_5.png){width=75%}
 
 Once you have authenticated the token, the token will be saved in a ".secrets"
-folder within your app directory. This will be uploaded with your app when you
-deploy it to the Shiny servers and able long-term data storage to your Dropbox
-App folder.
+folder within your BIO-WELL survey directory.
+
+When you upload your BIO-WELL survey to the Shiny servers, it will now be able
+to remotely store survey responses to your Dropbox App folder. These data can be
+retrieved using the `BIOWELL` package's `download_data()` function.
 
 
