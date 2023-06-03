@@ -150,7 +150,7 @@ sliders <- function(sid, biowell_questions, ...) {
 #' custom_slider_text Generates the custom labels for BIO-WELL slider scales.
 #' @param sid a numerical value, the unique IDs for each BIO-WELL slider.
 #' @noRd
-library(BIOWELL)
+
 custom_slider_text<-function(sid1,language){
 
   transl<-BIOWELL:::slider_translations
