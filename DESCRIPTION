@@ -1,26 +1,26 @@
 Package: BIOWELL
-Title: Create shiny surveys with the BIO-WELL scale
+Title: Create BIO-WELL Surveys in Shiny to Investigate the Influence of Biodiversity on Human Wellbeing
 Version: 0.0.0.9000
 Authors@R: 
       c(person("Rachel", "Dobson", , "eerdo@leeds.ac.uk", role = c("aut", "cre", "ctb"),
            comment = c(ORCID = "0000-0003-3990-267X")),
  person("Katherine N.", "Irvine", , "kate.irvine@hutton.ac.uk", role = c("aut", "ctb"),
-           comment = c(ORCID = "YOUR-ORCID-ID")),
+           comment = c(ORCID = "0000-0001-8860-2783")),
  person("Jessica C.", "Fisher", , "J.C.Fisher@kent.ac.uk", role = c("aut", "ctb"),
-           comment = c(ORCID = "YOUR-ORCID-ID")),
- person("Phoebe R.", "Bentley", , "xxxx", role = c("aut", "ctb"),
-           comment = c(ORCID = "YOUR-ORCID-ID")),
+           comment = c(ORCID = "0000-0002-1435-9247")),
+ person("Phoebe R.", "Bentley", , "phoebe.maund@wwt.org.uk", role = c("aut", "ctb"),
+           comment = c(ORCID = "0000-0001-6152-1254")),
  person("Maximillian","Nawrath",  , "eemn@leeds.ac.uk", role = c("aut", "ctb"),
-           comment = c(ORCID = "YOUR-ORCID-ID")),
+           comment = c(ORCID = "0000-0002-1307-3394")),
  person("Martin", "Dallimer", , "M.Dallimer@leeds.ac.uk", role = c("aut", "ctb"),
-           comment = c(ORCID = "YOUR-ORCID-ID")),
+           comment = c(ORCID = "0000-0001-8120-3309")),
  person("Gail E.", "Austen", , "G.E.Austen@kent.ac.uk", role = c("aut", "ctb"),
-           comment = c(ORCID = "YOUR-ORCID-ID")),
+           comment = c(ORCID = "0000-0001-6005-4869")),
  person("Rob", "Fish", , "r.fish@kent.ac.uk", role = c("aut", "ctb"),
-           comment = c(ORCID = "YOUR-ORCID-ID")),
+           comment = c(ORCID = "0000-0001-7198-0403")),
  person("Zoe G.", "Davies", , "Z.G.Davies@kent.ac.uk", role = c("aut", "ctb"),
-           comment = c(ORCID = "YOUR-ORCID-ID")))
-Description: The BIO-WELL scale is a valid and relaible scale with strong psychometric properties that can be used to measure the human wellbeing responses to biodiversity. This package contains functions for developing and deploying customised shiny surveys that utilise the BIO-WELL scale. 
+           comment = c(ORCID = "0000-0003-0767-1467")))
+Description: The BIO-WELL scale is an important tool for assessing the contribution of biodiversity to human wellbeing developed by Irvine et al., (2023). The BIOWELL package includes functions for developing customised BIO-WELL surveys in an R Shiny App and deploying such surveys onto the Shiny Server for easy distribution to participants via the internet. Participant responses to your custom BIO-WELL survey are remotely stored on Dropbox and the package provides functions for importing, evaluating and analysing your survey response data.  Also, we include extensive vignettes and examples for all functions within the BIOWELL package to facilitate your BIO-WELL survey development.  
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -53,3 +53,5 @@ VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
 LazyData: true
+URL: https://github.com/r-a-dobson/BIOWELL
+BugReports: https://github.com/r-a-dobson/BIOWELL/issues

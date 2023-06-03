@@ -397,6 +397,20 @@ compares the current participants scores to those of other participants.
 
 + `all_sliders` - Logical (`TRUE` or `FALSE`) specifying whether all `biowell_questions` sliders need to be moved to continue with the survey. If `TRUE`, a message stating this to participants will appear by the next button.  
 
++ `offline_mode` - Logical (`TRUE` or `FALSE`) specifying whether to upload input response data to Dropbox. This must be `TRUE` when uploading the package to the Shiny Server or data *will not be saved*. This is included so during the development stage, going back and forth through the survey will not save non-participant responses to the survey in your Dropbox App Folder.  
+
++ `return` - One of `run`, `UI` and `server`. This must be `run` when uploading to the Shiny Server. We include this option for flexibility if you want to get the two Shiny App inputs to edit them independently (*not recommended*). 
+
++ `language` - An exciting feature of the `BIOWELL` package is the ability to
+specify the language used on the BIO-WELL sliders. This can be selected from 32
+different languages listed below. We recommend ensuring that the questions input are also in
+this language.
+
+**Available languages**: 'arabic', 'bengali_india', 'chinese_hong kong', 'chinese_taiwan',
+'danish', 'dutch', 'edo', 'english', 'finnish', 'french', 'german', 'gujarati',
+'indonesian', 'irish', 'italian', 'japanese', 'korean', 'malay', 'norwegian',
+'polish', 'portuguese', 'portuguese_brasil', 'punjabi_india', 'punjabi_pakistan',                                 'russian', 'scottish_gaelic', 'spanish', 'swedish', 'urdu_india', 'urdu_pakistan',                                 'welsh'
+
 # <span style="color:#0097AD;">Finalising your survey</span>
  
 When you are working on your custom BIO-WELL survey using `build_survey()`,

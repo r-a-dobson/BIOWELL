@@ -153,8 +153,8 @@ sliders <- function(sid, biowell_questions, ...) {
 
 custom_slider_text<-function(sid1,language){
 
-  transl<-BIOWELL:::slider_translations
-  transl<-transl[transl$language == language,]
+  transl <- BIOWELL:::slider_translations
+  transl <- transl[transl$language == language, ]
 
   text <- paste0("$(document).ready(function() {
   /**

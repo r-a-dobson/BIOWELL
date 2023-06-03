@@ -55,35 +55,20 @@ reliability of surveys.
 
 1) **<span style="color:#004A86;">Cronbach's alpha</span>**
 
-Cronbach's alpha can be used to assess the reliability of your survey by testing
-the internal consistency of BIO-WELL scores for each question by each
-participant.
-
-The statistical calculation involves comparing the covariance among the BIO-WELL
-scores from each question making up the survey to the overall variance
-(Cronbach, 1951).
-
-If your survey is reliable, their should be higher covariance among the
-questions relative to the overall variance. A threshold Cronbach's alpha of >
-0.7 typically indicates acceptable reliability (Nunnally, 1978)
-
+The computed Cronbach's Alpha statistic for your survey,
+which measures the internal consistency of responses. This calculated using
+`cronbach.alpha()` function from the `ltm` R package (Rizopoulos et al.,
+2007).
 
 2) **<span style="color:#004A86;">Item-total correlation</span>**
 
-The item-total correlation can also be used to test the reliability of your
-survey. This statistic measures the correlation between the score for each
-question and a score that excludes that question (uses all the other question,
-but not that one).
+Item-total correlation: the computed item-total statistic for each BIO-WELL
+question within your survey (Cronbach et al., 1951). This is calculated using
+the `item.total()` function from the `multilevel` [R
+package](https://CRAN.R-project.org/package=multilevel).
 
-Typically, participant's BIO-WELL scores for each BIO-WELL question should
-correlate to their overall BIO-WELL scores. Item-total correlation measures this
-relationship across all survey participants.
-
-Questions with negative item-total correlations probably aren’t good items. A
-threshold of >0.3 is typically interpreted as a good question (Boateng et al.,
-2018).
-
-
+Cronbach, L. J. (1951) Coefficient alpha and the internal structure of tests.
+Psychometrika, 16, 297–334.
 ```{r}
 library(BIOWELL)
 data("sample_BW_data")

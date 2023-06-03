@@ -63,6 +63,8 @@
 #'  must be answered to continue with the survey.
 #'@param all_sliders a logical, indicating whether all sliders must be moved at
 #'  least once to continue with the survey.
+#'@param language a character string, the language for the BIO-WELL sliders. See
+#'  details for all 31 options available. Default; `english`.
 #'@param user_report a logical, indicating whether to generate a BIO-WELL score
 #'  report for participants. See details for more information.
 #'@param offline_mode a logical, indicating whether to upload survey response
@@ -183,6 +185,41 @@
 #'You can then deploy your survey onto the Shiny Server using the `create_URL()`
 #'function.
 #'
+#'# Language
+#'
+#'The BIO-WELL response sliders can be generated in 31 different languages. The
+#'language for your study can be specified using the `language` argument. The available options are:
+#' + `arabic`
+#' + `bengali_india`
+#' + `chinese_hong_kong`
+#' + `chinese_taiwan`
+#' + `danish`
+#' + `dutch`
+#' + `edo`
+#' + `english`
+#' + `finnish`
+#' + `french`
+#' + `german`
+#' + `gujarati`
+#' + `indonesian`
+#' + `irish`
+#' + `italian`
+#' + `japanese`
+#' + `korean`
+#' + `malay`
+#' + `norwegian`
+#' + `polish`
+#' + `portuguese`
+#' + `portuguese_brasil`
+#' + `punjabi_india`
+#' + `punjabi_pakistan`
+#' + `russian`
+#' + `scottish_gaelic`
+#' + `spanish`
+#' + `swedish`
+#' + `urdu_india`
+#' + `urdu_pakistan`
+#' + `welsh`
 #'@returns Generates a custom BIO-WELL survey Shiny App.
 #'@export
 #'@references Irvine, K.N., Fisher, J.C., Bentley, P.R., Nawrath, M., Dallimer,
@@ -438,6 +475,39 @@ build_survey <- function(survey_title = NULL,
     end_questions <- NULL
     end_df <- NULL
   }
+
+  match.arg(language, choices = c('arabic',
+                                  'bengali_india',
+                                  'chinese_hong kong',
+                                  'chinese_taiwan',
+                                  'danish',
+                                  'dutch',
+                                  'edo',
+                                  'english',
+                                  'finnish',
+                                  'french',
+                                  'german',
+                                  'gujarati',
+                                  'indonesian',
+                                  'irish',
+                                  'italian',
+                                  'japanese',
+                                  'korean',
+                                  'malay',
+                                  'norwegian',
+                                  'polish',
+                                  'portuguese',
+                                  'portuguese_brasil',
+                                  'punjabi_india',
+                                  'punjabi_pakistan',
+                                  'russian',
+                                  'scottish_gaelic',
+                                  'spanish',
+                                  'swedish',
+                                  'urdu_india',
+                                  'urdu_pakistan',
+                                  'welsh'))
+
 
   #----------------------------------------------------------------------------
   # Create survey's Shiny App UI element
