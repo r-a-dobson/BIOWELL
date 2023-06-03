@@ -5,11 +5,13 @@
 #'  for each separate `biowell_situations` for BIO-WELL responses.
 #'@param all_sliders a logical, indicating whether all sliders must be moved at
 #'  least once to continue with the survey.
+#'@param language a character string, the language for BIO-WELL sliders
 #' @noRd
 
 add_biowell_scale <-  function(biowell_situations,
                                biowell_questions,
                                all_sliders,
+                               language,
                                ...) {
 
   lst <- vector(mode = 'list', length = length(biowell_situations))
@@ -41,7 +43,7 @@ for (x in 1:length(biowell_situations)) {
                                      font-size: 15px;
                                      color: white !important;
                                      top: -12px !important}"),
-    shiny::tags$script(shiny::HTML(custom_slider_text(rc))),
+    shiny::tags$script(shiny::HTML(custom_slider_text(rc,language))),
     lapply(sapply(rc, list), sliders, biowell_questions = biowell_questions),
     if(all_sliders) {
       shiny::tags$div(style = "color: red;
@@ -149,7 +151,7 @@ sliders <- function(sid, biowell_questions, ...) {
 #' @param sid a numerical value, the unique IDs for each BIO-WELL slider.
 #' @noRd
 
-custom_slider_text<-function(sid1){
+custom_slider_text<-function(sid1,language){
 
   text <- paste0("$(document).ready(function() {
   /**

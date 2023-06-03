@@ -32,7 +32,9 @@ build_survey(
   all_questions = TRUE,
   all_sliders = TRUE,
   user_report = TRUE,
-  offline_mode = FALSE
+  language = "english",
+  offline_mode = FALSE,
+  return = "run"
 )
 }
 \arguments{
@@ -128,6 +130,9 @@ report for participants. See details for more information.}
 
 \item{offline_mode}{a logical, indicating whether to upload survey response
 data to Dropbox. Optional; useful when developing the survey.}
+
+\item{return}{optional; whether to run survey Shiny app or return app
+component. One of; \code{run}, \code{ui}, \code{server.}}
 }
 \value{
 Generates a custom BIO-WELL survey Shiny App.
@@ -322,8 +327,8 @@ biowell_situations_ID = c("situation1", "situation2"),
  BW_app_path = tempdir(),
  organisation = "BIOWELL package example",
  organisation_website = "https://github.com/r-a-dobson/BIOWELL",
- all_questions = T,
- all_sliders = F,
+ all_questions = TRUE,
+ all_sliders = FALSE,
  user_report = TRUE,
  offline_mode = TRUE
 )

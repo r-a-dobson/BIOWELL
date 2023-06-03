@@ -67,6 +67,8 @@
 #'  report for participants. See details for more information.
 #'@param offline_mode a logical, indicating whether to upload survey response
 #'  data to Dropbox. Optional; useful when developing the survey.
+#'@param return optional; whether to run survey Shiny app or return app
+#'  component. One of; `run`, `ui`, `server.`
 #'@details
 #'
 #'# BIO-WELL survey Shiny App structure
@@ -265,8 +267,8 @@
 #'  BW_app_path = tempdir(),
 #'  organisation = "BIOWELL package example",
 #'  organisation_website = "https://github.com/r-a-dobson/BIOWELL",
-#'  all_questions = T,
-#'  all_sliders = F,
+#'  all_questions = TRUE,
+#'  all_sliders = FALSE,
 #'  user_report = TRUE,
 #'  offline_mode = TRUE
 #')
@@ -299,7 +301,9 @@ build_survey <- function(survey_title = NULL,
                          all_questions = TRUE,
                          all_sliders = TRUE,
                          user_report = TRUE,
-                         offline_mode = FALSE) {
+                         language = "english",
+                         offline_mode = FALSE,
+                         return = "run") {
 
   #----------------------------------------------------------------------------
   # Catch errors and set defaults
@@ -534,7 +538,10 @@ build_survey <- function(survey_title = NULL,
                                      font-style: bold;}"))
         ),
 
-        add_biowell_scale(biowell_situations, biowell_questions, all_sliders),
+        add_biowell_scale(biowell_situations,
+                          biowell_questions,
+                          all_sliders,
+                          language),
 
         shiny::div(class = "page",
                    id = paste0("page", 3+length(biowell_situations)),
@@ -842,6 +849,11 @@ build_survey <- function(survey_title = NULL,
         showNEXT(TRUE)
       }
 
+      # If no start questions, then activate the next button
+      if (!all_questions && pg$page == 2) {
+        showNEXT(TRUE)
+      }
+
       if(all_questions){
 
         if(!is.null(start_questions)){
@@ -964,7 +976,17 @@ build_survey <- function(survey_title = NULL,
     session$onSessionEnded(shiny::stopApp)
   }
 
-  shiny::shinyApp(ui, server)
+  if (return == "run") {
+    shiny::shinyApp(ui, server)
+  }
+
+  if (return == "ui") {
+    return(ui)
+  }
+
+  if (return == "server") {
+    return(server)
+  }
 
 }
 
