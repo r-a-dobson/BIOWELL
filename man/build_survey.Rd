@@ -125,6 +125,9 @@ least once to continue with the survey.}
 
 \item{user_report}{a logical, indicating whether to generate a BIO-WELL score
 report for participants. See details for more information.}
+
+\item{offline_mode}{a logical, indicating whether to upload survey response
+data to Dropbox. Optional; useful when developing the survey.}
 }
 \value{
 Generates a custom BIO-WELL survey Shiny App.
