@@ -70,7 +70,6 @@ response items (the five sliders).
 
 **<span style="color:#004A86;">However, to aid interpretability scores can be inverted (0–49 = negative wellbeing; 51–100 = positive wellbeing)</span>**
 
-![BIO-WELL scale](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_0.png){width=75%}
 
 # <span style="color:#0097AD;">Survey sections</span>
 

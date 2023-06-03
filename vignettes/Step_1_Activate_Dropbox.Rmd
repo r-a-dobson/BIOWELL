@@ -72,8 +72,6 @@ dir.create(paste0(path_to_folder,"/",appName))
 
 Next, you need to create a free account on the [Dropbox website](https://www.dropbox.com/).
 
-![Create Dropbox account](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_0.png){width=75%}
-
 # <span style="color:#0097AD;">Step 4: Dropbox App</span>
 
 To save your survey data into, you now need to create a [Dropbox app](https://www.dropbox.com/developers/apps/create?_tk=pilot_lp&_ad=ctabtn1&_camp=create) within your Dropbox account. 
@@ -135,7 +133,6 @@ activate_dropbox(Dropbox_App_Name = Dropbox_App_Name,
                  BW_app_path = paste0(path_to_folder,"/",appName))
 ```
 
-![Authenticate Dropbox access token](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_5.png){width=75%}
 
 Once you have authenticated the token, the token will be saved in a ".secrets"
 folder within your BIO-WELL survey directory.
