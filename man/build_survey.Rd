@@ -128,6 +128,9 @@ least once to continue with the survey.}
 \item{user_report}{a logical, indicating whether to generate a BIO-WELL score
 report for participants. See details for more information.}
 
+\item{language}{a character string, the language for the BIO-WELL sliders. See
+details for all 31 options available. Default; \code{english}.}
+
 \item{offline_mode}{a logical, indicating whether to upload survey response
 data to Dropbox. Optional; useful when developing the survey.}
 
@@ -246,6 +249,44 @@ for more details.
 
 You can then deploy your survey onto the Shiny Server using the \code{create_URL()}
 function.
+}
+
+\section{Language}{
+The BIO-WELL response sliders can be generated in 31 different languages. The
+language for your study can be specified using the \code{language} argument. The available options are:
+\itemize{
+\item \code{arabic}
+\item \code{bengali_india}
+\item \code{chinese_hong_kong}
+\item \code{chinese_taiwan}
+\item \code{danish}
+\item \code{dutch}
+\item \code{edo}
+\item \code{english}
+\item \code{finnish}
+\item \code{french}
+\item \code{german}
+\item \code{gujarati}
+\item \code{indonesian}
+\item \code{irish}
+\item \code{italian}
+\item \code{japanese}
+\item \code{korean}
+\item \code{malay}
+\item \code{norwegian}
+\item \code{polish}
+\item \code{portuguese}
+\item \code{portuguese_brasil}
+\item \code{punjabi_india}
+\item \code{punjabi_pakistan}
+\item \code{russian}
+\item \code{scottish_gaelic}
+\item \code{spanish}
+\item \code{swedish}
+\item \code{urdu_india}
+\item \code{urdu_pakistan}
+\item \code{welsh}
+}
 }
 
 \examples{

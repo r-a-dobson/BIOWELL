@@ -4,23 +4,31 @@
 \name{BIOWELL-package}
 \alias{BIOWELL}
 \alias{BIOWELL-package}
-\title{BIOWELL: Create shiny surveys with the BIO-WELL scale}
+\title{BIOWELL: Create BIO-WELL Surveys in Shiny to Investigate the Influence of Biodiversity on Human Wellbeing}
 \description{
-The BIO-WELL scale is a valid and relaible scale with strong psychometric properties that can be used to measure the human wellbeing responses to biodiversity. This package contains functions for developing and deploying customised shiny surveys that utilise the BIO-WELL scale.
+The BIO-WELL scale is an important tool for assessing the contribution of biodiversity to human wellbeing developed by Irvine et al., (2023). The BIOWELL package includes functions for developing customised BIO-WELL surveys in an R Shiny App and deploying such surveys onto the Shiny Server for easy distribution to participants via the internet. Participant responses to your custom BIO-WELL survey are remotely stored on Dropbox and the package provides functions for importing, evaluating and analysing your survey response data. Also, we include extensive vignettes and examples for all functions within the BIOWELL package to facilitate your BIO-WELL survey development.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/r-a-dobson/BIOWELL}
+  \item Report bugs at \url{https://github.com/r-a-dobson/BIOWELL/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Rachel Dobson \email{eerdo@leeds.ac.uk} (\href{https://orcid.org/0000-0003-3990-267X}{ORCID}) [contributor]
 
 Authors:
 \itemize{
-  \item Katherine N. Irvine \email{kate.irvine@hutton.ac.uk} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID}) [contributor]
-  \item Jessica C. Fisher \email{J.C.Fisher@kent.ac.uk} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID}) [contributor]
-  \item Phoebe R. Bentley \email{xxxx} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID}) [contributor]
-  \item Maximillian Nawrath \email{eemn@leeds.ac.uk} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID}) [contributor]
-  \item Martin Dallimer \email{M.Dallimer@leeds.ac.uk} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID}) [contributor]
-  \item Gail E. Austen \email{G.E.Austen@kent.ac.uk} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID}) [contributor]
-  \item Rob Fish \email{r.fish@kent.ac.uk} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID}) [contributor]
-  \item Zoe G. Davies \email{Z.G.Davies@kent.ac.uk} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID}) [contributor]
+  \item Katherine N. Irvine \email{kate.irvine@hutton.ac.uk} (\href{https://orcid.org/0000-0001-8860-2783}{ORCID}) [contributor]
+  \item Jessica C. Fisher \email{J.C.Fisher@kent.ac.uk} (\href{https://orcid.org/0000-0002-1435-9247}{ORCID}) [contributor]
+  \item Phoebe R. Bentley \email{phoebe.maund@wwt.org.uk} (\href{https://orcid.org/0000-0001-6152-1254}{ORCID}) [contributor]
+  \item Maximillian Nawrath \email{eemn@leeds.ac.uk} (\href{https://orcid.org/0000-0002-1307-3394}{ORCID}) [contributor]
+  \item Martin Dallimer \email{M.Dallimer@leeds.ac.uk} (\href{https://orcid.org/0000-0001-8120-3309}{ORCID}) [contributor]
+  \item Gail E. Austen \email{G.E.Austen@kent.ac.uk} (\href{https://orcid.org/0000-0001-6005-4869}{ORCID}) [contributor]
+  \item Rob Fish \email{r.fish@kent.ac.uk} (\href{https://orcid.org/0000-0001-7198-0403}{ORCID}) [contributor]
+  \item Zoe G. Davies \email{Z.G.Davies@kent.ac.uk} (\href{https://orcid.org/0000-0003-0767-1467}{ORCID}) [contributor]
 }
 
 }

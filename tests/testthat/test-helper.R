@@ -1,7 +1,8 @@
 test_that("Expect list to be returned", {
   results <-   add_biowell_scale(biowell_situations = c("S1","S2"),
                       biowell_questions = list(c("Q1"),c("Q2")),
-                      all_sliders = F)
+                      all_sliders = F,
+                      language = "english")
   expect_true(inherits(results,"list"))
 
 })
@@ -15,7 +16,7 @@ test_that("Expect list to be returned", {
 
 
 test_that("Expect text to be returned", {
-  results <- custom_slider_text(1)
+  results <- custom_slider_text(1,  language = "english")
   expect_true(inherits(results,"character"))
 
 })
