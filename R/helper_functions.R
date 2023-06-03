@@ -167,9 +167,9 @@ custom_slider_text<-function(sid1,language){
     //  $('.my_slider').find('.irs-grid-text').remove(); //
 
     if (value === 0){ // enter your lowest slider value here
-      return '<br> &#8205 ",transl[1,2],"';
+      return ' &#8205 ",transl[1,2],"';
     }else{
-      return '<br> ",transl[1,3]," &#8205';
+      return ' ",transl[1,3]," &#8205';
     }
   }
 
@@ -192,9 +192,9 @@ custom_slider_text<-function(sid1,language){
     //  $('.my_slider').find('.irs-grid-text').remove(); //
 
     if (value === 0){ // enter your lowest slider value here
-      return '<br> &#8205 ",transl[1,4],"';
+      return ' &#8205 ",transl[1,4],"';
     }else{
-      return '<br> ",transl[1,5]," &#8205';
+      return ' ",transl[1,5]," &#8205';
     }
   }
 
@@ -219,9 +219,9 @@ custom_slider_text<-function(sid1,language){
     //  $('.my_slider').find('.irs-grid-text').remove(); //
 
     if (value === 0){ // enter your lowest slider value here
-      return '<br> &#8205 ",transl[1,6],"';
+      return ' &#8205 ",transl[1,6],"';
     }else{
-      return '<br> ",transl[1,7]," &#8205';
+      return ' ",transl[1,7]," &#8205';
     }
   }
 
@@ -247,9 +247,9 @@ custom_slider_text<-function(sid1,language){
     //  $('.my_slider').find('.irs-grid-text').remove(); //
 
     if (value === 0){ // enter your lowest slider value here
-      return '<br> &#8205 ",transl[1,8],"';
+      return '&#8205 ",transl[1,8],"';
     }else{
-      return '<br> ",transl[1,9]," &#8205';
+      return '",transl[1,9]," &#8205';
     }
   }
 
