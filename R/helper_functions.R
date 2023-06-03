@@ -150,8 +150,11 @@ sliders <- function(sid, biowell_questions, ...) {
 #' custom_slider_text Generates the custom labels for BIO-WELL slider scales.
 #' @param sid a numerical value, the unique IDs for each BIO-WELL slider.
 #' @noRd
-
+library(BIOWELL)
 custom_slider_text<-function(sid1,language){
+
+  transl<-BIOWELL:::slider_translations
+  transl<-transl[transl$language == language,]
 
   text <- paste0("$(document).ready(function() {
   /**
@@ -164,9 +167,9 @@ custom_slider_text<-function(sid1,language){
     //  $('.my_slider').find('.irs-grid-text').remove(); //
 
     if (value === 0){ // enter your lowest slider value here
-      return '<br> &#8205 Physically relaxed';
+      return '<br> &#8205 ",transl[1,2],"';
     }else{
-      return '<br> Physically tense &#8205';
+      return '<br> ",transl[1,3]," &#8205';
     }
   }
 
@@ -189,9 +192,9 @@ custom_slider_text<-function(sid1,language){
     //  $('.my_slider').find('.irs-grid-text').remove(); //
 
     if (value === 0){ // enter your lowest slider value here
-      return '<br> &#8205 Joyful';
+      return '<br> &#8205 ",transl[1,4],"';
     }else{
-      return '<br> Sad &#8205';
+      return '<br> ",transl[1,5]," &#8205';
     }
   }
 
@@ -216,9 +219,9 @@ custom_slider_text<-function(sid1,language){
     //  $('.my_slider').find('.irs-grid-text').remove(); //
 
     if (value === 0){ // enter your lowest slider value here
-      return '<br> &#8205 Clear minded';
+      return '<br> &#8205 ",transl[1,6],"';
     }else{
-      return '<br> Muddled &#8205';
+      return '<br> ",transl[1,7]," &#8205';
     }
   }
 
@@ -244,9 +247,9 @@ custom_slider_text<-function(sid1,language){
     //  $('.my_slider').find('.irs-grid-text').remove(); //
 
     if (value === 0){ // enter your lowest slider value here
-      return '<br> &#8205 Open to people';
+      return '<br> &#8205 ",transl[1,8],"';
     }else{
-      return '<br> Closed to people &#8205';
+      return '<br> ",transl[1,9]," &#8205';
     }
   }
 
@@ -272,9 +275,9 @@ custom_slider_text<-function(sid1,language){
     //  $('.my_slider').find('.irs-grid-text').remove(); //
 
     if (value === 0){ // enter your lowest slider value here
-      return '&#8205 Part of something <br> &#8205 bigger than myself';
+      return '&#8205",transl[1,10],"';
     }else{
-      return 'Not part of something <br> bigger than myself &#8205';
+      return '",transl[1,11]," &#8205';
     }
   }
 

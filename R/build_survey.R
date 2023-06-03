@@ -977,7 +977,7 @@ build_survey <- function(survey_title = NULL,
   }
 
   if (return == "run") {
-    shiny::shinyApp(ui, server)
+    return(shiny::shinyApp(ui, server))
   }
 
   if (return == "ui") {
