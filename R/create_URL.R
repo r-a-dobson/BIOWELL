@@ -56,22 +56,27 @@
 #'@returns a character string, the URL to your deployed BIO-WELL survey Shiny
 #'  App.
 #'@export
-#'@examples
-#'\dontrun{
+#'@examplesIf interactive()
 #'
-#'BIOWELL::create_URL(BW_app_path = paste0(temp_dir(),"/my_app_name_1"),
+#'BW_app_path <- paste0(tempdir(),"/my_app_name_1")
+#'
+#'dir.create(BW_app_path) # Store your "app.R" script here
+#'
+#'BIOWELL::create_URL(BW_app_path = paste0(tempdir(),"/my_app_name_1"),
 #'                    BW_app_name = "my_app_name_1",
 #'                    Shiny_Server_user = 'your_username_here',
 #'                    Shiny_Server_token = 'your_token_here',
 #'                    Shiny_Server_secret = 'your_secret_here')
 #'
-#'}
+#'
 
 create_URL <- function(BW_app_path,
                        BW_app_name,
                        Shiny_Server_user,
                        Shiny_Server_token,
                        Shiny_Server_secret) {
+
+  if(!dir.exists(BW_app_path)){stop("Cannot find BIO-WELL app folder.")}
 
   accounts <- rsconnect::accounts()
 
@@ -81,9 +86,6 @@ create_URL <- function(BW_app_path,
                               token = Shiny_Server_token,
                               secret = Shiny_Server_secret)
   }
-
-  if(!dir.exists(BW_app_path)){stop("Cannot find BIO-WELL app folder.")}
-
 
   files <- list.files(BW_app_path)
 

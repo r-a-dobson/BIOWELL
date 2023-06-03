@@ -48,11 +48,11 @@ Please see Irvine et al., (2023) for more details on the BIO-WELL score.
 }
 
 \examples{
+\dontshow{if (file.exists(".secrets/dropbox_token.rds")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
-\dontrun{
- data <- extract_biowell(Dropbox_App_folder = "survey_responses",
-                         BW_app_path = paste0(temp_dir(), "/my_app_name_1"))
-}
+ data <- download_data(Dropbox_App_folder = "survey_responses",
+                       BW_app_path = paste0(tempdir(), "/my_app_name_1"))
+\dontshow{\}) # examplesIf}
 }
 \references{
 Irvine, K.N., Fisher, J.C., Bentley, P.R., Nawrath, M., Dallimer,

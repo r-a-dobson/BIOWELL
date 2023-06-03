@@ -69,13 +69,17 @@ survey. Responses will be remotely saved to your Dropbox account.You can check
 the status of your App on the posit Shiny Server app dashboard.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
-BIOWELL::create_URL(BW_app_path = paste0(temp_dir(),"/my_app_name_1"),
+BW_app_path <- paste0(tempdir(),"/my_app_name_1")
+
+dir.create(BW_app_path) # Store your "app.R" script here
+
+BIOWELL::create_URL(BW_app_path = paste0(tempdir(),"/my_app_name_1"),
                    BW_app_name = "my_app_name_1",
                    Shiny_Server_user = 'your_username_here',
                    Shiny_Server_token = 'your_token_here',
                    Shiny_Server_secret = 'your_secret_here')
 
-}
+\dontshow{\}) # examplesIf}
 }

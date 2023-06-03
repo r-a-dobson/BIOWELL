@@ -42,12 +42,11 @@
 #'
 #'@returns Data frame containing combined responses to BIO-WELL survey
 #'@export
-#'@examples
+#'@examplesIf file.exists(".secrets/dropbox_token.rds")
 #'
-#'\dontrun{
-#'  data <- extract_biowell(Dropbox_App_folder = "survey_responses",
-#'                          BW_app_path = paste0(temp_dir(), "/my_app_name_1"))
-#'}
+#'  data <- download_data(Dropbox_App_folder = "survey_responses",
+#'                        BW_app_path = paste0(tempdir(), "/my_app_name_1"))
+#'
 
 download_data <- function(Dropbox_App_folder,
                           BW_app_path) {

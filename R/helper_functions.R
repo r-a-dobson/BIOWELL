@@ -404,9 +404,6 @@ add_questions <- function(questions,
 
         if(!length(grep(":SCREEN", opt_sel))==0) {
 
-
-          for(scr in 1:length(grep(":SCREEN", opt_sel))) {
-
             n <- grep(":SCREEN", opt_sel)
 
             df <- data.frame(inputname = paste0("select", sq),
@@ -414,7 +411,7 @@ add_questions <- function(questions,
 
             screen_out <- rbind(screen_out, df)
 
-          }
+
         }
 
         opt_sel <- gsub(":SCREEN", "", opt_sel)
@@ -773,9 +770,11 @@ sort_qa <- function(qnames, response_df, qs, dropdownopt) {
 
 generate_report <- function(results, running_average) {
 
+
   # Get the difference between user score and running average
   n <- results$mean_biowell_INVERTED - running_average
   ra <- round(running_average, 2)
+
   # Default colours in case running_average = NA (no internet )
   color2 <- "black"
   words <- "NA"
@@ -949,9 +948,10 @@ generate_report <- function(results, running_average) {
 sort_running_average <- function(filePath,
                                  Dropbox_App_folder,
                                  token,
-                                 results) {
+                                 results,
+                                 offline_mode) {
 
-  if(curl::has_internet()) {
+  if(!offline_mode) {
 
     rdrop2::drop_upload(filePath, path = Dropbox_App_folder, dtoken = token)
 
@@ -996,7 +996,7 @@ sort_running_average <- function(filePath,
   }
 
   # If no internet then return NA for running average
-  if (!curl::has_internet()) {
+  if (offline_mode) {
     running_average <- NA
   }
 

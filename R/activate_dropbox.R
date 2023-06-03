@@ -44,16 +44,17 @@
 #'@returns Saves a long-lived Dropbox token to your BIO-WELL survey Shiny App
 #'  folder.
 #'@export
-#'@examples
+#'@examplesIf interactive()
 #'
-#'\dontrun{
+#'BW_app_path <- paste0(tempdir(),"/my_app_name_1")
+#'
+#'dir.create(BW_app_path) # Create App directory to store token
 #'
 #'activate_dropbox(Dropbox_App_Name = "my_app_name_1",
 #'                 Dropbox_App_Key = "your_app_key_here",
 #'                 Dropbox_App_Secret = "your_app_secret_here",
-#'                 BW_app_path = paste0(tempdir(),"/my_app_name_1"))
-#' }
-
+#'                 BW_app_path = BW_app_path)
+#'
 activate_dropbox <- function(Dropbox_App_Name,
                              Dropbox_App_Key,
                              Dropbox_App_Secret,

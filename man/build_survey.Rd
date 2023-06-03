@@ -31,7 +31,8 @@ build_survey(
   end_response_options = NULL,
   all_questions = TRUE,
   all_sliders = TRUE,
-  user_report = TRUE
+  user_report = TRUE,
+  offline_mode = FALSE
 )
 }
 \arguments{
@@ -240,76 +241,90 @@ function.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 build_survey(
- survey_title = "Forest biodiversity and human wellbeing",
- sidepanel_message= "The questions in this survey are designed to explore how forest biodiversity impacts wellbeing.",
- start_message= "Welcome to the survey. Please fill out the questions below.",
- screening_message="Consent to participate in research",
- screen_questions = c("I confirm I have read and understood the Participant Information Sheet for the Forest Questionnaire. I understand that my participation is voluntary and that I am free to withdraw at any time without giving any reason. I agree to take part in this research project.",
-                      "What is your age?"),
- screen_questions_ID = c("Consent", "Age"),
- screen_questions_type = c("selectbox", "selectbox"),
- screen_drop_down_options = list(c("No:SCREEN", "Yes"), c('0-17:SCREEN',  '18-29',  '30-59', 'Over 60',  'Prefer not to say')),
- start_questions = c("How would you describe your gender?", "What country do you currently live in?", "Do you live in an area that you consider mainly…"),
- start_questions_ID = c("Gender", "Country", "Urbanicity"),
- start_questions_type = c("selectbox", "selectbox", "selectbox"),
- start_drop_down_options = list(c('Male',  'Female',  'In another way', 'Prefer not to say'),
-                                c('Scotland',  'England',  'Wales'),
-                                c("Urban", "Rural")),
- biowell_situations=c("For each of the following questions,  imagine yourself in a nearby forest at this time of year. Please think about the living things,  including the plants,  fungi and animals (but not pets,  horses,  cows,  sheep),  in that forest."),
- biowell_situations_ID=c("forest"),
- biowell_questions = list(c("encountering the living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
-                            "The number of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
-                            "The variety of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
-                            "The interactions between plants,  fungi and animals (e.g. pollination,  predator-prey) in this forest make me feel…",
-                            "The living processes (e.g. decomposing,  growing) that happen in this forest make me feel…",
-                            "The variety of sounds in this forest makes me feel…",
-                            "The distinctive sounds in this forest make me feel…",
-                            "The variety of colours in this forest makes me feel…",
-                            "The vivid colours in this forest make me feel…",
-                            "The variety of shapes in this forest make me feel…",
-                            "The maturity of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
-                            "The variety of textures in this forest makes me feel…",
-                            "The sponginess of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
-                            "The variety of smells in this forest makes me feel…",
-                            "The woody smells in this forest make me feel…",
-                            "Changes in this season make me feel...",
-                            "The presence of animals in this forest makes me feel…")),
- biowell_questions_ID = list(c("Encountering living things",
-                               "Number of living things",
-                               "Variety of living things",
-                               "Interactions between living things",
-                               "Living processes",
-                               "Variety of sounds",
-                               "Distinctive sounds",
-                               "Variety of colours",
-                               "Vivid colours",
-                               "Variety of shapes",
-                               "Maturity of living things",
-                               "Variety of textures",
-                               "Sponginess of living things",
-                               "Variety of smells",
-                               "Woody smells",
-                               "Changes in this season",
-                               "Presence of animals")),
- end_questions = c("How much do you agree that you spent a lot of time in forests as a child?",
-                   "How much do you agree that you spent a lot of time in forests as a teenager?",
-                   "How much do you agree that you spent a lot of time in forests as a adult?",
-                   "Please select any sensory impairments (e.g. difficulty hearing) that you have:"),
- end_questions_type = c("likert_five", "likert_five", "likert_five", "checkbox"),
- end_questions_ID = c("visits_aschild", "visits_asteen", "visits_asadult", "impairment"),
- end_drop_down_options=list(c("smell", "sound", "sight")),
- end_message = "Thank you for completing the survey. Click submit to generate report",
- drop_box_folder = "survey_responses",
- BW_app_path = paste0(tempdir(),"/my_app_name_1"),
+survey_title = "Insert survey title here",
+ sidepanel_message = "Insert sidepanel message here.",
+ start_message = "Insert start message here",
+ screen_message = "Insert screen message here",
+ screen_questions = c("Insert participant screening question here"),
+ screen_questions_ID = c("Screening_Q1"),
+ screen_response_options = list(c(
+   "You will be removed:SCREEN",
+   "You will not be removed"
+ )),
+ start_questions = c(
+   "Insert start question: text",
+   "Insert start question: selectbox",
+   "Insert start question: checkbox",
+   "Insert start question: likert_five",
+   "Insert start question: likert_seven"
+ ),
+ start_questions_ID = c(
+   "text_SQ1",
+   "selectbox_SQ2",
+   "checkbox_SQ3",
+   "likert_five_SQ4",
+   "likert_seven_SQ5"
+ ),
+ start_questions_type = c("text",
+                          "selectbox",
+                          "checkbox",
+                          "likert_five",
+                          "likert_seven"),
+ start_response_options = list(
+   c('Choose',  'one',  'of', 'these'),
+   c('Choose',  'multiple',  'of', 'these')
+ ),
+biowell_situations = c(
+  "Insert description of biowell situation 1.",
+   "Insert description of biowell situation 2."
+ ),
+biowell_situations_ID = c("situation1", "situation2"),
+ biowell_questions = list(
+   c("Insert biodiversity stem question here BW1"),
+   c(
+     "Insert biodiversity stem question here - BW2",
+     "Insert biodiversity stem question here - BW3"
+   )
+ ),
+ biowell_questions_ID = list(c("BW.S1.Q1"),
+                             c("BW.S2.Q1",
+                               "BW.S2.Q2")),
+ end_questions = c(
+   "Insert end question: text",
+   "Insert end question: selectbox",
+   "Insert end question: checkbox",
+  "Insert end question: likert_five",
+   "Insert end question: likert_seven"
+ ),
+ end_questions_ID = c(
+   "text_EQ1",
+   "selectbox_EQ2",
+   "checkbox_EQ3",
+   "likert_five_EQ4",
+   "likert_seven_EQ5"
+ ),
+ end_questions_type = c("text",
+                        "selectbox",
+                        "checkbox",
+                        "likert_five",
+                        "likert_seven"),
+ end_response_options = list(
+   c('Choose',  'one',  'of', 'these'),
+  c('Choose',  'multiple',  'of', 'these')
+),
+ end_message = "Insert end message here.",
+ Dropbox_App_folder = "insert_Dropbox_App_folder_name",
+ BW_app_path = tempdir(),
  organisation = "BIOWELL package example",
  organisation_website = "https://github.com/r-a-dobson/BIOWELL",
- all_questions=TRUE,
- all_sliders = TRUE,
- user_report = TRUE)
-
-}
+ all_questions = T,
+ all_sliders = F,
+ user_report = TRUE,
+ offline_mode = TRUE
+)
+\dontshow{\}) # examplesIf}
 }
 \references{
 Irvine, K.N., Fisher, J.C., Bentley, P.R., Nawrath, M., Dallimer,

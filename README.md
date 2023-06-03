@@ -3,21 +3,19 @@
 
 # **BIO-WELL**
 
-**Introducing `BIOWELL`: An R package that empowers researchers and
-practitioners to effortlessly create and share customized surveys using
-the BIO-WELL scale**.
+**Introducing `BIOWELL`: An R package for effortlessly creating and
+sharing customized surveys that include the BIO-WELL scale**.
 
 The BIO-WELL scale is an important tool for assessing the **contribution
-of biodiversity to human wellbeing**.It was developed to address the
-limited understanding of how interactions with nature and biodiversity
-impact our health and wellbeing.
+of biodiversity to human wellbeing**. The scale was developed to address
+the limited understanding of how interactions with nature and
+biodiversity impact our health and wellbeing.
 
 With the `BIOWELL` package, you have the flexibility to **design surveys
 tailored to your specific research needs**.
 
-This **user-friendly** package provides a range of functions and tools
-to **streamline the survey creation process**, ensuring a seamless and
-efficient workflow.
+This **user-friendly** package provides a range of functions that
+**streamline the survey development process**.
 
 # **What is the BIO-WELL scale?**
 
@@ -25,9 +23,11 @@ BIO-WELL is a reliable and validated scale that links biodiversity to
 human wellbeing. It incorporates multi-sensory attributes of
 biodiversity and ecological metrics. Five studies, involving 2962
 participants, detail its development, validation, and psychometric
-properties (Irvine et al., 2023). BIO-WELL provides a valuable tool for
-researchers and decision-makers to understand the
-biodiversity-health/wellbeing relationship and evaluate interventions.
+properties (Irvine et al., 2023).
+
+BIO-WELL provides a **valuable tool for researchers and
+decision-makers** to understand the biodiversity-health/wellbeing
+relationship and evaluate interventions.
 
 <a href='https://github.com/r-a-dobson/BIO-WELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/scale/BIOWELL_SCALE.jpg" align="centre" height="300"/></a>
 
@@ -79,30 +79,25 @@ Psychology, 85, p.101921.*\*\*
     tool that ensures the quality of data collected through your custom
     surveys.
 
-3)  **Seamless Integration**: The `BIO-WELL` package seamlessly
-    integrates with the R statistical programming environment, offering
-    a familiar and efficient platform for survey design and analysis.
+3)  **Seamless Integration**: The `BIO-WELL` package integrates the R
+    statistical programming environment, offering a familiar platform
+    for survey design and analysis.
 
-    - Effortlessly upload your BIO-WELL surveys to the free **Shiny
-      Server** to share surveys with participants online.
-    - Integrated free cloud storage on **Dropbox** for your survey
-      response data.
-    - Harness the power of **R’s extensive packages** to analyze and
-      interpret your survey data.
+    - Upload your BIO-WELL surveys to the free **Shiny Server** for
+      sharing surveys via URL.
 
-4)  **Documentation and Support**: The package comes with comprehensive
-    documentation, including user guides and examples, to assist you in
-    utilising the `BIO-WELL` package to its full potential.
-    Additionally, a dedicated support team is available to address any
-    inquiries or technical challenges you may encounter.
+    - Utilises free cloud storage on **Dropbox** for survey response
+      data.
+
+    - Take advantage of **R’s extensive packages** to analyse your
+      survey response data.
+
+4)  **Documentation**: The package comes with comprehensive
+    documentation, including Vignette tutorials and function examples,
+    to assist you in utilising the `BIO-WELL` package to its full
+    potential.
 
 # Get started!
-
-Unlock the potential of the BIO-WELL scale and revolutionize your
-research on biodiversity and human wellbeing with the BIO-WELL Survey
-Generator. Empower yourself to create custom surveys that provide
-valuable insights into the intricate relationship between biodiversity
-and various dimensions of human health and wellbeing.
 
 Install the `BIOWELL` package by running the line below!
 
@@ -129,7 +124,7 @@ package:
     Alpha and Item-Total (`evaluate_survey()`).
 
 6)  **Explore patterns** - Generate plots of BIO-WELL scores across
-    BIO-WELL environments and stem questions (`explore_data()`).
+    environments and stem questions (`explore_data()`).
 
 ## Need help learning the BIOWELL package functions?
 
