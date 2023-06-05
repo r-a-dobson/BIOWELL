@@ -47,7 +47,7 @@ relationship and evaluate interventions.
 Nawrath, M., Dallimer, M., Austen, G.E., Fish, R. and Davies, Z.G.,
 2023. BIO-WELL: The development and validation of a human wellbeing
 scale that measures responses to biodiversity. Journal of Environmental
-Psychology, 85, p.101921.*\*\*
+Psychology, 85, p.101921.*
 
 ## Benefits of BIO-WELL
 
@@ -119,22 +119,22 @@ There are six key stages (and associated functions) in the BIOWELL
 package:
 
 1)  **Activate Dropbox** - Set-up cloud storage for survey response data
-    (`activate_dropbox()`).
+    with `activate_dropbox()`.
 
 2)  **Build survey** - Develop your custom BIO-WELL survey from start to
-    finish (`build_survey()`).
+    finish with `build_survey()`.
 
 3)  **Create URL** - Upload your survey to the Shiny Servers and obtain
-    survey access link to share with participants (`create_URL()`).
+    survey access link to share with participants with `create_URL()`.
 
 4)  **Download data** - Download and combine responses from survey
-    participants into R (`download_data()`).
+    participants into R with `download_data()`.
 
 5)  **Evaluate survey** - Calculate key statistics including Cronbach’s
-    Alpha and Item-Total (`evaluate_survey()`).
+    Alpha and Item-Total with `evaluate_survey()`.
 
 6)  **Explore patterns** - Generate plots of BIO-WELL scores across
-    environments and stem questions (`explore_data()`).
+    environments and stem questions with `explore_data()`.
 
 ## Need help learning the BIOWELL package functions?
 
