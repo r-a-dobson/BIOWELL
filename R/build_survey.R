@@ -1,93 +1,100 @@
-#'Create BIO-WELL survey Shiny App
+#'Create BIO-WELL survey in Shiny
 #'
 #'Function to generate custom BIO-WELL survey with R Shiny
 #'
 #'@param survey_title a character string, the title of the survey to display on
 #'  each page.
-#'@param sidepanel_message a character string, text to display on side panel
-#'  throughout survey.
-#'@param Dropbox_App_folder path to folder in Dropbox App to save survey
-#'  responses to. Defaults to the root directory.
-#'@param BW_app_path a character string, the path to your BIO-WELL Shiny App
-#'  folder.
+#'@param sidepanel_message a character string, the text to display on the side
+#'  panel throughout the survey.
+#'@param Dropbox_App_folder a character string, the path to the folder in your
+#'  Dropbox App to save survey responses to.
+#'@param BW_app_path a character string, the path to your BIO-WELL survey Shiny
+#'  App folder. See details for more information.
 #'@param organisation a character string, the name of the organisation running
 #'  the survey.
 #'@param organisation_website a character string, the web address for the
 #'  organisation running the survey.
-#'@param screen_message a character string, text to display above screening
+#'@param screen_message a character string, the text to display above the
+#'  screening questions.
+#'@param screen_questions a character string or vector, the text for each
+#'  screening question.
+#'@param screen_questions_ID a character string or vector equal to the length of
+#'  `screen_questions`, providing short IDs for each screening question to use
+#'  in in output survey response data frame.
+#'@param screen_response_options a list the length of `screen_questions` with
+#'  each element containing a vector of choices for responding to each screening
+#'  question in-turn. To specify which answers to screen by add ":SCREEN" to the
+#'  option. See details for an example.
+#'@param start_message a character string, the text to display above the "start"
 #'  questions.
-#'@param screen_questions a character string or vector, the screening questions
-#'  to ask.
-#'@param screen_questions_ID a character string or vector the length of
-#'  screen_questions, IDs for screen questions in output response data frame.
-#'@param screen_response_options a list the length of screen_questions with each
-#'  element containing vector of choices for answering screen questions. To
-#'  specify answers to screen again add :SCREEN to the option. See details for
-#'  an example.
-#'@param start_message a character string, text to display above the start
-#'  questions.
-#'@param start_questions a character string or vector, the questions to ask
-#'  participants prior to the bio-well questions.
-#'@param start_questions_ID a character string or vector the length of
-#'  start_questions, IDs for start questions in output response data frame.
+#'@param start_questions a character string or vector, the "start" questions to
+#'  ask participants prior to the BIO-WELL questions.
+#'@param start_questions_ID a character string or vector equal to the length of
+#'  `start_questions`, providing short IDs for each "start" question to use in
+#'  in output survey response data frame.
 #'@param start_questions_type optional; a character string or vector, the type
-#'  of response for each start question. Must be length of `start_questions`.
-#'  One of; `text`, `checkbox`, `selectbox`, `likert_five` and `likert_seven`.
-#'  See details for more information.
+#'  of response item for each "start" question. Length must be equal to the
+#'  length of `start_questions`. One of; `text`, `checkbox`, `selectbox`,
+#'  `likert_five` and `likert_seven`. See details for more information.
 #'@param start_response_options optional; a list of character strings or
 #'  vectors, the options to offer for each `start_questions` of type `checkbox`
-#'  or `selectbox`.
+#'  or `selectbox`. Provide these in the same order as they appear in
+#'  `start_questions`.
 #'@param biowell_situations a character string or vector, describing the
-#'  environmental space setting for BIO-WELL questions.
+#'  environmental space setting(s) for BIO-WELL questions.
 #'@param biowell_situations_ID a character string or vector the length of
-#'  biowell_situation, IDs for each bio-well situation in output response data
-#'  frame.
+#'  `biowell_situations`, the short IDs for each BIO-WELL situation to use in
+#'  output survey response data frame.
 #'@param biowell_questions a list of character strings or vectors, the questions
-#'  for each separate `biowell_situations` for BIO-WELL responses.
-#'@param biowell_questions_ID a character string or vector the length of
-#'  biowell_questions, IDs for bio-well questions in output response data frame.
-#'@param end_message a character string, text to display above the end
+#'  for each separate `biowell_situations`. Each will be accompanied by the
+#'  BIO-WELL response item comprising five sliders.
+#'@param biowell_questions_ID a character string or vector equal to the length
+#'  of `biowell_questions`, the short IDs for each BIO-WELL question to use in
+#'  output survey response data frame.
+#'@param end_message a character string, the text to display above the "end"
 #'  questions.
 #'@param end_questions optional; a character string or vector, the questions to
-#'  ask participants following the bio-well questions.
+#'  ask participants following the BIO-WELL questions.
 #'@param end_questions_type optional; a character string or vector, the type of
-#'  response for each end question. Must be length of `end_questions`. One of;
-#'  `text`, `checkbox`, `selectbox`, `likert_five` and `likert_seven`. See
-#'  details for more information.
-#'@param end_questions_ID a character string or vector the length of
-#'  end_questions, IDs for end questions in output response data frame.
-#'@param end_response_options optional; a list of character strings or vectors,
+#'  response item for each "end" question. Length must be equal to the length of
+#'  `start_questions`. One of; `text`, `checkbox`, `selectbox`, `likert_five`
+#'  and `likert_seven`. See details for more information.
+#'@param end_questions_ID a character string or vector equal to the length of
+#'  `end_questions`, providing short IDs for each "end" question to use in in
+#'  output survey response data frame.
+#'@param end_response_options  optional; a list of character strings or vectors,
 #'  the options to offer for each `end_questions` of type `checkbox` or
-#'  `selectbox`.
-#'@param all_questions a logical, indicating whether all start and end questions
-#'  must be answered to continue with the survey.
-#'@param all_sliders a logical, indicating whether all sliders must be moved at
-#'  least once to continue with the survey.
+#'  `selectbox`. Provide these in the same order as they appear in
+#'  `end_questions`.
+#'@param all_questions a logical, indicating whether all "start" and "end"
+#'  questions must be answered to continue with the survey.
+#'@param all_sliders a logical, indicating whether all BIO-WELL sliders must be
+#'  moved at least once to continue with the survey.
 #'@param language a character string, the language for the BIO-WELL sliders. See
-#'  details for all 31 options available. Default; `english`.
+#'  details for all 31 language options available. Default; `english`.
 #'@param user_report a logical, indicating whether to generate a BIO-WELL score
 #'  report for participants. See details for more information.
-#'@param offline_mode a logical, indicating whether to upload survey response
-#'  data to Dropbox. Optional; useful when developing the survey.
-#'@param return optional; whether to run survey Shiny app or return app
-#'  component. One of; `run`, `ui`, `server.`
+#'@param offline_mode Optional; a logical, indicating whether to upload survey
+#'  response data to Dropbox. Useful when developing the survey.
+#'@param return optional; whether to run the survey Shiny app or return app
+#'  component. One of; `run`, `ui`, `server.` Default: `run`.
 #'@details
 #'
-#'# BIO-WELL survey Shiny App structure
+#'# BIO-WELL survey structure
 #'
 #' + Screening: This section allows you to set questions where certain responses
-#'will prevent users from completing the survey. For instance, if they are not
+#' will prevent users from completing the survey. For instance, if they are not
 #'of a certain age, or do not consent their involvement.
 #'
-#' + Start: This section allows you to set questions that precede the BIO-well
+#' + Start: This section allows you to set questions that precede the BIO-WELL
 #' questions. For example, these may be generic questions, such as gaining
 #' information on participants location, gender or employment.
 #'
-#'+ BIO-WELL: The questions in this section are all responded to be participants
-#'using the five sliders that comprise the BIO-WELL scale. For each situation
-#'given (although often there may be only be one environment of interest), a new
-#'page is added to the survey. See Irvine et al., (2023) for more details on the
-#'BIO-WELL scale and survey set-up.
+#'+ BIO-WELL: The questions in this section are all accompanied by the five
+#'sliders that comprise the BIO-WELL scale. For each situation given (although
+#'often there may be only be one environment of interest), a new page is added
+#'to the survey. See Irvine et al., (2023) for more details on the BIO-WELL
+#'scale and survey set-up, including the BIO-WELL stem questions.
 #'
 #'+ End: This section allows you to set questions that follow the BIO-WELL
 #'questions. This may include asking participants for their contact details or
@@ -96,12 +103,13 @@
 #'
 #'+ Report: This section will calculate the participants average BIO-WELL score
 #'across the five wellbeing domains in the BIO-WELL scale (physical, emotional,
-#'cognitive, social and spiritual) and provide users some interpretation of
-#'their BIO-WELL scores compared to other survey participants.
+#'cognitive, social and spiritual) and provide users with an interpretation of
+#'their BIO-WELL score, including a comparison with other survey participants.
 #'
 #'# Structure: messages, question, IDs, types and options.
 #'
-#'Each section can be specified using arguments relating to the following aspects:
+#'Each section can be specified using arguments relating to the following
+#'aspects:
 #'
 #'## Messages
 #'Text that will accompany each section or display throughout the survey.
@@ -110,73 +118,76 @@
 #'
 #'Questions provide the exact text for each question to ask participants.
 #'
-#'IDs provide shorted versions or codes for each question that can be used in
-#'the output data frame or participants responses. This streamlines the data
-#'frame and facilitates analyses of results.
-#'
-#'For example, the question "The variety of textures in this forest makes me
-#'feel…" could be given the ID "Variety of textures", so that output data frame
-#'and plots do not have lengthy names.
-#'
+#'IDs provide shorted versions or codes for each question within the survey.
+#'These are then used in the output survey response data frame to prevent
+#'lengthy column names. For example, the question "The variety of textures in
+#'this forest makes me feel…" could be given the ID "Variety of textures".
 #'
 #'## Response types and options
 #'
-#'There are five response type options to accompany non-bio-well questions.
+#'There are five response type options to accompany non-BIO-WELL questions.
 #'These include:
 #'
-#'1) text - This is a simple text box that the participant can type their answer
+#'1) `text` - A simple text box that the participant can type their answer
 #'into.
 #'
-#'2) selectbox* - This is a drop down box that the participant can choose one
+#'2) `selectbox`* - A drop down box that the participant can choose one
 #'answer from.
 #'
-#'3) checkbox* - This is a list of checkboxes that the participant can choose
-#'multiple or none of.
+#'3) `checkbox`* - A group of check boxes that the participant can choose multiple
+#'or none of. Be aware that if `all_questions = TRUE`, participants will have to
+#'select one of the check boxes, and so it is best to include an option for
+#'selecting none of the options below.
 #'
-#'4) likert_five - This is a five point likert slider scale going from "strongly
+#'4) `likert_five` - A five point Likert scale going from "strongly
 #'agree" to "strongly disagree".
 #'
-#'5) likert_seven - This is a seven point likert slider scale that also includes
+#'5) `likert_seven` - A seven point Likert scale that also includes
 #'"somewhat agree" and "somewhat disagree".
 #'
-#' For selectbox and checkbox response types, you will want to set the options
-#' that participants have available to them. This can be done using the
-#' "...response_options" arguments.
+#' *For `selectbox` and `checkbox` response types, you will need to set the options
+#' that participants will have. This can be done using the "...response_options"
+#' arguments.
 #'
-#' *To specify this, for each selectbox and checkbox response type in each
-#' section, create a list the same length, with each element within the list
-#' containing a vector of options for each. This must be in the same order as
-#' the questions come within the section.
+#' To specify this, for each `selectbox` and `checkbox` response type in each
+#' section, create a list of equal length to the number of these response types.
+#' Each element within the list should contain a character vector of the options
 #'
 #' For example:
+#'
 #' start_questions <- c("How old are you?",
 #'                      "What is your current employment?",
 #'                      "Which of the following pets do you own?")
+#'
 #' start_questions_ID <- c("Age","Employment","Pets")
+#'
 #' start_questions_type <- c("selectbox", "text", "checkbox")
-#' start_response_options <- list(c("0-17", "18-49", "51+"),
+#'
+#' start_response_options <- list(c("0-17", "18-49", "51 +"),
 #'                                c("dog", "cat", "rabbit", "fish", "snake"))
 #'
 #'# Screening questions
 #'
 #'Screening questions offer you the opportunity to remove participants from
-#'taking part if they do not meet certain criteria. These all must be selectbox
-#'response types. It is recommended to set the screening answer as the first
-#'option, as it will default to this and so users will have to actively deselect
-#'them to continue. This can be done by adding ":SCREEN" to the response options
-#'for which, if chosen, the participant should be removed.
+#'taking part in the survey if they do not meet certain criteria. These will all
+#'be `selectbox` response types. To specify how to screen participants, add
+#'":SCREEN" to the response options for which, if chosen, the participant should
+#'be removed.
 #'
-#'For example:
+#'For example, if participants do not consent or are under 18, they will be
+#'removed from the following survey:
+#'
 #' screen_questions <- c("Do you consent to this study?","How old are you?")
+#'
 #' screen_questions_ID <- c("Consent","Age")
+#'
 #' screen_response_options <- list(c("No:SCREEN", "Yes"),
 #'                                 c("0-17:SCREEN", "18-49", "51+"))
-#'
 #'
 #'# Happy with your BIO-WELL survey design?
 #'
 #'Once you have customised your survey, you need to save the R script as "app.R"
-#'with a designated folder for your BIOWELL survey Shiny App.
+#'within a designated folder for your BIOWELL survey Shiny App.
 #'
 #'This R script should contain nothing other than "BIOWELL::build_survey()" with
 #'the arguments to the function in-filled between the brackets. See Vignette 3
@@ -185,41 +196,22 @@
 #'You can then deploy your survey onto the Shiny Server using the `create_URL()`
 #'function.
 #'
-#'# Language
+#'# Language options
 #'
 #'The BIO-WELL response sliders can be generated in 31 different languages. The
-#'language for your study can be specified using the `language` argument. The available options are:
-#' + `arabic`
-#' + `bengali_india`
-#' + `chinese_hong_kong`
-#' + `chinese_taiwan`
-#' + `danish`
-#' + `dutch`
-#' + `edo`
-#' + `english`
-#' + `finnish`
-#' + `french`
-#' + `german`
-#' + `gujarati`
-#' + `indonesian`
-#' + `irish`
-#' + `italian`
-#' + `japanese`
-#' + `korean`
-#' + `malay`
-#' + `norwegian`
-#' + `polish`
-#' + `portuguese`
-#' + `portuguese_brasil`
-#' + `punjabi_india`
-#' + `punjabi_pakistan`
-#' + `russian`
-#' + `scottish_gaelic`
-#' + `spanish`
-#' + `swedish`
-#' + `urdu_india`
-#' + `urdu_pakistan`
-#' + `welsh`
+#'language for your study can be specified using the `language` argument. The
+#'available options are: + `arabic` + `bengali_india` + `chinese_hong_kong` +
+#'`chinese_taiwan` + `danish` + `dutch` + `edo` + `english` + `finnish` +
+#'`french` + `german` + `gujarati` + `indonesian` + `irish` + `italian` +
+#'`japanese` + `korean` + `malay` + `norwegian` + `polish` + `portuguese` +
+#'`portuguese_brasil` + `punjabi_india` + `punjabi_pakistan` + `russian` +
+#'`scottish_gaelic` + `spanish` + `swedish` + `urdu_india` + `urdu_pakistan` +
+#'`welsh`.
+#'
+#'
+#'Please see Vignette 2 in the `BIOWELL` package for full guidance on this
+#'function.
+#'
 #'@returns Generates a custom BIO-WELL survey Shiny App.
 #'@export
 #'@references Irvine, K.N., Fisher, J.C., Bentley, P.R., Nawrath, M., Dallimer,

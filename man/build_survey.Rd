@@ -2,7 +2,7 @@
 % Please edit documentation in R/build_survey.R
 \name{build_survey}
 \alias{build_survey}
-\title{Create BIO-WELL survey Shiny App}
+\title{Create BIO-WELL survey in Shiny}
 \usage{
 build_survey(
   survey_title = NULL,
@@ -41,14 +41,14 @@ build_survey(
 \item{survey_title}{a character string, the title of the survey to display on
 each page.}
 
-\item{sidepanel_message}{a character string, text to display on side panel
-throughout survey.}
+\item{sidepanel_message}{a character string, the text to display on the side
+panel throughout the survey.}
 
-\item{Dropbox_App_folder}{path to folder in Dropbox App to save survey
-responses to. Defaults to the root directory.}
+\item{Dropbox_App_folder}{a character string, the path to the folder in your
+Dropbox App to save survey responses to.}
 
-\item{BW_app_path}{a character string, the path to your BIO-WELL Shiny App
-folder.}
+\item{BW_app_path}{a character string, the path to your BIO-WELL survey Shiny
+App folder. See details for more information.}
 
 \item{organisation}{a character string, the name of the organisation running
 the survey.}
@@ -56,86 +56,93 @@ the survey.}
 \item{organisation_website}{a character string, the web address for the
 organisation running the survey.}
 
-\item{screen_message}{a character string, text to display above screening
+\item{screen_message}{a character string, the text to display above the
+screening questions.}
+
+\item{screen_questions}{a character string or vector, the text for each
+screening question.}
+
+\item{screen_questions_ID}{a character string or vector equal to the length of
+\code{screen_questions}, providing short IDs for each screening question to use
+in in output survey response data frame.}
+
+\item{screen_response_options}{a list the length of \code{screen_questions} with
+each element containing a vector of choices for responding to each screening
+question in-turn. To specify which answers to screen by add ":SCREEN" to the
+option. See details for an example.}
+
+\item{start_message}{a character string, the text to display above the "start"
 questions.}
 
-\item{screen_questions}{a character string or vector, the screening questions
-to ask.}
+\item{start_questions}{a character string or vector, the "start" questions to
+ask participants prior to the BIO-WELL questions.}
 
-\item{screen_questions_ID}{a character string or vector the length of
-screen_questions, IDs for screen questions in output response data frame.}
-
-\item{screen_response_options}{a list the length of screen_questions with each
-element containing vector of choices for answering screen questions. To
-specify answers to screen again add :SCREEN to the option. See details for
-an example.}
-
-\item{start_message}{a character string, text to display above the start
-questions.}
-
-\item{start_questions}{a character string or vector, the questions to ask
-participants prior to the bio-well questions.}
-
-\item{start_questions_ID}{a character string or vector the length of
-start_questions, IDs for start questions in output response data frame.}
+\item{start_questions_ID}{a character string or vector equal to the length of
+\code{start_questions}, providing short IDs for each "start" question to use in
+in output survey response data frame.}
 
 \item{start_questions_type}{optional; a character string or vector, the type
-of response for each start question. Must be length of \code{start_questions}.
-One of; \code{text}, \code{checkbox}, \code{selectbox}, \code{likert_five} and \code{likert_seven}.
-See details for more information.}
+of response item for each "start" question. Length must be equal to the
+length of \code{start_questions}. One of; \code{text}, \code{checkbox}, \code{selectbox},
+\code{likert_five} and \code{likert_seven}. See details for more information.}
 
 \item{start_response_options}{optional; a list of character strings or
 vectors, the options to offer for each \code{start_questions} of type \code{checkbox}
-or \code{selectbox}.}
+or \code{selectbox}. Provide these in the same order as they appear in
+\code{start_questions}.}
 
 \item{biowell_situations}{a character string or vector, describing the
-environmental space setting for BIO-WELL questions.}
+environmental space setting(s) for BIO-WELL questions.}
 
 \item{biowell_situations_ID}{a character string or vector the length of
-biowell_situation, IDs for each bio-well situation in output response data
-frame.}
+\code{biowell_situations}, the short IDs for each BIO-WELL situation to use in
+output survey response data frame.}
 
 \item{biowell_questions}{a list of character strings or vectors, the questions
-for each separate \code{biowell_situations} for BIO-WELL responses.}
+for each separate \code{biowell_situations}. Each will be accompanied by the
+BIO-WELL response item comprising five sliders.}
 
-\item{biowell_questions_ID}{a character string or vector the length of
-biowell_questions, IDs for bio-well questions in output response data frame.}
+\item{biowell_questions_ID}{a character string or vector equal to the length
+of \code{biowell_questions}, the short IDs for each BIO-WELL question to use in
+output survey response data frame.}
 
-\item{end_message}{a character string, text to display above the end
+\item{end_message}{a character string, the text to display above the "end"
 questions.}
 
 \item{end_questions}{optional; a character string or vector, the questions to
-ask participants following the bio-well questions.}
+ask participants following the BIO-WELL questions.}
 
 \item{end_questions_type}{optional; a character string or vector, the type of
-response for each end question. Must be length of \code{end_questions}. One of;
-\code{text}, \code{checkbox}, \code{selectbox}, \code{likert_five} and \code{likert_seven}. See
-details for more information.}
+response item for each "end" question. Length must be equal to the length of
+\code{start_questions}. One of; \code{text}, \code{checkbox}, \code{selectbox}, \code{likert_five}
+and \code{likert_seven}. See details for more information.}
 
-\item{end_questions_ID}{a character string or vector the length of
-end_questions, IDs for end questions in output response data frame.}
+\item{end_questions_ID}{a character string or vector equal to the length of
+\code{end_questions}, providing short IDs for each "end" question to use in in
+output survey response data frame.}
 
 \item{end_response_options}{optional; a list of character strings or vectors,
 the options to offer for each \code{end_questions} of type \code{checkbox} or
-\code{selectbox}.}
+\code{selectbox}. Provide these in the same order as they appear in
+\code{end_questions}.}
 
-\item{all_questions}{a logical, indicating whether all start and end questions
-must be answered to continue with the survey.}
+\item{all_questions}{a logical, indicating whether all "start" and "end"
+questions must be answered to continue with the survey.}
 
-\item{all_sliders}{a logical, indicating whether all sliders must be moved at
-least once to continue with the survey.}
+\item{all_sliders}{a logical, indicating whether all BIO-WELL sliders must be
+moved at least once to continue with the survey.}
 
 \item{user_report}{a logical, indicating whether to generate a BIO-WELL score
 report for participants. See details for more information.}
 
 \item{language}{a character string, the language for the BIO-WELL sliders. See
-details for all 31 options available. Default; \code{english}.}
+details for all 31 language options available. Default; \code{english}.}
 
-\item{offline_mode}{a logical, indicating whether to upload survey response
-data to Dropbox. Optional; useful when developing the survey.}
+\item{offline_mode}{Optional; a logical, indicating whether to upload survey
+response data to Dropbox. Useful when developing the survey.}
 
-\item{return}{optional; whether to run survey Shiny app or return app
-component. One of; \code{run}, \code{ui}, \code{server.}}
+\item{return}{optional; whether to run the survey Shiny app or return app
+component. One of; \code{run}, \code{ui}, \code{server.} Default: \code{run}.}
 }
 \value{
 Generates a custom BIO-WELL survey Shiny App.
@@ -143,32 +150,33 @@ Generates a custom BIO-WELL survey Shiny App.
 \description{
 Function to generate custom BIO-WELL survey with R Shiny
 }
-\section{BIO-WELL survey Shiny App structure}{
+\section{BIO-WELL survey structure}{
 \itemize{
 \item Screening: This section allows you to set questions where certain responses
 will prevent users from completing the survey. For instance, if they are not
 of a certain age, or do not consent their involvement.
-\item Start: This section allows you to set questions that precede the BIO-well
+\item Start: This section allows you to set questions that precede the BIO-WELL
 questions. For example, these may be generic questions, such as gaining
 information on participants location, gender or employment.
-\item BIO-WELL: The questions in this section are all responded to be participants
-using the five sliders that comprise the BIO-WELL scale. For each situation
-given (although often there may be only be one environment of interest), a new
-page is added to the survey. See Irvine et al., (2023) for more details on the
-BIO-WELL scale and survey set-up.
+\item BIO-WELL: The questions in this section are all accompanied by the five
+sliders that comprise the BIO-WELL scale. For each situation given (although
+often there may be only be one environment of interest), a new page is added
+to the survey. See Irvine et al., (2023) for more details on the BIO-WELL
+scale and survey set-up, including the BIO-WELL stem questions.
 \item End: This section allows you to set questions that follow the BIO-WELL
 questions. This may include asking participants for their contact details or
 questions that may help disentangle patterns in BIO-WELL scores, such as
 whether individuals spend a lot of time outdoors.
 \item Report: This section will calculate the participants average BIO-WELL score
 across the five wellbeing domains in the BIO-WELL scale (physical, emotional,
-cognitive, social and spiritual) and provide users some interpretation of
-their BIO-WELL scores compared to other survey participants.
+cognitive, social and spiritual) and provide users with an interpretation of
+their BIO-WELL score, including a comparison with other survey participants.
 }
 }
 
 \section{Structure: messages, question, IDs, types and options.}{
-Each section can be specified using arguments relating to the following aspects:
+Each section can be specified using arguments relating to the following
+aspects:
 \subsection{Messages}{
 
 Text that will accompany each section or display throughout the survey.
@@ -178,70 +186,75 @@ Text that will accompany each section or display throughout the survey.
 
 Questions provide the exact text for each question to ask participants.
 
-IDs provide shorted versions or codes for each question that can be used in
-the output data frame or participants responses. This streamlines the data
-frame and facilitates analyses of results.
-
-For example, the question "The variety of textures in this forest makes me
-feel…" could be given the ID "Variety of textures", so that output data frame
-and plots do not have lengthy names.
+IDs provide shorted versions or codes for each question within the survey.
+These are then used in the output survey response data frame to prevent
+lengthy column names. For example, the question "The variety of textures in
+this forest makes me feel…" could be given the ID "Variety of textures".
 }
 
 \subsection{Response types and options}{
 
-There are five response type options to accompany non-bio-well questions.
+There are five response type options to accompany non-BIO-WELL questions.
 These include:
 \enumerate{
-\item text - This is a simple text box that the participant can type their answer
+\item \code{text} - A simple text box that the participant can type their answer
 into.
-\item selectbox* - This is a drop down box that the participant can choose one
+\item \code{selectbox}* - A drop down box that the participant can choose one
 answer from.
-\item checkbox* - This is a list of checkboxes that the participant can choose
-multiple or none of.
-\item likert_five - This is a five point likert slider scale going from "strongly
+\item \code{checkbox}* - A group of check boxes that the participant can choose multiple
+or none of. Be aware that if \code{all_questions = TRUE}, participants will have to
+select one of the check boxes, and so it is best to include an option for
+selecting none of the options below.
+\item \code{likert_five} - A five point Likert scale going from "strongly
 agree" to "strongly disagree".
-\item likert_seven - This is a seven point likert slider scale that also includes
+\item \code{likert_seven} - A seven point Likert scale that also includes
 "somewhat agree" and "somewhat disagree".
 }
 
-For selectbox and checkbox response types, you will want to set the options
-that participants have available to them. This can be done using the
-"...response_options" arguments.
+*For \code{selectbox} and \code{checkbox} response types, you will need to set the options
+that participants will have. This can be done using the "...response_options"
+arguments.
 
-*To specify this, for each selectbox and checkbox response type in each
-section, create a list the same length, with each element within the list
-containing a vector of options for each. This must be in the same order as
-the questions come within the section.
+To specify this, for each \code{selectbox} and \code{checkbox} response type in each
+section, create a list of equal length to the number of these response types.
+Each element within the list should contain a character vector of the options
 
 For example:
+
 start_questions <- c("How old are you?",
 "What is your current employment?",
 "Which of the following pets do you own?")
+
 start_questions_ID <- c("Age","Employment","Pets")
+
 start_questions_type <- c("selectbox", "text", "checkbox")
-start_response_options <- list(c("0-17", "18-49", "51+"),
+
+start_response_options <- list(c("0-17", "18-49", "51 +"),
 c("dog", "cat", "rabbit", "fish", "snake"))
 }
 }
 
 \section{Screening questions}{
 Screening questions offer you the opportunity to remove participants from
-taking part if they do not meet certain criteria. These all must be selectbox
-response types. It is recommended to set the screening answer as the first
-option, as it will default to this and so users will have to actively deselect
-them to continue. This can be done by adding ":SCREEN" to the response options
-for which, if chosen, the participant should be removed.
+taking part in the survey if they do not meet certain criteria. These will all
+be \code{selectbox} response types. To specify how to screen participants, add
+":SCREEN" to the response options for which, if chosen, the participant should
+be removed.
 
-For example:
+For example, if participants do not consent or are under 18, they will be
+removed from the following survey:
+
 screen_questions <- c("Do you consent to this study?","How old are you?")
+
 screen_questions_ID <- c("Consent","Age")
+
 screen_response_options <- list(c("No:SCREEN", "Yes"),
 c("0-17:SCREEN", "18-49", "51+"))
 }
 
 \section{Happy with your BIO-WELL survey design?}{
 Once you have customised your survey, you need to save the R script as "app.R"
-with a designated folder for your BIOWELL survey Shiny App.
+within a designated folder for your BIOWELL survey Shiny App.
 
 This R script should contain nothing other than "BIOWELL::build_survey()" with
 the arguments to the function in-filled between the brackets. See Vignette 3
@@ -251,42 +264,19 @@ You can then deploy your survey onto the Shiny Server using the \code{create_URL
 function.
 }
 
-\section{Language}{
+\section{Language options}{
 The BIO-WELL response sliders can be generated in 31 different languages. The
-language for your study can be specified using the \code{language} argument. The available options are:
-\itemize{
-\item \code{arabic}
-\item \code{bengali_india}
-\item \code{chinese_hong_kong}
-\item \code{chinese_taiwan}
-\item \code{danish}
-\item \code{dutch}
-\item \code{edo}
-\item \code{english}
-\item \code{finnish}
-\item \code{french}
-\item \code{german}
-\item \code{gujarati}
-\item \code{indonesian}
-\item \code{irish}
-\item \code{italian}
-\item \code{japanese}
-\item \code{korean}
-\item \code{malay}
-\item \code{norwegian}
-\item \code{polish}
-\item \code{portuguese}
-\item \code{portuguese_brasil}
-\item \code{punjabi_india}
-\item \code{punjabi_pakistan}
-\item \code{russian}
-\item \code{scottish_gaelic}
-\item \code{spanish}
-\item \code{swedish}
-\item \code{urdu_india}
-\item \code{urdu_pakistan}
-\item \code{welsh}
-}
+language for your study can be specified using the \code{language} argument. The
+available options are: + \code{arabic} + \code{bengali_india} + \code{chinese_hong_kong} +
+\code{chinese_taiwan} + \code{danish} + \code{dutch} + \code{edo} + \code{english} + \code{finnish} +
+\code{french} + \code{german} + \code{gujarati} + \code{indonesian} + \code{irish} + \code{italian} +
+\code{japanese} + \code{korean} + \code{malay} + \code{norwegian} + \code{polish} + \code{portuguese} +
+\code{portuguese_brasil} + \code{punjabi_india} + \code{punjabi_pakistan} + \code{russian} +
+\code{scottish_gaelic} + \code{spanish} + \code{swedish} + \code{urdu_india} + \code{urdu_pakistan} +
+\code{welsh}.
+
+Please see Vignette 2 in the \code{BIOWELL} package for full guidance on this
+function.
 }
 
 \examples{

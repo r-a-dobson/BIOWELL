@@ -1,7 +1,7 @@
 #' Deploy BIO-WELL survey to Shiny Server
 #'
-#' Function to deploy BIO-WELL survey Shiny App to Shiny Server and generate
-#' shareable URL for participants.
+#' Function to deploy BIO-WELL survey Shiny App to the Shiny Server and return a
+#' URL for survey distribution to participants.
 #'
 #'@param BW_app_path a character string, the path to your BIO-WELL Shiny App
 #'  folder.
@@ -16,42 +16,40 @@
 #'App to the [Posit Shiny
 #'Server](https://posit.co/products/open-source/shinyserver/).
 #'
-#'
 #'For this, you will first need to register for a free Posit Shiny Server
 #'account on their website. This will provide you with your Shiny Server
 #'username, token and secret for input into the `create_URL()` function, which
-#'acts as a wrapped for the `rsconnect` [R
+#'acts as a wrapper for the `rsconnect` [R
 #'package](https://CRAN.R-project.org/package=rsconnect).
-#'
 #'
 #'To deploy the app successfully, ensure that you have:
 #'
-#'1) Activate a long-lived Dropbox access token. This should be stored within
+#'1) Activated a long-lived Dropbox access token. This should be stored within
 #'your BIO-WELL survey Shiny App (automatically done using `activate_dropbox()`
-#'function)
+#'function).
 #'
 #'2) Within your BIO-WELL survey Shiny App folder, an R script named "app.R"
 #'should be saved. This R script should contain your input into
 #'`build_survey()`. Please remember to include nothing in the script apart from
-#'this function and your filled arguments (e.g. no "Library(BIOWELL)" or
-#'"setwd()"), and to specify the package that the build_survey() function is
+#'this function and your filled arguments (e.g. no "library(BIOWELL)" or
+#'"setwd()"), and to specify the package that the `build_survey()` function is
 #'from by using the double-colon operator (i.e. `BIOWELL::build_survey()` with
 #'your arguments within the brackets).
-#'
 #'
 #'Once the function has been run, the BIO-WELL survey Shiny App will be deployed
 #'to your Shiny Server account. This may take a couple of minutes, and will
 #'finish by loading the URL in your browser and returning the URL in the R
 #'Console.
 #'
-#'
 #'If you are re-uploading the BIO-WELL survey for any reason, look out for a
-#'message to confirm this by running 'Y' in the Console.
-#'
+#'message to confirm this by running 'Y' in the R Console.
 #'
 #'The URL can now be shared to participants for online access to your BIO-WELL
 #'survey. Responses will be remotely saved to your Dropbox account.You can check
 #'the status of your App on the posit Shiny Server app dashboard.
+#'
+#'Please see Vignette 3 in the `BIOWELL` package for full guidance on this
+#'function.
 #'
 #'@returns a character string, the URL to your deployed BIO-WELL survey Shiny
 #'  App.

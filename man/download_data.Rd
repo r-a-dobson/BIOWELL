@@ -2,13 +2,13 @@
 % Please edit documentation in R/download_data.R
 \name{download_data}
 \alias{download_data}
-\title{Combine BIO-WELL survey responses into data frame}
+\title{Combine BIO-WELL survey responses into a data frame}
 \usage{
 download_data(Dropbox_App_folder, BW_app_path)
 }
 \arguments{
-\item{Dropbox_App_folder}{path to folder in Dropbox App. Defaults to the root
-folder of Dropbox App.}
+\item{Dropbox_App_folder}{path to the folder in your Dropbox App contain
+survey responses.}
 
 \item{BW_app_path}{a character string, the path to your BIO-WELL Shiny App
 folder.}
@@ -17,16 +17,15 @@ folder.}
 Data frame containing combined responses to BIO-WELL survey
 }
 \description{
-Function accesses survey responses from Dropbox App folder and combines into
-single data frame.
+Function downloads survey responses from a Dropbox App folder and combines
+them into a single data frame.
 }
 \details{
 Each set of participant responses to your BIO-WELL survey is stored as a
-single csv file within your Dropbox App folder.
+single "csv" file within your Dropbox App folder.
 
-This function downloads all responses and combines them into a single data
-frame for analysing BIO-WELL scores across participants. Each row represents
-responses from a participant.
+\code{download_data()} downloads all participant responses and combines them into a
+single data frame. Each row represents responses from a participant.
 }
 \section{BIO-WELL score columns}{
 For each BIO-WELL question, the scores for each of the five scales are given
@@ -52,6 +51,12 @@ Please see Irvine et al., (2023) for more details on the BIO-WELL score.
 
  data <- download_data(Dropbox_App_folder = "survey_responses",
                        BW_app_path = paste0(tempdir(), "/my_app_name_1"))
+
+# See below a sample of downloaded survey participant data
+
+data(sample_BW_data)
+
+head(sample_BW_data)
 \dontshow{\}) # examplesIf}
 }
 \references{

@@ -49,6 +49,7 @@ Please ensure that you have followed the prior stages outlined in Vignette 1 and
 
 If this is not the case, please revisit the previous vignettes before running `create_URL()`. 
 
+![Your final BIO-WELL survey Shiny App folder ](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V3/V3_0.png){width=75%}
 
 # <span style="color:#0097AD;">Step 1: Shiny Server account</span>
 

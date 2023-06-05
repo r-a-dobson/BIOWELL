@@ -6,19 +6,19 @@
 #'@param data a data frame containing the combined response data frames from a
 #'  `BIOWELL` package survey. See `download_data()` to obtain this.
 #'@param column_name optional; a character string, the name of the column in
-#'  `data` that contains categorical responses to plot BIO-WELL scores between.
+#'  `data` that contains categorical responses to split BIO-WELL scores by
+#'  before plotting.
 #'@param var_name optional; the name for the variable to appear on the y axis of
 #'  plot.
-#'@param biowell_scale optional; a character string, the wellbeing domain to
-#'  solely plot instead of full BIO-WELL scores. One of; `physical`,
-#'  `emotional`, `cognitive`, `social` and `spiritual.` See details for more
-#'  information.
-#'@param plot optional; a logical, indicating whether to show plots in R window.
-#'  Default is `TRUE.`
+#'@param biowell_scale optional; a character string, a single wellbeing domain
+#'  to plot instead of full BIO-WELL scores. One of; `physical`, `emotional`,
+#'  `cognitive`, `social` and `spiritual.` See details for more information.
+#'@param plot optional; a logical, indicating whether to show plots in the R
+#'  window. Default is `TRUE.`
 #'@details
 #'
 #'This function can be used to plot average BIO-WELL scores from participant
-#'reponses to your custom BIO-well survey (generated using `build_survey()`).
+#'responses to your custom BIO-well survey (generated using `build_survey()`).
 #'Please see function `download_data()` for extracting your BIO-WELL survey
 #'response data from Dropbox.
 #'
@@ -27,14 +27,15 @@
 #'There are two approaches:
 #'
 #'+ Default: This will generate a box plot of BIO-WELL scores for each BIO-WELL
-#'question (`biowell_questions` in `build_survey()`) within each BIO-WELL situation
-#'(`biowell_situations` in `build_surveys()`)
+#'question (`biowell_questions` in `build_survey()`) within each BIO-WELL
+#'situation (`biowell_situations` in `build_surveys()`). If more than one
+#'situation exists within your survey, these will be plotted in seperately.
 #'
 #'+ Column: If a `column_name` is provided, for each unique category in this
 #'column, a box plot of average BIO-WELL scores for each participant will be
 #'generated. This can be used to compare average BIO-WELL scores across
-#'responses to other questions with your BIO-WELL survey (e.g. age categories,
-#'likert scale responses)
+#'responses to other questions with your BIO-WELL survey (e.g. age categories or
+#'Likert scale responses)
 #'
 #'
 #'# BIO-WELL scores
@@ -48,8 +49,11 @@
 #'
 #'Please see Irvine et al., (2023) for more details on the BIO-WELL score.
 #'
-#'However, if you would like to only look at one of the domains in your plots,
+#'However, if you would like to only look at one of the wellbeing domains,
 #'then you can use the argument `biowell_scale` to specify which to plot.
+#'
+#'Please see Vignette 4 in the `BIOWELL` package for full guidance on this
+#'function.
 #'
 #'@returns a list object containing the plots and processed data frame.
 #'@references
@@ -57,7 +61,6 @@
 #'M., Austen, G.E., Fish, R. and Davies, Z.G., 2023. BIO-WELL: The development
 #'and validation of a human wellbeing scale that measures responses to
 #'biodiversity. Journal of Environmental Psychology, 85, p.101921.
-#'
 #'
 #'Wickham, H. and Chang, W. , 2016. Package ‘ggplot2’. Create
 #'elegant data visualisations using the grammar of graphics. Version, 2(1),

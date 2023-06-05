@@ -19,18 +19,17 @@ Function to calculate key survey evaluation statistics on BIO-WELL survey
 responses.
 }
 \details{
-Once you have combined all responses to your BIO-WELL survey (created using
-the \code{build_survey()} function) into a single data frame using the
-\code{download_data()} function, this data frame can be input into
-\code{evaluate_survey()}.
+Once you have combined all responses to your BIO-WELL survey into a single
+data frame using the \code{download_data()} function, this data frame can be input
+into \code{evaluate_survey()}.
 
 \code{evaluate_survey()} returns three outputs in a list object:
 \enumerate{
 \item A processed data frame containing the average BIO-WELL scores for each
 participant for each questions within your custom \code{BIOWELL} package survey.
 \item Cronbach's Alpha: the computed Cronbach's Alpha statistic for your survey,
-which measures the internal consistency of responses. This calculated using
-\code{cronbach.alpha()} function from the \code{ltm} R package (Rizopoulos et al.,
+which measures the internal consistency of responses. This is calculated using
+the \code{cronbach.alpha()} function from the \code{ltm} R package (Rizopoulos et al.,
 2007).
 \item Item-total correlation: the computed item-total statistic for each BIO-WELL
 question within your survey (Cronbach et al., 1951). This is calculated using

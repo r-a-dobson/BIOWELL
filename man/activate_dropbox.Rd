@@ -22,20 +22,21 @@ for more information.}
 details for more information.}
 
 \item{BW_app_path}{a character string, the path to your BIO-WELL Shiny App
-folder.}
+folder. See details for more information.}
 }
 \value{
 Saves a long-lived Dropbox token to your BIO-WELL survey Shiny App
 folder.
 }
 \description{
-Function to generate a long-lived Dropbox access token for app folder.
+Function to generate a long-lived Dropbox access token for BIO-WELL survey
+Shiny App.
 }
 \details{
 When your BIO-WELL survey Shiny App is hosted on the \href{https://posit.co/products/open-source/shinyserver/}{Shiny Server}, you will need to
 save participant responses to a remote \href{https://www.dropbox.com/home}{Dropbox folder}.
 
-This requires you to register for a free Dropbox account. To generate a
+First, you must register for a free Dropbox account. Then, to generate a
 long-lived access token (over four hours) for your BIO-WELL survey, you will
 need to set up a Dropbox App within your Dropbox account. It is
 important that certain Dropbox App settings are edited before running
@@ -46,17 +47,23 @@ important that certain Dropbox App settings are edited before running
 }
 
 Full details on completing these changes are detailed in Vignette 1 within the
-BIOWELL package. Then you can generate your Dropbox App's Key and Secret in
+\code{BIOWELL} package. Then you can generate your Dropbox App's Key and Secret in
 the settings tab.
 
 Once you have created a Dropbox App, the details (name, Key and Secret) can be
 plugged into \code{activate_dropbox()}, alongside the path to your BIO-WELL survey
-Shiny App folder (argument \code{BW_app_path}).
+Shiny App folder (argument \code{BW_app_path}). This is a folder that you need to
+create on your local computer for storing your BIO-WELL survey code (as an R
+script entitled "app.R") and the Dropbox token (automatically done by
+\code{activate_dropbox()}) for upload to the Shiny Server.
 
 This function will generate a long-lived, refreshable Dropbox access token and
-store it within a .secrets folder within your BIO-WELL survey Shiny App
+store it within a ".secrets" folder within your BIO-WELL survey Shiny App
 folder. This enables the token to be accessible whilst hosted on the Shiny
 Server.
+
+Please see Vignette 1 in the \code{BIOWELL} package for full guidance on this
+function.
 }
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

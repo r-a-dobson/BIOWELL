@@ -11,18 +11,18 @@ explore_data(data, column_name, var_name, biowell_scale, plot = TRUE)
 \code{BIOWELL} package survey. See \code{download_data()} to obtain this.}
 
 \item{column_name}{optional; a character string, the name of the column in
-\code{data} that contains categorical responses to plot BIO-WELL scores between.}
+\code{data} that contains categorical responses to split BIO-WELL scores by
+before plotting.}
 
 \item{var_name}{optional; the name for the variable to appear on the y axis of
 plot.}
 
-\item{biowell_scale}{optional; a character string, the wellbeing domain to
-solely plot instead of full BIO-WELL scores. One of; \code{physical},
-\code{emotional}, \code{cognitive}, \code{social} and \code{spiritual.} See details for more
-information.}
+\item{biowell_scale}{optional; a character string, a single wellbeing domain
+to plot instead of full BIO-WELL scores. One of; \code{physical}, \code{emotional},
+\code{cognitive}, \code{social} and \code{spiritual.} See details for more information.}
 
-\item{plot}{optional; a logical, indicating whether to show plots in R window.
-Default is \code{TRUE.}}
+\item{plot}{optional; a logical, indicating whether to show plots in the R
+window. Default is \code{TRUE.}}
 }
 \value{
 a list object containing the plots and processed data frame.
@@ -33,7 +33,7 @@ BIO-WELL survey response data.
 }
 \details{
 This function can be used to plot average BIO-WELL scores from participant
-reponses to your custom BIO-well survey (generated using \code{build_survey()}).
+responses to your custom BIO-well survey (generated using \code{build_survey()}).
 Please see function \code{download_data()} for extracting your BIO-WELL survey
 response data from Dropbox.
 
@@ -42,13 +42,14 @@ All plots are created using the R package \code{ggplot2} (Wickham and Chang, 201
 There are two approaches:
 \itemize{
 \item Default: This will generate a box plot of BIO-WELL scores for each BIO-WELL
-question (\code{biowell_questions} in \code{build_survey()}) within each BIO-WELL situation
-(\code{biowell_situations} in \code{build_surveys()})
+question (\code{biowell_questions} in \code{build_survey()}) within each BIO-WELL
+situation (\code{biowell_situations} in \code{build_surveys()}). If more than one
+situation exists within your survey, these will be plotted in seperately.
 \item Column: If a \code{column_name} is provided, for each unique category in this
 column, a box plot of average BIO-WELL scores for each participant will be
 generated. This can be used to compare average BIO-WELL scores across
-responses to other questions with your BIO-WELL survey (e.g. age categories,
-likert scale responses)
+responses to other questions with your BIO-WELL survey (e.g. age categories or
+Likert scale responses)
 }
 }
 \section{BIO-WELL scores}{
@@ -61,8 +62,11 @@ positive wellbeing response to biodiversity.
 
 Please see Irvine et al., (2023) for more details on the BIO-WELL score.
 
-However, if you would like to only look at one of the domains in your plots,
+However, if you would like to only look at one of the wellbeing domains,
 then you can use the argument \code{biowell_scale} to specify which to plot.
+
+Please see Vignette 4 in the \code{BIOWELL} package for full guidance on this
+function.
 }
 
 \examples{

@@ -1,19 +1,18 @@
-#'Combine BIO-WELL survey responses into data frame
+#'Combine BIO-WELL survey responses into a data frame
 #'
-#'Function accesses survey responses from Dropbox App folder and combines into
-#'single data frame.
+#'Function downloads survey responses from a Dropbox App folder and combines
+#'them into a single data frame.
 #'
-#'@param Dropbox_App_folder path to folder in Dropbox App. Defaults to the root
-#'  folder of Dropbox App.
+#'@param Dropbox_App_folder path to the folder in your Dropbox App contain
+#'  survey responses.
 #'@param BW_app_path a character string, the path to your BIO-WELL Shiny App
 #'  folder.
 #'@details
 #'Each set of participant responses to your BIO-WELL survey is stored as a
-#'single csv file within your Dropbox App folder.
+#'single "csv" file within your Dropbox App folder.
 #'
-#'This function downloads all responses and combines them into a single data
-#'frame for analysing BIO-WELL scores across participants. Each row represents
-#'responses from a participant.
+#'`download_data()` downloads all participant responses and combines them into a
+#'single data frame. Each row represents responses from a participant.
 #'
 #'# BIO-WELL score columns
 #'
@@ -29,11 +28,11 @@
 #'improve interpretability  of the BIO-WELL scores: 0 is a negative wellbeing
 #'response and 100 is a positive wellbeing response.
 #'
-#'
 #'The final columns are overall inverted and raw BIOWELL scores. This is the
 #'average across all five scales across all BIO-WELL questions.
 #'
 #'Please see Irvine et al., (2023) for more details on the BIO-WELL score.
+#'
 #'
 #'@references Irvine, K.N., Fisher, J.C., Bentley, P.R., Nawrath, M., Dallimer,
 #'M., Austen, G.E., Fish, R. and Davies, Z.G., 2023. BIO-WELL: The development
@@ -46,6 +45,12 @@
 #'
 #'  data <- download_data(Dropbox_App_folder = "survey_responses",
 #'                        BW_app_path = paste0(tempdir(), "/my_app_name_1"))
+#'
+#'# See below a sample of downloaded survey participant data
+#'
+#'data(sample_BW_data)
+#'
+#'head(sample_BW_data)
 #'
 
 download_data <- function(Dropbox_App_folder,

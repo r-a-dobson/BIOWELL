@@ -1,6 +1,7 @@
 #' Activate Dropbox access token
 #'
-#'Function to generate a long-lived Dropbox access token for app folder.
+#'Function to generate a long-lived Dropbox access token for BIO-WELL survey
+#'Shiny App.
 #'@param Dropbox_App_Name a character string, the name given to your Dropbox
 #'  App.
 #'@param Dropbox_App_Key a character string, the Dropbox App Key. See details
@@ -8,16 +9,14 @@
 #'@param Dropbox_App_Secret a character string, the Dropbox App Secret. See
 #'  details for more information.
 #'@param BW_app_path a character string, the path to your BIO-WELL Shiny App
-#'  folder.
+#'  folder. See details for more information.
 #'@details
 #'
 #'When your BIO-WELL survey Shiny App is hosted on the [Shiny
 #'Server](https://posit.co/products/open-source/shinyserver/), you will need to
-#'save participant responses to a remote [Dropbox
-#'folder](https://www.dropbox.com/home).
+#'save participant responses to a remote [Dropbox folder](https://www.dropbox.com/home).
 #'
-#'
-#'This requires you to register for a free Dropbox account. To generate a
+#'First, you must register for a free Dropbox account. Then, to generate a
 #'long-lived access token (over four hours) for your BIO-WELL survey, you will
 #'need to set up a Dropbox App within your Dropbox account. It is
 #'important that certain Dropbox App settings are edited before running
@@ -27,19 +26,23 @@
 #'+ Under "Permissions" tick for access to Dropbox folder to read and write files.
 #'
 #'Full details on completing these changes are detailed in Vignette 1 within the
-#'BIOWELL package. Then you can generate your Dropbox App's Key and Secret in
+#'`BIOWELL` package. Then you can generate your Dropbox App's Key and Secret in
 #'the settings tab.
-#'
 #'
 #'Once you have created a Dropbox App, the details (name, Key and Secret) can be
 #'plugged into `activate_dropbox()`, alongside the path to your BIO-WELL survey
-#'Shiny App folder (argument `BW_app_path`).
-#'
+#'Shiny App folder (argument `BW_app_path`). This is a folder that you need to
+#'create on your local computer for storing your BIO-WELL survey code (as an R
+#'script entitled "app.R") and the Dropbox token (automatically done by
+#'`activate_dropbox()`) for upload to the Shiny Server.
 #'
 #'This function will generate a long-lived, refreshable Dropbox access token and
-#'store it within a .secrets folder within your BIO-WELL survey Shiny App
+#'store it within a ".secrets" folder within your BIO-WELL survey Shiny App
 #'folder. This enables the token to be accessible whilst hosted on the Shiny
 #'Server.
+#'
+#'Please see Vignette 1 in the `BIOWELL` package for full guidance on this
+#'function.
 #'
 #'@returns Saves a long-lived Dropbox token to your BIO-WELL survey Shiny App
 #'  folder.
