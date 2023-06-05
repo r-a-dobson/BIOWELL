@@ -136,7 +136,7 @@ package:
 6)  **Explore patterns** - Generate plots of BIO-WELL scores across
     environments and stem questions with `explore_data()`.
 
-<a href='https://github.com/r-a-dobson/BIO-WELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/bw_framework.png" align="centre" height="800" width = "100%"/></a>
+<a href='https://github.com/r-a-dobson/BIO-WELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/bw_framework.png" align="centre" height="700" width = "100%"/></a>
 
 ## Need help learning the BIOWELL package functions?
 
