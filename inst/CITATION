@@ -1,0 +1,12 @@
+bibentry(
+  bibtype  = "Article",
+  title    = "{BIOWELL}: BIO-WELL: The development and validation of a human wellbeing scale that measures responses to biodiversity",
+  author   = c(as.person("Katherine N. Irvine"), as.person("Jessica C. Fisher"),
+  as.person("Phoebe R. Bentley"),as.person("Maximillian Nawrath"),as.person("Martin Dallimer"),
+  as.person("Gail E. Austen"),as.person("Rob Fish"),as.person("Zoe G. Davies")),
+ journal  = "Journal of Environmental Psychology",
+  year     = "2023",
+  volume   = "85",
+  number   = "101921",
+  doi      = "https://doi.org/10.1016/j.jenvp.2022.101921"
+)

@@ -29,9 +29,7 @@ BIO-WELL provides a **valuable tool for researchers and
 decision-makers** to understand the biodiversity-health/wellbeing
 relationship and evaluate interventions.
 
-\#<a href='https://github.com/r-a-dobson/BIO-WELL'>\<img
-\#src=“<https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_0.png>”
-align=“centre” height=“300”/\></a>
+<a href='https://github.com/r-a-dobson/BIO-WELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_0.png" align="centre" height="600" width = "100%"/></a>
 
 **Read more about the development and application of BIO-WELL in:**
 
