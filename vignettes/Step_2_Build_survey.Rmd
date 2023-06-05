@@ -434,10 +434,6 @@ The code below contains the full input for running our example Shiny App
 BIO-WELL survey. An R script containing the below code should be saved manually
 in the directory for the app named "app.R".
 
-
-![Your saved R script](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V3/V3_0.png){width=75%}
-
-
 ```{r, eval = FALSE}
 BIOWELL::build_survey(
   survey_title = "Forest biodiversity and human wellbeing",
