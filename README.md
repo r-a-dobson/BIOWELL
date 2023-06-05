@@ -129,7 +129,7 @@ package:
 ## Need help learning the BIOWELL package functions?
 
 For more details, see the package manual
-[here](https://github.com/r-a-dobson/dynamicSDM/blob/main/man/manual/BIOWELL_1.0.pdf)
+[here](https://github.com/r-a-dobson/BIOWELL/blob/main/man/manual/BIOWELL_1.0.pdf)
 for more details on each function.
 
 Try our package vignettes that guide you through the stages from
