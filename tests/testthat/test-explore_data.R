@@ -77,3 +77,23 @@ test_that("Result element two is df object", {
   expect_true(inherits(results[[2]],"data.frame"))
 })
 
+test_that("Works with one row", {
+  results <- explore_data(sample_BW_data[1,],plot = FALSE, column_name = "Gender",biowell_scale="physical")
+  expect_true(inherits(results[[2]],"data.frame"))
+})
+
+
+# Test for errors
+
+
+test_that("Expect error if not df", {
+  expect_error(explore_data("sample_BW_data",plot = FALSE, column_name = "Gender",biowell_scale="physical"))
+})
+
+
+
+test_that("Expect error if not BW df", {
+  expect_error(explore_data(data.frame(biowell=50),plot = FALSE, column_name = "Gender",biowell_scale="physical"))
+})
+
+
