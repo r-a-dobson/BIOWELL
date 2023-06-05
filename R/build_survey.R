@@ -338,15 +338,6 @@ build_survey <- function(survey_title = NULL,
   # Catch errors and set defaults
   #----------------------------------------------------------------------------
 
-  if(!curl::has_internet()) {
-    offline_mode <- TRUE
-    message("You are working offline. No data will be stored to Dropbox.")
-  }
-
-  if (!getwd() == BW_app_path){
-    message("Ensure your current working directory is your BIO-WELL app folder")
-  }
-
   # Check for Dropbox token
   if(!offline_mode) {
 
@@ -500,6 +491,15 @@ build_survey <- function(survey_title = NULL,
                                   'urdu_pakistan',
                                   'welsh'))
 
+
+  if(!curl::has_internet()) {
+    offline_mode <- TRUE
+    message("You are working offline. No data will be stored to Dropbox.")
+  }
+
+  if (!getwd() == BW_app_path){
+    message("Ensure your current working directory is your BIO-WELL app folder")
+  }
 
   #----------------------------------------------------------------------------
   # Create survey's Shiny App UI element
