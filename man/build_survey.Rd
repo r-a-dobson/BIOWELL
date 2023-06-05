@@ -64,7 +64,7 @@ screening question.}
 
 \item{screen_questions_ID}{a character string or vector equal to the length of
 \code{screen_questions}, providing short IDs for each screening question to use
-in in output survey response data frame.}
+in output survey response data frame.}
 
 \item{screen_response_options}{a list the length of \code{screen_questions} with
 each element containing a vector of choices for responding to each screening
@@ -79,14 +79,14 @@ ask participants prior to the BIO-WELL questions.}
 
 \item{start_questions_ID}{a character string or vector equal to the length of
 \code{start_questions}, providing short IDs for each "start" question to use in
-in output survey response data frame.}
+output survey response data frame.}
 
-\item{start_questions_type}{optional; a character string or vector, the type
+\item{start_questions_type}{a character string or vector, the type
 of response item for each "start" question. Length must be equal to the
 length of \code{start_questions}. One of; \code{text}, \code{checkbox}, \code{selectbox},
 \code{likert_five} and \code{likert_seven}. See details for more information.}
 
-\item{start_response_options}{optional; a list of character strings or
+\item{start_response_options}{a list of character strings or
 vectors, the options to offer for each \code{start_questions} of type \code{checkbox}
 or \code{selectbox}. Provide these in the same order as they appear in
 \code{start_questions}.}
@@ -109,19 +109,19 @@ output survey response data frame.}
 \item{end_message}{a character string, the text to display above the "end"
 questions.}
 
-\item{end_questions}{optional; a character string or vector, the questions to
+\item{end_questions}{a character string or vector, the questions to
 ask participants following the BIO-WELL questions.}
 
-\item{end_questions_type}{optional; a character string or vector, the type of
+\item{end_questions_type}{a character string or vector, the type of
 response item for each "end" question. Length must be equal to the length of
 \code{start_questions}. One of; \code{text}, \code{checkbox}, \code{selectbox}, \code{likert_five}
 and \code{likert_seven}. See details for more information.}
 
 \item{end_questions_ID}{a character string or vector equal to the length of
-\code{end_questions}, providing short IDs for each "end" question to use in in
+\code{end_questions}, providing short IDs for each "end" question to use in
 output survey response data frame.}
 
-\item{end_response_options}{optional; a list of character strings or vectors,
+\item{end_response_options}{a list of character strings or vectors,
 the options to offer for each \code{end_questions} of type \code{checkbox} or
 \code{selectbox}. Provide these in the same order as they appear in
 \code{end_questions}.}
@@ -155,14 +155,26 @@ Function to generate custom BIO-WELL survey with R Shiny
 \item Screening: This section allows you to set questions where certain responses
 will prevent users from completing the survey. For instance, if they are not
 of a certain age, or do not consent their involvement.
-\item Start: This section allows you to set questions that precede the BIO-WELL
+\item Start: This section allows you to set questions that come before the BIO-WELL
 questions. For example, these may be generic questions, such as gaining
-information on participants location, gender or employment.
+information on a participant's location, gender or employment.
 \item BIO-WELL: The questions in this section are all accompanied by the five
 sliders that comprise the BIO-WELL scale. For each situation given (although
 often there may be only be one environment of interest), a new page is added
 to the survey. See Irvine et al., (2023) for more details on the BIO-WELL
 scale and survey set-up, including the BIO-WELL stem questions.
+}
+\enumerate{
+\item \code{biowell_situations}: Text for describing an introductory scenario to
+cognitively situate the participant within a particular natural environment
+(i.e. a nearby forest).
+\item \code{biowell_questions}: A list the length of \code{biowell_situations}, in which
+each element contains a vector of the questions to be asked for each
+situation. These stem questions are asked about biodiversity metrics (e.g.
+abundance, species diversity), as well as biodiversity attributes (e.g.
+smells, colours, shapes) within each \code{biowell_situation} given.
+}
+\itemize{
 \item End: This section allows you to set questions that follow the BIO-WELL
 questions. This may include asking participants for their contact details or
 questions that may help disentangle patterns in BIO-WELL scores, such as
@@ -217,7 +229,7 @@ arguments.
 
 To specify this, for each \code{selectbox} and \code{checkbox} response type in each
 section, create a list of equal length to the number of these response types.
-Each element within the list should contain a character vector of the options
+Each element within the list should contain a character vector of the options.
 
 For example:
 

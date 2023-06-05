@@ -53,7 +53,7 @@ If this is not the case, please revisit the previous vignettes before running `c
 
 # <span style="color:#0097AD;">Step 1: Shiny Server account</span>
 
-The first stage is to register for a Shiny Server account via their [website](https://www.shinyapps.io/?_gl=1*1gtg1gf*_ga*MTkxOTUyMTUuMTY3NjM1NDY2OA..*_ga_2C0WZ1JHG0*MTY4NDY4NDc0NC4xNS4wLjE2ODQ2ODQ3NDQuMC4wLjA.). 
+The first step is to register for a Shiny Server account via their [website](https://www.shinyapps.io/?_gl=1*1gtg1gf*_ga*MTkxOTUyMTUuMTY3NjM1NDY2OA..*_ga_2C0WZ1JHG0*MTY4NDY4NDc0NC4xNS4wLjE2ODQ2ODQ3NDQuMC4wLjA.). 
 
 ![Creating Shiny Server account](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V3/V3_1.png){width=75%}
 

@@ -156,11 +156,12 @@ screen_response_options = list(c("No:SCREEN", "Yes"), # First element - choices 
 
 + `start_message` - Text introducing the start questions to participants. 
 
-+ `start_questions` - String (one question) or vector (2+ questions) containing text for each question to be asked prior to the BIO-WELL questions.
++ `start_questions` - a character string (1 question) or vector (2+ questions), the
+questions to ask participants before the BIO-WELL questions.
 
-+ `start_questions_ID` - A string or vector (same length as `start_questions`) providing a unique ID for the start questions. This is used in the resulting data frame of participant responses to avoid lengthy column names if question text is used. 
++ `start_questions_ID` - A character string or vector (equal length to `start_questions`) providing a unique ID for the start questions. This is used in the resulting data frame of participant responses to avoid lengthy column names if question text is used. 
 
-+ `start_questions_type`- String or vector (length of `start_questions`) specifying the type of response box to provide for each `start_questions` (provide these in the same order as `start_questions`). We include five options:
++ `start_questions_type`- A character tring or vector (equal length to `start_questions`) specifying the type of response box to provide for each `start_questions` (provide these in the same order as `start_questions`). We include five options:
 
   1) `text`: participants can freely type their responses.
   
@@ -225,7 +226,7 @@ adapted to other environments and contexts through either direct modification
 (e.g. change “woody smells” to “grassy smells” for urban parks) or through
 additional empirical work (e.g. focus groups) to identify relevant attributes.
 
-+ `biowell_situations_ID` - A string or vector (same length as
++ `biowell_situations_ID` - A string or vector (equal length to
 `biowell_situations`) providing a unique ID for each situation.
 
 + `biowell_questions_ID`- A list the length of `biowell_situations` containing a
@@ -329,32 +330,31 @@ biowell_questions = list(
 # <span style="color:#0097AD;">Section 5: End</span>
 
 This is essentially a repeat of the Start section, but allows you to ask
-questions following the BIO-WELL questions have been answered.
+questions after the BIO-WELL questions.
 
 + `end_message` - Text introducing the end questions to participants.
 
-+ `end_questions`- String (one question) or vector (2+ questions) containing
-text for each question to be asked following the BIO-WELL questions.
++ `end_questions`- A character string (1 question) or vector (2+ questions), the
+questions to ask participants after the BIO-WELL questions.
 
-+ `end_questions_ID` - A string or vector (same length as `end_questions`)
++ `end_questions_ID` - A character string or vector (equal length to `end_questions`)
 providing a unique ID for the end questions. This is used in the resulting data
 frame of participant responses to avoid lengthy column names if question text is
 used.
 
-+ `end_questions_type`- String or vector (length of `end_questions`) specifying
++ `end_questions_type`- A character string or vector (equal length to `end_questions`) specifying
 the type of response box to provide for each `end_questions` (provide these in
 the same order as `end_questions`). We include five options:
 
   1) `text`: participants can freely type their responses.
   2) `selectbox`: participants can select one option from a drop down list.
   3) `checkbox`: participants can select one or more from list using check boxes.
-  4) `likert_five`: participants can move a five-point slider of the likert.
+  4) `likert_five`: participants can move a five-point slider of the Likert.
   scale ("Strongly agree" to "Strongly disagree"). 
-  5) `likert_seven`:
-  participants can move a seven-point slider of the likert scale (includes
-  "Somewhat agree" and "Somewhat disagree" ).
+  5) `likert_seven`: participants can move a seven-point slider of the Likert scale (includes
+  "Somewhat agree" and "Somewhat disagree").
   
-+ `end_response_options` - list of vectors containing `selectbox` or
++ `end_response_options` - A list of vectors containing `selectbox` or
 `checkbox` options for `end_questions.` The length of this list should be
 equal to the number of `selectbox` or `checkbox` responses used in
 `end_questions` and be in the order that these appear.
@@ -397,14 +397,14 @@ compares the current participants scores to those of other participants.
 
 + `all_sliders` - Logical (`TRUE` or `FALSE`) specifying whether all `biowell_questions` sliders need to be moved to continue with the survey. If `TRUE`, a message stating this to participants will appear by the next button.  
 
-+ `offline_mode` - Logical (`TRUE` or `FALSE`) specifying whether to upload input response data to Dropbox. This must be `TRUE` when uploading the package to the Shiny Server or data *will not be saved*. This is included so during the development stage, going back and forth through the survey will not save non-participant responses to the survey in your Dropbox App Folder.  
++ `offline_mode` - Logical (`TRUE` or `FALSE`) specifying whether to upload input response data to Dropbox. This must be `TRUE` when uploading the package to the Shiny Server or data *will not be saved*. The offline mode is included to prevent data upload during the survey development stage.  
 
 + `return` - One of `run`, `UI` and `server`. This must be `run` when uploading to the Shiny Server. We include this option for flexibility if you want to get the two Shiny App inputs to edit them independently (*not recommended*). 
 
 + `language` - An exciting feature of the `BIOWELL` package is the ability to
-specify the language used on the BIO-WELL sliders. This can be selected from 32
-different languages listed below. We recommend ensuring that the questions input are also in
-this language.
+specify the language used on the BIO-WELL sliders. This can be selected from the
+32 languages listed below. We recommend ensuring that your questions are also in
+your chosen language.
 
 **Available languages**: 'arabic', 'bengali_india', 'chinese_hong kong', 'chinese_taiwan',
 'danish', 'dutch', 'edo', 'english', 'finnish', 'french', 'german', 'gujarati',
@@ -413,7 +413,7 @@ this language.
 
 # <span style="color:#0097AD;">Finalising your survey</span>
  
-When you are working on your custom BIO-WELL survey using `build_survey()`,
+Whilst you are developing your custom BIO-WELL survey using `build_survey()`,
 ensure that you are working within the BIO-WELL survey folder that you created
 at the start of the Vignette.
 
@@ -434,7 +434,7 @@ The code below contains the full input for running our example Shiny App
 BIO-WELL survey. An R script containing the below code should be saved manually
 in the directory for the app named "app.R".
 
-```{r, eval = FALSE}
+```{r}
 BIOWELL::build_survey(
   survey_title = "Forest biodiversity and human wellbeing",
   sidepanel_message = "The questions in this survey are designed to explore how forest biodiversity impacts wellbeing.",
@@ -442,7 +442,7 @@ BIOWELL::build_survey(
   BW_app_path = paste0(tempdir(), "/my_app_name_1"),
   organisation = "BIOWELL package example",
   organisation_website = "https://github.com/r-a-dobson/BIOWELL",
-  screening_message = "Consent to participate in research",
+  screen_message = "Consent to participate in research",
   screen_questions = c(
     "I confirm I have read and understood the Participant Information Sheet for the Forest Questionnaire. I understand that my participation is voluntary and that I am free to withdraw at any time without giving any reason. I agree to take part in this research project.",
     "What is your age?"
@@ -525,10 +525,11 @@ BIOWELL::build_survey(
     "impairment"
   ),
   end_response_options = list(c("smell", "sound", "sight")),
-  end_message = "Please answer the following questions, and then click submit to generate a report."
+  end_message = "Please answer the following questions, and then click submit to generate a report.",
   all_questions = TRUE,
   all_sliders = TRUE,
-  user_report = TRUE
+  user_report = TRUE,
+  offline = TRUE
 )
 ```
 

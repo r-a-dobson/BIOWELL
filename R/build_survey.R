@@ -20,7 +20,7 @@
 #'  screening question.
 #'@param screen_questions_ID a character string or vector equal to the length of
 #'  `screen_questions`, providing short IDs for each screening question to use
-#'  in in output survey response data frame.
+#'  in output survey response data frame.
 #'@param screen_response_options a list the length of `screen_questions` with
 #'  each element containing a vector of choices for responding to each screening
 #'  question in-turn. To specify which answers to screen by add ":SCREEN" to the
@@ -31,12 +31,12 @@
 #'  ask participants prior to the BIO-WELL questions.
 #'@param start_questions_ID a character string or vector equal to the length of
 #'  `start_questions`, providing short IDs for each "start" question to use in
-#'  in output survey response data frame.
-#'@param start_questions_type optional; a character string or vector, the type
+#'  output survey response data frame.
+#'@param start_questions_type a character string or vector, the type
 #'  of response item for each "start" question. Length must be equal to the
 #'  length of `start_questions`. One of; `text`, `checkbox`, `selectbox`,
 #'  `likert_five` and `likert_seven`. See details for more information.
-#'@param start_response_options optional; a list of character strings or
+#'@param start_response_options a list of character strings or
 #'  vectors, the options to offer for each `start_questions` of type `checkbox`
 #'  or `selectbox`. Provide these in the same order as they appear in
 #'  `start_questions`.
@@ -53,16 +53,16 @@
 #'  output survey response data frame.
 #'@param end_message a character string, the text to display above the "end"
 #'  questions.
-#'@param end_questions optional; a character string or vector, the questions to
+#'@param end_questions a character string or vector, the questions to
 #'  ask participants following the BIO-WELL questions.
-#'@param end_questions_type optional; a character string or vector, the type of
+#'@param end_questions_type a character string or vector, the type of
 #'  response item for each "end" question. Length must be equal to the length of
 #'  `start_questions`. One of; `text`, `checkbox`, `selectbox`, `likert_five`
 #'  and `likert_seven`. See details for more information.
 #'@param end_questions_ID a character string or vector equal to the length of
-#'  `end_questions`, providing short IDs for each "end" question to use in in
+#'  `end_questions`, providing short IDs for each "end" question to use in
 #'  output survey response data frame.
-#'@param end_response_options  optional; a list of character strings or vectors,
+#'@param end_response_options  a list of character strings or vectors,
 #'  the options to offer for each `end_questions` of type `checkbox` or
 #'  `selectbox`. Provide these in the same order as they appear in
 #'  `end_questions`.
@@ -86,15 +86,25 @@
 #' will prevent users from completing the survey. For instance, if they are not
 #'of a certain age, or do not consent their involvement.
 #'
-#' + Start: This section allows you to set questions that precede the BIO-WELL
+#' + Start: This section allows you to set questions that come before the BIO-WELL
 #' questions. For example, these may be generic questions, such as gaining
-#' information on participants location, gender or employment.
+#' information on a participant's location, gender or employment.
 #'
 #'+ BIO-WELL: The questions in this section are all accompanied by the five
 #'sliders that comprise the BIO-WELL scale. For each situation given (although
 #'often there may be only be one environment of interest), a new page is added
 #'to the survey. See Irvine et al., (2023) for more details on the BIO-WELL
 #'scale and survey set-up, including the BIO-WELL stem questions.
+#'
+#'  1) `biowell_situations`: Text for describing an introductory scenario to
+#'cognitively situate the participant within a particular natural environment
+#'(i.e. a nearby forest).
+#'
+#'2) `biowell_questions`: A list the length of `biowell_situations`, in which
+#'each element contains a vector of the questions to be asked for each
+#'situation. These stem questions are asked about biodiversity metrics (e.g.
+#'abundance, species diversity), as well as biodiversity attributes (e.g.
+#'smells, colours, shapes) within each `biowell_situation` given.
 #'
 #'+ End: This section allows you to set questions that follow the BIO-WELL
 #'questions. This may include asking participants for their contact details or
@@ -151,7 +161,7 @@
 #'
 #' To specify this, for each `selectbox` and `checkbox` response type in each
 #' section, create a list of equal length to the number of these response types.
-#' Each element within the list should contain a character vector of the options
+#' Each element within the list should contain a character vector of the options.
 #'
 #' For example:
 #'

@@ -80,11 +80,11 @@ results[[3]]
 # <span style="color:#0097AD;">Step 3: Explore survey responses</span>
 
 To facilitate preliminary analyses of survey response data, the `BIOWELL`
-package includes the function `explore_data`.
+package includes the function `explore_data()`.
 
 The arguments of the function are:
 
-+ `data` - the imported participant survey response data frame (from Step 1!).
++ `data` - the download survey response data frame (from Step 1!).
 
 + `var_name` - a character string, text for the y-axis of the returned box plot.
 
