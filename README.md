@@ -3,6 +3,14 @@
 
 # **BIO-WELL**
 
+<!-- badges: start -->
+
+[![License](https://img.shields.io/badge/license-GPL%20%28%3E=%203%29-lightgrey.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
+[![Codecov test
+coverage](https://codecov.io/gh/r-a-dobson/BIOWELL/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-a-dobson/BIOWELL?branch=main)
+[![R-CMD-check](https://github.com/r-a-dobson/BIOWELL/workflows/R-CMD-check/badge.svg)](https://github.com/r-a-dobson/BIOWELL/actions)
+<!-- badges: end -->
+
 **Introducing `BIOWELL`: An R package for effortlessly creating and
 sharing customized surveys that include the BIO-WELL scale**.
 
@@ -29,7 +37,7 @@ BIO-WELL provides a **valuable tool for researchers and
 decision-makers** to understand the biodiversity-health/wellbeing
 relationship and evaluate interventions.
 
-<a href='https://github.com/r-a-dobson/BIO-WELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_0.png" align="centre" height="600" width = "100%"/></a>
+<a href='https://github.com/r-a-dobson/BIO-WELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_0.png" align="centre" height="700" width = "100%"/></a>
 
 **Read more about the development and application of BIO-WELL in:**
 
