@@ -79,7 +79,7 @@ Psychology, 85, p.101921.*
 
 1)  **Customization**: Adapt the scale to diverse research settings and
     environments. Whether you’re studying woodlands, wetlands, urban
-    parks, or other ecological contexts, the `BIO-WELL` package allows
+    parks, or other ecological contexts, the `BIOWELL` package allows
     for easy modification of stem questions and attributes to suit the
     specific environment under investigation.
 
@@ -89,7 +89,7 @@ Psychology, 85, p.101921.*
     tool that ensures the quality of data collected through your custom
     surveys.
 
-3)  **Seamless Integration**: The `BIO-WELL` package integrates the R
+3)  **Seamless Integration**: The `BIOWELL` package integrates the R
     statistical programming environment, offering a familiar platform
     for survey design and analysis.
 
@@ -104,7 +104,7 @@ Psychology, 85, p.101921.*
 
 4)  **Documentation**: The package comes with comprehensive
     documentation, including Vignette tutorials and function examples,
-    to assist you in utilising the `BIO-WELL` package to its full
+    to assist you in utilising the `BIOWELL` package to its full
     potential.
 
 # Get started!

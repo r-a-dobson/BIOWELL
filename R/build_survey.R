@@ -77,22 +77,21 @@
 #'@param offline_mode Optional; a logical, indicating whether to upload survey
 #'  response data to Dropbox. Useful when developing the survey.
 #'@param return optional; whether to run the survey Shiny app or return app
-#'  component. One of; `run`, `ui`, `server.` Default: `run`.
+#'  component. One of; `run`, `ui`, `server`. Default: `run`.
 #'@details
 #'
 #'# BIO-WELL survey structure
 #'
 #' + Screening: This section allows you to set questions where certain responses
 #' will prevent users from completing the survey. For instance, if they are not
-#'of a certain age, or do not consent their involvement.
+#'of a certain age, or do not consent to their involvement.
 #'
 #' + Start: This section allows you to set questions that come before the BIO-WELL
 #' questions. For example, these may be generic questions, such as gaining
 #' information on a participant's location, gender or employment.
 #'
 #'+ BIO-WELL: The questions in this section are all accompanied by the five
-#'sliders that comprise the BIO-WELL scale. For each situation given (although
-#'often there may be only be one environment of interest), a new page is added
+#'sliders that comprise the BIO-WELL scale. For each situation given, a new page is added
 #'to the survey. See Irvine et al., (2023) for more details on the BIO-WELL
 #'scale and survey set-up, including the BIO-WELL stem questions.
 #'
@@ -108,15 +107,15 @@
 #'
 #'+ End: This section allows you to set questions that follow the BIO-WELL
 #'questions. This may include asking participants for their contact details or
-#'questions that may help disentangle patterns in BIO-WELL scores, such as
+#'questions that may help understand patterns in BIO-WELL scores, such as
 #'whether individuals spend a lot of time outdoors.
 #'
-#'+ Report: This section will calculate the participants average BIO-WELL score
+#'+ Report: This section will calculate the participant's average BIO-WELL score
 #'across the five wellbeing domains in the BIO-WELL scale (physical, emotional,
 #'cognitive, social and spiritual) and provide users with an interpretation of
-#'their BIO-WELL score, including a comparison with other survey participants.
+#'their BIO-WELL score, including a comparison to previous survey participants.
 #'
-#'# Structure: messages, question, IDs, types and options.
+#'# Structure: messages, questions, IDs, types and options.
 #'
 #'Each section can be specified using arguments relating to the following
 #'aspects:
@@ -131,7 +130,7 @@
 #'IDs provide shorted versions or codes for each question within the survey.
 #'These are then used in the output survey response data frame to prevent
 #'lengthy column names. For example, the question "The variety of textures in
-#'this forest makes me feel…" could be given the ID "Variety of textures".
+#'this forest makes me feel..." could be given the ID "Variety of textures".
 #'
 #'## Response types and options
 #'
@@ -141,13 +140,13 @@
 #'1) `text` - A simple text box that the participant can type their answer
 #'into.
 #'
-#'2) `selectbox`* - A drop down box that the participant can choose one
+#'2) `selectbox`* - A drop-down box that the participant can choose one
 #'answer from.
 #'
-#'3) `checkbox`* - A group of check boxes that the participant can choose multiple
+#'3) `checkbox`* - A group of checkboxes that the participant can choose multiple
 #'or none of. Be aware that if `all_questions = TRUE`, participants will have to
 #'select one of the check boxes, and so it is best to include an option for
-#'selecting none of the options below.
+#'selecting none of the other options.
 #'
 #'4) `likert_five` - A five point Likert scale going from "strongly
 #'agree" to "strongly disagree".
@@ -222,7 +221,7 @@
 #'Please see Vignette 2 in the `BIOWELL` package for full guidance on this
 #'function.
 #'
-#'@returns Generates a custom BIO-WELL survey Shiny App.
+#'@returns Generates a custom BIO-WELL survey in Shiny.
 #'@export
 #'@references Irvine, K.N., Fisher, J.C., Bentley, P.R., Nawrath, M., Dallimer,
 #'M., Austen, G.E., Fish, R. and Davies, Z.G., 2023. BIO-WELL: The development

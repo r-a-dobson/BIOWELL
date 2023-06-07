@@ -64,11 +64,11 @@ biodiversity-health/wellbeing relationship and evaluate interventions.
 
 # Package features
 
-1) **Customization**: Adapt the scale to diverse research settings and environments. Whether you're studying woodlands, wetlands, urban parks, or other ecological contexts, the `BIO-WELL` package allows for easy modification of stem questions and attributes to suit the specific environment under investigation.
+1) **Customization**: Adapt the scale to diverse research settings and environments. Whether you're studying woodlands, wetlands, urban parks, or other ecological contexts, the `BIOWELL` package allows for easy modification of stem questions and attributes to suit the specific environment under investigation.
 
 2) **Validity and Reliability**: Leverage the strength of the BIO-WELL scale, which has undergone rigorous validation and psychometric evaluation in previous studies. Benefit from a robust measurement tool that ensures the quality of data collected through your custom surveys.
 
-3) **Seamless Integration**: The `BIO-WELL` package integrates the R statistical programming environment, offering a familiar platform for survey design and analysis. 
+3) **Seamless Integration**: The `BIOWELL` package integrates the R statistical programming environment, offering a familiar platform for survey design and analysis. 
 
    + Upload your BIO-WELL surveys to the free **Shiny Server** for sharing surveys via URL.
     
@@ -76,7 +76,7 @@ biodiversity-health/wellbeing relationship and evaluate interventions.
     
    + Take advantage of **R's extensive packages** to analyse your survey response data.
     
-4) **Documentation**: The package comes with comprehensive documentation, including Vignette tutorials and function examples, to assist you in utilising the `BIO-WELL` package to its full potential. 
+4) **Documentation**: The package comes with comprehensive documentation, including Vignette tutorials and function examples, to assist you in utilising the `BIOWELL` package to its full potential. 
 
 # Get started! 
 
@@ -92,7 +92,7 @@ There are six key stages (and associated functions) in the BIOWELL package:
 
 2) **Build survey** - Develop your custom BIO-WELL survey from start to finish with `build_survey()`.
 
-3) **Create URL** - Upload your survey to the Shiny Servers and obtain survey access link to share with participants  with `create_URL()`.
+3) **Create URL** - Upload your survey to the Shiny Servers and obtain survey access link to share with participants with `create_URL()`.
 
 4) **Download data** - Download and combine responses from survey participants into R with `download_data()`. 
 

@@ -84,18 +84,17 @@ package includes the function `explore_data()`.
 
 The arguments of the function are:
 
-+ `data` - the download survey response data frame (from Step 1!).
++ `data` - The download survey response data frame (from Step 1!).
 
-+ `var_name` - a character string, text for the y-axis of the returned box plot.
++ `var_name` - A character string, text for the y-axis of the returned box plot.
 
-+ `plot`  - a logical, whether you want the box plots to be displayed in the R
++ `plot` - A logical, whether you want the box plots to be displayed in the R
 plot window.
 
-+ `column_name` - an optional argument, the name of a column within data to
++ `column_name` - An optional argument, the name of a column within data to
 split BIO-WELL scores by in the returned box plot.
 
-+ `biowell_scale` - an optional feature, the name of the wellbeing domain of
-interest. If specified, plotted BIO-WELL scores only incorporate the slider
++ `biowell_scale` - An optional argument, the name of one wellbeing domain with the BIO-WELL scale. If specified, plotted BIO-WELL scores only incorporate the slider
 input for this domain. One of; `physical`, `emotional`, `cognitive`, `social`
 and `spiritual`.
 
@@ -104,9 +103,9 @@ and `spiritual`.
 
 If you only provide `explore_data()` with the participant survey response data
 frame, by default, the function will collate the BIO-WELL scores for each
-participant by situation x question. The function returns this processed data
+participant by situation and question. The function returns the processed data
 frame and generates a box plot for each situation to display the BIO-WELL scores
-for each question within the situation.
+for each question within that situation.
 
 ```{r fig.width=7, fig.height=10}
 results <- explore_data(data = sample_BW_data,
@@ -132,9 +131,9 @@ to any start or end questions.
 
 Using the `column_name` argument in `explore_data()` you can specify a column
 that contains categorical data to split participant BIO-WELL scores by instead
-of by situation x question (the default).
+of by situation/question (the default).
 
-For example, this would input would generate a box plot comparing BIO-WELL
+For example, the below code will generate a box plot comparing BIO-WELL
 scores between each age category of participants.
 
 ```{r fig.width=7}
@@ -150,7 +149,7 @@ results <- explore_data(data = sample_BW_data,
 
 
 Using the argument `biowell_scale`, you could further alter the `column_name`
-plot to plot the BIO-WELL score calculated from only one well-being domain.
+plot to plot the BIO-WELL score calculated from only one wellbeing domain.
 
 
 ```{r fig.width=7}

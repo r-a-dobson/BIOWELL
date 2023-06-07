@@ -88,7 +88,7 @@ the participant from completing the rest of the survey.
 Each question will be accompanied by the five sliders included in the BIO-WELL
 scale.
 
-5) End - An opportunity to ask questions following the BIO-WELL questions 
+5) End - An opportunity to ask questions following the BIO-WELL questions. 
 
 6) Report (optional) - After a participants submits their survey responses, if
 desired, a page is loaded that summarises their BIO-WELL scores and relates
@@ -99,7 +99,7 @@ survey to your research at each stage.
 
 # <span style="color:#0097AD;">Section 1: Sidebar </span>
 
-+ `survey_title` - Text summarizing the topic of your survey
++ `survey_title` - Text summarizing the topic of your survey.
 
 + `sidepanel_message`- Text containing general information for survey participants.
 
@@ -159,7 +159,7 @@ screen_response_options = list(c("No:SCREEN", "Yes"), # First element - choices 
 + `start_questions` - a character string (1 question) or vector (2+ questions), the
 questions to ask participants before the BIO-WELL questions.
 
-+ `start_questions_ID` - A character string or vector (equal length to `start_questions`) providing a unique ID for the start questions. This is used in the resulting data frame of participant responses to avoid lengthy column names if question text is used. 
++ `start_questions_ID` - A character string or vector (equal length to `start_questions`) providing a unique ID for each start question. This is used in the resulting data frame of participant responses to avoid lengthy column names if question text is used. 
 
 + `start_questions_type`- A character tring or vector (equal length to `start_questions`) specifying the type of response box to provide for each `start_questions` (provide these in the same order as `start_questions`). We include five options:
 
@@ -174,13 +174,13 @@ questions to ask participants before the BIO-WELL questions.
   
   ![check box](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_1_3.png){width=75%}
    
-  4) `likert_five`: participants can move a five-point slider of the likert.
+  4) `likert_five`: participants can move a five-point slider of the Likert.
   scale ("Strongly agree" to "Strongly disagree"). 
   
   ![Likert five](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_1_4.png){width=75%}
   
   5) `likert_seven`:
-  participants can move a seven-point slider of the likert scale (includes
+  participants can move a seven-point slider of the Likert scale (includes
   "Somewhat agree" and "Somewhat disagree").
   
   ![Likert seven](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_1_5.png){width=75%}
@@ -230,7 +230,7 @@ additional empirical work (e.g. focus groups) to identify relevant attributes.
 `biowell_situations`) providing a unique ID for each situation.
 
 + `biowell_questions_ID`- A list the length of `biowell_situations` containing a
-string or vector the same length as the equivalent list element in `biowell_questions`, providing a unique ID for each bio-well question.
+string or vector the same length as the equivalent list element in `biowell_questions`, providing a unique ID for each BIO-WELL question.
 
 The above are used in the resulting data frame of participant responses to avoid
 lengthy column names if situation/question text is used.
@@ -338,7 +338,7 @@ questions after the BIO-WELL questions.
 questions to ask participants after the BIO-WELL questions.
 
 + `end_questions_ID` - A character string or vector (equal length to `end_questions`)
-providing a unique ID for the end questions. This is used in the resulting data
+providing a unique ID for each end question. This is used in the resulting data
 frame of participant responses to avoid lengthy column names if question text is
 used.
 
@@ -385,19 +385,19 @@ end_response_options = list(c("smell", "sound", "sight"))
 
 # <span style="color:#0097AD;">Section 6: Report</span>
 
-+ `user_report` - a logical (`TRUE` or `FALSE`) indicating whether participants
++ `user_report` - A logical (`TRUE` or `FALSE`) indicating whether participants
 should receive a summary of their BIO-WELL scores in the survey. The report also
-compares the current participants scores to those of other participants.
+compares the current participant's scores to those of previous participants.
 
 ![Example of user report](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_5.png){width=75%}
 
 # <span style="color:#0097AD;">Survey control options</span> 
 
-+ `all_questions` - Logical (`TRUE` or `FALSE`) specifying whether all `start_questions` and `end_question` need to be answered to continue with survey. If `TRUE`, a message stating this to participants will appear in the sidebar panel. 
++ `all_questions` - A logical (`TRUE` or `FALSE`) specifying whether all `start_questions` and `end_questions` need to be answered to continue with survey. If `TRUE`, a message stating this to participants will appear in the sidebar panel. 
 
-+ `all_sliders` - Logical (`TRUE` or `FALSE`) specifying whether all `biowell_questions` sliders need to be moved to continue with the survey. If `TRUE`, a message stating this to participants will appear by the next button.  
++ `all_sliders` - A logical (`TRUE` or `FALSE`) specifying whether all `biowell_questions` sliders need to be moved to continue with the survey. If `TRUE`, a message stating this to participants will appear by the next button.  
 
-+ `offline_mode` - Logical (`TRUE` or `FALSE`) specifying whether to upload input response data to Dropbox. This must be `TRUE` when uploading the package to the Shiny Server or data *will not be saved*. The offline mode is included to prevent data upload during the survey development stage.  
++ `offline_mode` - A logical (`TRUE` or `FALSE`) specifying whether to upload input response data to Dropbox. This must be `TRUE` when uploading the package to the Shiny Server or data *will not be saved*. The offline mode is included to prevent data upload to Dropbox during the survey development stage.  
 
 + `return` - One of `run`, `UI` and `server`. This must be `run` when uploading to the Shiny Server. We include this option for flexibility if you want to get the two Shiny App inputs to edit them independently (*not recommended*). 
 
@@ -417,7 +417,7 @@ Whilst you are developing your custom BIO-WELL survey using `build_survey()`,
 ensure that you are working within the BIO-WELL survey folder that you created
 at the start of the Vignette.
 
-Once you are happy with the layout of your BIO-WELL survey, save the R script
+Once you are happy with the design of your BIO-WELL survey, save the R script
 containing your `BIOWELL::build_survey()` input as "app.R" inside the folder created for
 your BIO-WELL survey. Ensure that no other lines of code are included in this script, and that the `build_survey()` function is called using the double colon operator. 
 
