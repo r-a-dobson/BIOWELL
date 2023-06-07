@@ -39,7 +39,7 @@ BIO-WELL provides a **valuable tool for researchers and
 decision-makers** to understand the biodiversity-health/wellbeing
 relationship and evaluate interventions.
 
-<a href='https://github.com/r-a-dobson/BIO-WELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_0.png" align="centre" height="650" width = "100%"/></a>
+<a href='https://github.com/r-a-dobson/BIOWELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_0.png" align="centre" height="650" width = "100%"/></a>
 
 **Read more about the development and application of BIO-WELL in:**
 
@@ -136,7 +136,7 @@ package:
 6)  **Explore patterns** - Generate plots of BIO-WELL scores across
     environments and stem questions with `explore_data()`.
 
-<a href='https://github.com/r-a-dobson/BIO-WELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/bw_framework.png" align="centre" height="700" width = "100%"/></a>
+<a href='https://github.com/r-a-dobson/BIOWELL'><img src="https://github.com/r-a-dobson/BIOWELL/blob/main/man/V2/bw_framework.png" align="centre" height="700" width = "100%"/></a>
 
 ## Need help learning the BIOWELL package functions?
 

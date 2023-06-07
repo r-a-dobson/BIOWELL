@@ -142,10 +142,10 @@ details for all 31 language options available. Default; \code{english}.}
 response data to Dropbox. Useful when developing the survey.}
 
 \item{return}{optional; whether to run the survey Shiny app or return app
-component. One of; \code{run}, \code{ui}, \code{server.} Default: \code{run}.}
+component. One of; \code{run}, \code{ui}, \code{server}. Default: \code{run}.}
 }
 \value{
-Generates a custom BIO-WELL survey Shiny App.
+Generates a custom BIO-WELL survey in Shiny.
 }
 \description{
 Function to generate custom BIO-WELL survey with R Shiny
@@ -154,13 +154,12 @@ Function to generate custom BIO-WELL survey with R Shiny
 \itemize{
 \item Screening: This section allows you to set questions where certain responses
 will prevent users from completing the survey. For instance, if they are not
-of a certain age, or do not consent their involvement.
+of a certain age, or do not consent to their involvement.
 \item Start: This section allows you to set questions that come before the BIO-WELL
 questions. For example, these may be generic questions, such as gaining
 information on a participant's location, gender or employment.
 \item BIO-WELL: The questions in this section are all accompanied by the five
-sliders that comprise the BIO-WELL scale. For each situation given (although
-often there may be only be one environment of interest), a new page is added
+sliders that comprise the BIO-WELL scale. For each situation given, a new page is added
 to the survey. See Irvine et al., (2023) for more details on the BIO-WELL
 scale and survey set-up, including the BIO-WELL stem questions.
 }
@@ -177,16 +176,16 @@ smells, colours, shapes) within each \code{biowell_situation} given.
 \itemize{
 \item End: This section allows you to set questions that follow the BIO-WELL
 questions. This may include asking participants for their contact details or
-questions that may help disentangle patterns in BIO-WELL scores, such as
+questions that may help understand patterns in BIO-WELL scores, such as
 whether individuals spend a lot of time outdoors.
-\item Report: This section will calculate the participants average BIO-WELL score
+\item Report: This section will calculate the participant's average BIO-WELL score
 across the five wellbeing domains in the BIO-WELL scale (physical, emotional,
 cognitive, social and spiritual) and provide users with an interpretation of
-their BIO-WELL score, including a comparison with other survey participants.
+their BIO-WELL score, including a comparison to previous survey participants.
 }
 }
 
-\section{Structure: messages, question, IDs, types and options.}{
+\section{Structure: messages, questions, IDs, types and options.}{
 Each section can be specified using arguments relating to the following
 aspects:
 \subsection{Messages}{
@@ -201,7 +200,7 @@ Questions provide the exact text for each question to ask participants.
 IDs provide shorted versions or codes for each question within the survey.
 These are then used in the output survey response data frame to prevent
 lengthy column names. For example, the question "The variety of textures in
-this forest makes me feel…" could be given the ID "Variety of textures".
+this forest makes me feel..." could be given the ID "Variety of textures".
 }
 
 \subsection{Response types and options}{
@@ -211,12 +210,12 @@ These include:
 \enumerate{
 \item \code{text} - A simple text box that the participant can type their answer
 into.
-\item \code{selectbox}* - A drop down box that the participant can choose one
+\item \code{selectbox}* - A drop-down box that the participant can choose one
 answer from.
-\item \code{checkbox}* - A group of check boxes that the participant can choose multiple
+\item \code{checkbox}* - A group of checkboxes that the participant can choose multiple
 or none of. Be aware that if \code{all_questions = TRUE}, participants will have to
 select one of the check boxes, and so it is best to include an option for
-selecting none of the options below.
+selecting none of the other options.
 \item \code{likert_five} - A five point Likert scale going from "strongly
 agree" to "strongly disagree".
 \item \code{likert_seven} - A seven point Likert scale that also includes

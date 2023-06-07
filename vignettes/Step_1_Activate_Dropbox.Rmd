@@ -90,7 +90,7 @@ Here you should:
 
 Now you can access your [Dropbox App Console](https://www.dropbox.com/developers/apps?_tk=pilot_lp&_ad=topbar4&_camp=myapps).
 
-Scroll down to OAUTH2: Redirect URIs and add http://localhost:1410/
+Scroll down to OAUTH2: Redirect URIs and add "http<span>://</span>localhost:1410/".
 
 ![Add redirect URI](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_2.png){width=75%}
 
