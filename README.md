@@ -112,7 +112,7 @@ Psychology, 85, p.101921.*
 Install the `BIOWELL` package by running the line below!
 
 ``` r
-devtools::install_github("r-a-dobson/BIO-WELL")
+devtools::install_github("r-a-dobson/BIOWELL")
 ```
 
 There are six key stages (and associated functions) in the BIOWELL
