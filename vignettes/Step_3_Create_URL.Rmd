@@ -32,7 +32,19 @@ For BIO-WELL survey deployment, we will be using the cloud hosting option for [S
 
 Registering for an account is free. A free account allows users to deploy up to
 five surveys at one time, and use up to 25 active hours per month. If more active
-hours are needed, there are paid upgrade options available.
+hours are needed, there are paid upgrade options available [here](https://www.shinyapps.io/?_gl=1*1qav6d0*_ga*NDMxOTk2OTM4LjE2NDk2ODgxNTk.*_ga_8PLL5FXR9M*MTY4NzI1NzkzNi4xOC4wLjE2ODcyNTc5MzguMC4wLjA.*_ga_2C0WZ1JHG0*MTY4NzI1NzkzNi41NS4wLjE2ODcyNTc5MzguMC4wLjA.#pricing-anchor).
+
++ Free - 25 active hours ($0/month*)
+
++ Starter - 100 active hours ($13/month*)
+
++ Basic - 500 active hours ($49/month*)
+
++ Standard - 2,000 active hours ($119/month*)
+
++ Professional - 10,000 active hours($349/month*)
+
+<span style="font-style: italic;">*Prices correct as of 20/06/2023</span>
 
 Active time is only counted whilst a participant is actively responding to the
 questions. For example, if your survey takes five minutes to complete, then 300
@@ -48,13 +60,13 @@ Please ensure that you have followed the prior stages outlined in Vignette 1 and
 
 If this is not the case, please revisit the previous vignettes before running `create_URL()`. 
 
-![Your final BIO-WELL survey Shiny App folder ](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V3/V3_0.png){width=75%}
+![Your final BIO-WELL survey Shiny App folder ](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette3/Vignette3_0.png){width=75%}
 
 # <span style="color:#0097AD;">Step 1: Shiny Server account</span>
 
 The first step is to register for a Shiny Server account via their [website](https://www.shinyapps.io/?_gl=1*1gtg1gf*_ga*MTkxOTUyMTUuMTY3NjM1NDY2OA..*_ga_2C0WZ1JHG0*MTY4NDY4NDc0NC4xNS4wLjE2ODQ2ODQ3NDQuMC4wLjA.). 
 
-![Creating Shiny Server account](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V3/V3_1.png){width=75%}
+![Creating Shiny Server account](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette3/Vignette3_1.png){width=75%}
 
 # <span style="color:#0097AD;">Step 2: Connect your account to R</span>
 
@@ -69,7 +81,7 @@ library(BIOWELL)
 
 On the website, click on your profile photo in the top right, and choose `Tokens` from the drop-down list. Then click to show your account's token and secret code. Do not share your account's secret with anyone else. 
 
-![Finding Shiny Server token](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V3/V3_2.png){width=75%}
+![Finding Shiny Server token](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette3/Vignette3_2.png){width=75%}
 
 This will provide code for you to run in R to connect your Shiny Server account. 
 
@@ -78,7 +90,7 @@ rsconnect::setAccountInfo(name = 'biowell-app-testing', # Your Shiny Server acco
                           token = 'string of letters and numbers', # Input your Shiny Server token number here
                           secret = 'string of letters and numbers') # Input your Shiny Server token secret here
 ```
-![Revealing Shiny Server secret](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V3/V3_3.png){width=75%}
+![Revealing Shiny Server secret](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette3/Vignette3_3.png){width=75%}
 
 # <span style="color:#0097AD;">Step 3: Create survey URL</span>
 

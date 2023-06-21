@@ -6,10 +6,6 @@
 #'  each page.
 #'@param sidepanel_message a character string, the text to display on the side
 #'  panel throughout the survey.
-#'@param Dropbox_App_folder a character string, the path to the folder in your
-#'  Dropbox App to save survey responses to.
-#'@param BW_app_path a character string, the path to your BIO-WELL survey Shiny
-#'  App folder. See details for more information.
 #'@param organisation a character string, the name of the organisation running
 #'  the survey.
 #'@param organisation_website a character string, the web address for the
@@ -75,9 +71,13 @@
 #'@param user_report a logical, indicating whether to generate a BIO-WELL score
 #'  report for participants. See details for more information.
 #'@param offline_mode Optional; a logical, indicating whether to upload survey
-#'  response data to Dropbox. Useful when developing the survey.
+#'  response data to Dropbox.
 #'@param return optional; whether to run the survey Shiny app or return app
 #'  component. One of; `run`, `ui`, `server`. Default: `run`.
+#'@param Dropbox_App_folder a character string, the path to the folder in your
+#'  Dropbox App to save survey responses to.
+#'@param BW_app_path a character string, the path to your BIO-WELL survey Shiny
+#'  App folder. See details for more information.
 #'@details
 #'
 #'# BIO-WELL survey structure
@@ -148,11 +148,13 @@
 #'select one of the check boxes, and so it is best to include an option for
 #'selecting none of the other options.
 #'
-#'4) `likert_five` - A five point Likert scale going from "strongly
-#'agree" to "strongly disagree".
+#'4) `likert_five` - A five point Likert scale going from "strongly agree" to
+#'"strongly disagree". Find out more information on the Likert scale
+#'[here](https://dictionary.apa.org/likert-scales).
 #'
-#'5) `likert_seven` - A seven point Likert scale that also includes
-#'"somewhat agree" and "somewhat disagree".
+#'5) `likert_seven` - A seven point Likert scale that also includes "somewhat
+#'agree" and "somewhat disagree". Find out more information on the Likert scale
+#'[here](https://dictionary.apa.org/likert-scales).
 #'
 #' *For `selectbox` and `checkbox` response types, you will need to set the options
 #' that participants will have. This can be done using the "...response_options"
@@ -207,26 +209,48 @@
 #'
 #'# Language options
 #'
-#'The BIO-WELL response sliders can be generated in 31 different languages. The
-#'language for your study can be specified using the `language` argument. The
-#'available options are: + `arabic` + `bengali_india` + `chinese_hong_kong` +
+#' An exciting feature of the `BIOWELL` package is the ability to
+#'specify the language for the BIO-WELL scale. Both the biodiversity stem
+#'statements and the wellbeing sliders have been professionally translated into 32
+#'languages which includes consultation with native speakers. Select a language
+#'from the below list.
+#'+ `arabic` + `bengali_india` + `chinese_hong_kong` +
 #'`chinese_taiwan` + `danish` + `dutch` + `edo` + `english` + `finnish` +
 #'`french` + `german` + `gujarati` + `indonesian` + `irish` + `italian` +
 #'`japanese` + `korean` + `malay` + `norwegian` + `polish` + `portuguese` +
 #'`portuguese_brasil` + `punjabi_india` + `punjabi_pakistan` + `russian` +
 #'`scottish_gaelic` + `spanish` + `swedish` + `urdu_india` + `urdu_pakistan` +
 #'`welsh`.
-#'
-#'
+#'#'
 #'Please see Vignette 2 in the `BIOWELL` package for full guidance on this
 #'function.
+#'
+#'# Extra variables recorded
+#'
+#'In addition to the participants responses to survey questions, the survey
+#'records the following variables with each submitted response:
+#'
+#'+ `survey_duration` - the time in seconds between the participants starting
+#'the survey and submitting their responses.
+#'+ `start_date` - the date that participants began the survey in YYYY-MM-DD
+#'format.
+#'+ `start_time` - the time that participants began the survey in HH-MM-SS
+#'format.
+#'+ `end_date` - the date that participants submitted their responses to the
+#'survey in YYYY-MM-DD format.
+#'+ `end_time`  - the time that participants submitted their responses to the
+#'the survey in HH-MM-SS format.
+#'+ `timezone` - the time zone of participants.
+#'+ `timezone_location` - the broad location of the participant's time zone.
+#'+ `server_submit_time` - the time in the Shiny Server's time zone that
+#'participant responses were submitted.
 #'
 #'@returns Generates a custom BIO-WELL survey in Shiny.
 #'@export
 #'@references Irvine, K.N., Fisher, J.C., Bentley, P.R., Nawrath, M., Dallimer,
 #'M., Austen, G.E., Fish, R. and Davies, Z.G., 2023. BIO-WELL: The development
 #'and validation of a human wellbeing scale that measures responses to
-#'biodiversity. Journal of Environmental Psychology, 85, p.101921.
+#'biodiversity. Journal of Environmental Psychology, 85, p.101921. doi:10.1016/j.jenvp.2022.101921.
 #'@examplesIf interactive()
 #'build_survey(
 #' survey_title = "Insert survey title here",
@@ -314,8 +338,6 @@
 
 build_survey <- function(survey_title = NULL,
                          sidepanel_message = NULL,
-                         Dropbox_App_folder,
-                         BW_app_path,
                          organisation,
                          organisation_website = NULL,
                          screen_message = NULL,
@@ -341,7 +363,9 @@ build_survey <- function(survey_title = NULL,
                          user_report = TRUE,
                          language = "english",
                          offline_mode = FALSE,
-                         return = "run") {
+                         return = "run",
+                         Dropbox_App_folder,
+                         BW_app_path) {
 
   #----------------------------------------------------------------------------
   # Catch errors and set defaults

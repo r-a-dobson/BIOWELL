@@ -30,11 +30,11 @@ It is important that **no other lines of code are included**, and that the
 function is called using the **double colon operator**, instead of
 `library(BIOWELL)`.
 
-**<span style="color:#004A86;">Note: Before distributing BIO-WELL surveys, please ensure that you have followed your organisations procedures for gaining participant consent and ethics approval.</span>**
+**<span style="color:#004A86;">Note: Before distributing BIO-WELL surveys, please ensure that you have followed your organisation's procedures for gaining ethics approval, including participant consent, and data protection and management guidelines.</span>**
 
 ## <span style="color:#004A86;">What is the BIO-WELL scale?</span>
 
-To investigate the impact of biodiversity on human wellbeing, there is a need
+To investigate the contribution of biodiversity to human wellbeing, there is a need
 for a psychometric scale.
 
 The [BIO-WELL scale](https://doi.org/10.1016/j.jenvp.2022.101921) is a reliable
@@ -63,12 +63,12 @@ can use to indicate their response to certain biodiversity attributes (Figure
 The values for each slider range from 0 to 100. Using the raw slider output,
 scores can be interpreted as follows: low scores (0–49) indicate a positive
 wellbeing response, high scores (51–100) a negative response and a score of 50
-was considered neutral.
+can be considered neutral.
 
 BIO-WELL scores are calculated by taking the mean value across all wellbeing
 response items (the five sliders).
 
-**<span style="color:#004A86;">However, to aid interpretability scores can be inverted (0–49 = negative wellbeing; 51–100 = positive wellbeing)</span>**
+**<span style="color:#004A86;">However, to aid interpretability scores can be inverted (0–49 = negative wellbeing; 51–100 = positive wellbeing; 50 = neutral)</span>**
 
 
 # <span style="color:#0097AD;">Survey sections</span>
@@ -79,23 +79,22 @@ arguments within the `BIOWELL` package function `build_survey()`:
 1) Sidebar - These are details that the participants will see throughout the
 survey. 
 
-2) Screening - Here you can ask questions where certain responses will remove
+2) Screening - Here you can add survey questions where certain responses will remove
 the participant from completing the rest of the survey.
 
-3) Start - An opportunity to ask questions prior to the BIO-WELL questions. 
+3) Start - An opportunity to add survey questions prior to the BIO-WELL questions. 
 
 4) BIO-WELL - For each situation given, a page with questions will be generated.
 Each question will be accompanied by the five sliders included in the BIO-WELL
 scale.
 
-5) End - An opportunity to ask questions following the BIO-WELL questions. 
+5) End - An opportunity to add survey questions following the BIO-WELL questions. 
 
 6) Report (optional) - After a participants submits their survey responses, if
 desired, a page is loaded that summarises their BIO-WELL scores and relates
 these to that of other survey participants.
 
-Below, we outline and describe the arguments that can be used to customise the
-survey to your research at each stage.
+Below, we outline and describe the arguments that can be used to customise each section of the survey to your research.
 
 # <span style="color:#0097AD;">Section 1: Sidebar </span>
 
@@ -109,22 +108,22 @@ survey to your research at each stage.
 
 ```{r}
 survey_title = "Forest biodiversity and human wellbeing"
-sidepanel_message= "The questions in this survey are designed to explore how forest biodiversity impacts wellbeing."
+sidepanel_message = "The questions in this survey are designed to explore the role forest biodiversity plays in wellbeing."
 organisation = "BIOWELL package example"
 organisation_website = "https://github.com/r-a-dobson/BIOWELL"
 ```
 
 # <span style="color:#0097AD;">Section 2: Screening</span>
 
-We recommend using this section to gain participant consent to the survey, following your organisations procedures and recommendations. This can involve a "no" option that will remove participants if they do not consent to involvement. 
+We recommend using this section to gain participant consent to the survey, following your organisation’s procedures and recommendations. This should include a "no" option that will remove participants if they do not consent to taking part in the survey. 
 
 + `screen_message` - Text that appears at the top of the page containing the screening questions. 
 
-+ `screen_questions` - A string (one question) or vector (2+ questions) containing questions that will be accompanies by a select box (drop down list) for responses. 
++ `screen_questions` - A string (one question) or vector (2+ questions) containing questions that will be accompanied by a select box (drop down list) for responses. 
 
-+ `screen_questions_ID` - A string or vector (same length as screen_questions) providing a unique ID for the screening questions. This is used in the resulting data frame of participant responses to avoid lengthy column names if question text is used. 
++ `screen_questions_ID` - A string or vector (same length as screen_questions) providing a unique ID for the screening question(s). This is used in the resulting data frame of participant responses to avoid lengthy column names which occurs if question text is used. 
 
-+ `screen_response_options` - A list, where each element contains a vector of response options for the screening questions. To set which responses should result in a participants removal from the survey, add ":SCREEN" to the end. 
++ `screen_response_options` - A list, where each element contains a vector of response options for the screening questions. In order to set which responses within this list should result in a participants removal from the survey, add ":SCREEN" to the end of the string. See the example below.  
 
 Below are examples of how these arguments could be input:
 
@@ -132,7 +131,11 @@ Below are examples of how these arguments could be input:
 screen_message = "Consent to participate in research"
 
 screen_questions = c(
-  "I confirm I have read and understood the Participant Information Sheet for the Forest Questionnaire. I understand that my participation is voluntary and that I am free to withdraw at any time without giving any reason. I agree to take part in this research project.", # Question 1
+  "'Participation is voluntary and you can withdraw from the study at any point by exiting
+the survey before you submit, without providing any reason for why you no longer want your
+responses to be included, and there will be no adverse consequences if you choose to
+withdraw. As this survey is anonymised, it will not be possible to withdraw your responses
+from the study after you click on 'Submit' at the end of the survey", # Question 1
   
   "What is your age?") # Question 2
 
@@ -150,7 +153,7 @@ screen_response_options = list(c("No:SCREEN", "Yes"), # First element - choices 
 ```
 
 
-![Example of sidepanel and screening section](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_1.png){width=75%}
+![Example of sidepanel and screening section](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette2/Vignette2_1.png){width=75%}
 
 # <span style="color:#0097AD;">Section 3: Start</span>
 
@@ -159,31 +162,30 @@ screen_response_options = list(c("No:SCREEN", "Yes"), # First element - choices 
 + `start_questions` - a character string (1 question) or vector (2+ questions), the
 questions to ask participants before the BIO-WELL questions.
 
-+ `start_questions_ID` - A character string or vector (equal length to `start_questions`) providing a unique ID for each start question. This is used in the resulting data frame of participant responses to avoid lengthy column names if question text is used. 
++ `start_questions_ID` - A character string or vector (equal length to `start_questions`) providing a unique ID for each start question(s). This is used in the resulting data frame of participant responses to avoid lengthy column names which occurs if question text is used. 
 
 + `start_questions_type`- A character tring or vector (equal length to `start_questions`) specifying the type of response box to provide for each `start_questions` (provide these in the same order as `start_questions`). We include five options:
 
   1) `text`: participants can freely type their responses.
   
-  ![text](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_1_1.png){width=75%}
+  ![text](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette2/Vignette2_1_1.png){width=75%}
   
   2) `selectbox`: participants can select one option from a drop down list.
   
-  ![select box](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_1_2.png){width=75%}
+  ![select box](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette2/Vignette2_1_2.png){width=75%}
   3) `checkbox`: participants can select one or more from list using check boxes.
   
-  ![check box](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_1_3.png){width=75%}
+  ![check box](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette2/Vignette2_1_3.png){width=75%}
    
-  4) `likert_five`: participants can move a five-point slider of the Likert.
-  scale ("Strongly agree" to "Strongly disagree"). 
+  4) `likert_five`: participants can move a seven-point slider to indicate their response on the Likert scale ("Somewhat agree" and "Somewhat disagree"). Find out more information on the Likert scale [here](https://dictionary.apa.org/likert-scales).
   
-  ![Likert five](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_1_4.png){width=75%}
+  ![Likert five](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette2/Vignette2_1_4.png){width=75%}
   
   5) `likert_seven`:
   participants can move a seven-point slider of the Likert scale (includes
-  "Somewhat agree" and "Somewhat disagree").
+  "Somewhat agree" and "Somewhat disagree").Find out more information on the Likert scale [here](https://dictionary.apa.org/likert-scales).
   
-  ![Likert seven](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_1_5.png){width=75%}
+  ![Likert seven](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette2/Vignette2_1_5.png){width=75%}
   
 + `start_response_options` - list of vectors containing `selectbox` or
 `checkbox` options for `start_questions.` The length of this list should be
@@ -206,7 +208,7 @@ start_response_options = list(c('Male',  'Female',  'In another way', 'Prefer no
                                c("Urban", "Rural")) # Q3 options
 ```
 
-![Example of start section](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_2.png){width=75%}
+![Example of start section](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette2/Vignette2_2.png){width=75%}
 
 # <span style="color:#0097AD;">Section 4: BIO-WELL</span>
 
@@ -231,32 +233,47 @@ additional empirical work (e.g. focus groups) to identify relevant attributes.
 
 + `biowell_questions_ID`- A list the length of `biowell_situations` containing a
 string or vector the same length as the equivalent list element in `biowell_questions`, providing a unique ID for each BIO-WELL question.
-
-The above are used in the resulting data frame of participant responses to avoid
-lengthy column names if situation/question text is used.
+This is used in the resulting data frame of participant responses to avoid lengthy column names which occurs if question text is used. 
 
 **<span style="color:#004A86;">Table 2: BIO-WELL stem questions and IDs</span>**
 
 ```{r echo=FALSE, results="asis"}
-knitr::kable(
-data.frame(biowell_questions_ID = c("Encountering living things", 
-                                    "Number of living things", 
-                                    "Variety of living things", 
-                                    "Interactions between living things",
-                                    "Living processes", 
-                                    "Variety of sounds", 
-                                    "Distinctive sounds", 
-                                    "Variety of colours", 
-                                    "Vivid colours", 
-                                    "Variety of shapes", 
-                                    "Maturity of living things", 
-                                    "Variety of textures", 
-                                    "Sponginess of living things", 
-                                    "Variety of smells", 
-                                    "Woody smells", 
-                                    "Changes in this season",
-                                    "Presence of animals"),
-           biowell_questions = c("encountering the living things (e.g. plants, fungi and animals) in this forest makes me feel…",
+knitr::kable(col.names = c("Type","Description","biowell_questions","biowell_questions_ID"),
+data.frame("Biodiversity type" =  c("metric", 
+                                    "metric", 
+                                    "metric", 
+                                    "metric",
+                                    "metric", 
+                                    "attribute", 
+                                    "attribute", 
+                                    "attribute", 
+                                    "attribute", 
+                                    "attribute", 
+                                    "attribute", 
+                                    "attribute", 
+                                    "attribute", 
+                                    "attribute", 
+                                    "attribute", 
+                                    "attribute",
+                                    "attribute"),
+           Description =  c("encountering", 
+                                    "abundance", 
+                                    "species diversity", 
+                                    "species interactions",
+                                    "ecological processes", 
+                                    "sound", 
+                                    "sound", 
+                                    "colour", 
+                                    "colour", 
+                                    "shape", 
+                                    "shape", 
+                                    "texture", 
+                                    "texture", 
+                                    "smell", 
+                                    "smell", 
+                                    "behaviour",
+                                    "behaviour"),
+           biowell_questions = c("Encountering the living things (e.g. plants, fungi and animals) in this forest makes me feel…",
                                  "The number of living things (e.g. plants, fungi and animals) in this forest makes me feel…",
                                  "The variety of living things (e.g. plants, fungi and animals) in this forest makes me feel…",
                                  "The interactions between plants, fungi and animals (e.g. pollination, predator-prey) in this forest make me feel…",
@@ -272,7 +289,26 @@ data.frame(biowell_questions_ID = c("Encountering living things",
                                  "The variety of smells in this forest makes me feel…",
                                  "The woody smells in this forest make me feel…",
                                  "Changes in this season make me feel...",
-                                 "The presence of animals in this forest makes me feel…"))
+                                 "The presence of animals in this forest makes me feel…"),
+           
+           biowell_questions_ID = c("Encountering living things", 
+                                    "Number of living things", 
+                                    "Variety of living things", 
+                                    "Interactions between living things",
+                                    "Living processes", 
+                                    "Variety of sounds", 
+                                    "Distinctive sounds", 
+                                    "Variety of colours", 
+                                    "Vivid colours", 
+                                    "Variety of shapes", 
+                                    "Maturity of living things", 
+                                    "Variety of textures", 
+                                    "Sponginess of living things", 
+                                    "Variety of smells", 
+                                    "Woody smells", 
+                                    "Changes in this season",
+                                    "Presence of animals")
+            )
 
 )
 ```
@@ -324,23 +360,22 @@ biowell_questions = list(
                                "Presence of animals"))
 ```
 
-![Example of BIO-WELL section](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_3.png){width=75%}
+![Example of BIO-WELL section](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette2/Vignette2_3.png){width=75%}
 
 
 # <span style="color:#0097AD;">Section 5: End</span>
 
-This is essentially a repeat of the Start section, but allows you to ask
-questions after the BIO-WELL questions.
+This is essentially a repeat of the Start section, but allows you to ask any additional questions you might want to include following the BIO-WELL questions. The  provided questions allow you to explore participants’ use of the environmental space (woodlands) and any sensory impairments that might affect their experience of woodland biodiversity.
 
 + `end_message` - Text introducing the end questions to participants.
 
 + `end_questions`- A character string (1 question) or vector (2+ questions), the
 questions to ask participants after the BIO-WELL questions.
 
-+ `end_questions_ID` - A character string or vector (equal length to `end_questions`)
-providing a unique ID for each end question. This is used in the resulting data
-frame of participant responses to avoid lengthy column names if question text is
-used.
++ `end_questions_ID` - A character string or vector (equal length to
+`end_questions`) providing a unique ID for each end question(s). This is used in
+the resulting data frame of participant responses to avoid lengthy column names
+which occurs if question text is used.
 
 + `end_questions_type`- A character string or vector (equal length to `end_questions`) specifying
 the type of response box to provide for each `end_questions` (provide these in
@@ -349,10 +384,8 @@ the same order as `end_questions`). We include five options:
   1) `text`: participants can freely type their responses.
   2) `selectbox`: participants can select one option from a drop down list.
   3) `checkbox`: participants can select one or more from list using check boxes.
-  4) `likert_five`: participants can move a five-point slider of the Likert.
-  scale ("Strongly agree" to "Strongly disagree"). 
-  5) `likert_seven`: participants can move a seven-point slider of the Likert scale (includes
-  "Somewhat agree" and "Somewhat disagree").
+  4) `likert_five`: participants can move a five-point slider to indicate their response on the Likert    scale ("Strongly agree" to "Strongly disagree"). Find out more information on the Likert scale [here](https://dictionary.apa.org/likert-scales).
+  5) `likert_seven`: participants can move a seven-point slider to indicate their response on the Likert scale ("Somewhat agree" and "Somewhat disagree"). Find out more information on the Likert scale [here](https://dictionary.apa.org/likert-scales).
   
 + `end_response_options` - A list of vectors containing `selectbox` or
 `checkbox` options for `end_questions.` The length of this list should be
@@ -360,13 +393,13 @@ equal to the number of `selectbox` or `checkbox` responses used in
 `end_questions` and be in the order that these appear.
 
 ```{r}
-end_message = "Please answer the following questions, and then click submit to generate a report."
+ end_message = "Please indicate how much you agree or disagree with each of the following statements. By ‘out of doors’ we mean open spaces in and around towns and cities, including parks, canals and nature areas; the coast and beaches; and the countryside including farmland, woodland, hills and rivers. It may include time spent close to your home or workplace, further afield or while on holiday in Wales, Scotland and England."
 
 end_questions = c(
-  "How much do you agree that you spent a lot of time in forests as a child?",
-  "How much do you agree that you spent a lot of time in forests as a teenager?",
-  "How much do you agree that you spent a lot of time in forests as a adult?",
-  "Please select any sensory impairments (e.g. difficulty hearing) that you have:"
+  "Please indicate how much you agree or disagree with each of the following statements. <br> As a child (up to 12 years old) I spent a lot of time in woodlands or forests",
+  "As a teenager (13-18 years old) I spent a lot of time in woodlands or forests",
+  "As an adult (18+ years old) I spent a lot of time in woodlands or forests",
+  "Please select any difficulties you are experiencing at the moment with the following:"
 )
 end_questions_type = c("likert_five", "likert_five", "likert_five", "checkbox")
 
@@ -375,12 +408,12 @@ end_questions_ID = c("visits_aschild",
                      "visits_asadult",
                      "impairment")
 
-end_response_options = list(c("smell", "sound", "sight"))
+end_response_options = list(c("Being able to smell (for example, no sense of smell, having a cold or hay fever)", "Hearing (answer assuming you are wearing hearing aides if you need them)", "Sight (answer assuming you are wearing glasses or contact lenses if you need them)"))
 
 ```
 
 
-![Example of end section](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_4.png){width=75%}
+![Example of end section](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette2/Vignette2_4.png){width=75%}
 
 
 # <span style="color:#0097AD;">Section 6: Report</span>
@@ -389,7 +422,7 @@ end_response_options = list(c("smell", "sound", "sight"))
 should receive a summary of their BIO-WELL scores in the survey. The report also
 compares the current participant's scores to those of previous participants.
 
-![Example of user report](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_5.png){width=75%}
+![Example of user report](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette2/Vignette2_5.png){width=75%}
 
 # <span style="color:#0097AD;">Survey control options</span> 
 
@@ -397,19 +430,46 @@ compares the current participant's scores to those of previous participants.
 
 + `all_sliders` - A logical (`TRUE` or `FALSE`) specifying whether all `biowell_questions` sliders need to be moved to continue with the survey. If `TRUE`, a message stating this to participants will appear by the next button.  
 
-+ `offline_mode` - A logical (`TRUE` or `FALSE`) specifying whether to upload input response data to Dropbox. This must be `TRUE` when uploading the package to the Shiny Server or data *will not be saved*. The offline mode is included to prevent data upload to Dropbox during the survey development stage.  
++ `offline_mode` - A logical (`TRUE` or `FALSE`) specifying whether to upload input response data to Dropbox. This must be `FALSE` when uploading the package to the Shiny Server as otherwise data *will not be saved*.
+
+When `offline_mode = TRUE`: survey responses are only stored locally to your temporary directory and not uploaded to Dropbox. This is useful when developing the survey before Dropbox has been set-up. 
+
+When `offline_mode = FALSE`: survey responses are remotely stored on Dropbox. 
 
 + `return` - One of `run`, `UI` and `server`. This must be `run` when uploading to the Shiny Server. We include this option for flexibility if you want to get the two Shiny App inputs to edit them independently (*not recommended*). 
 
 + `language` - An exciting feature of the `BIOWELL` package is the ability to
-specify the language used on the BIO-WELL sliders. This can be selected from the
-32 languages listed below. We recommend ensuring that your questions are also in
-your chosen language.
+specify the language for the BIO-WELL scale. Both the biodiversity stem
+statements and the wellbeing sliders have been professionally translated into 32
+languages which includes consultation with native speakers. Select a language
+from the below list.
 
 **Available languages**: 'arabic', 'bengali_india', 'chinese_hong kong', 'chinese_taiwan',
 'danish', 'dutch', 'edo', 'english', 'finnish', 'french', 'german', 'gujarati',
 'indonesian', 'irish', 'italian', 'japanese', 'korean', 'malay', 'norwegian',
-'polish', 'portuguese', 'portuguese_brasil', 'punjabi_india', 'punjabi_pakistan',                                 'russian', 'scottish_gaelic', 'spanish', 'swedish', 'urdu_india', 'urdu_pakistan',                                 'welsh'
+'polish', 'portuguese', 'portuguese_brasil', 'punjabi_india', 'punjabi_pakistan',
+'russian', 'scottish_gaelic', 'spanish', 'swedish', 'urdu_india', 'urdu_pakistan','welsh'
+
+# Extra variables recorded
+
+In addition to the participants responses to survey questions, the survey
+records the following variables with each submitted response:
+
++ `survey_duration` - the time in seconds between the participants starting
+the survey and submitting their responses.
++ `start_date` - the date that participants began the survey in YYYY-MM-DD
+format.
++ `start_time` - the time that participants began the survey in HH-MM-SS
+format.
++ `end_date` - the date that participants submitted their responses to the
+survey in YYYY-MM-DD format.
++ `end_time`  - the time that participants submitted their responses to the
+the survey in HH-MM-SS format.
++ `timezone` - the time zone of participants.
++ `timezone_location` - the broad location of the participant's time zone. 
++ `server_submit_time` - the time in the Shiny Server's time zone that
+participant responses were submitted.
+
 
 # <span style="color:#0097AD;">Finalising your survey</span>
  
@@ -428,6 +488,8 @@ contain your Dropbox token within a .secrets folder already (see Vignette 1 -
 + `Dropbox_App_folder` - Name of the folder within your Dropbox App (see Vignette 1)
 for response data to be stored within.
 
+The folder for your BIO-WELL survey and Dropbox folder for storing survey data can have the same name for consistency, but can be different if you prefer. 
+
 ## <span style="color:#004A86;">Example survey code to run </span>
 
 The code below contains the full input for running our example Shiny App
@@ -437,7 +499,7 @@ in the directory for the app named "app.R".
 ```{r}
 BIOWELL::build_survey(
   survey_title = "Forest biodiversity and human wellbeing",
-  sidepanel_message = "The questions in this survey are designed to explore how forest biodiversity impacts wellbeing.",
+  sidepanel_message = "The questions in this survey are designed to explore the role forest biodiversity plays in wellbeing.",
   Dropbox_App_folder = "survey_responses",
   BW_app_path = paste0(tempdir(), "/my_app_name_1"),
   organisation = "BIOWELL package example",
@@ -511,12 +573,12 @@ BIOWELL::build_survey(
       "Presence of animals"
     )
   ),
-  end_questions = c(
-    "How much do you agree that you spent a lot of time in forests as a child?",
-    "How much do you agree that you spent a lot of time in forests as a teenager?",
-    "How much do you agree that you spent a lot of time in forests as a adult?",
-    "Please select any sensory impairments (e.g. difficulty hearing) that you have:"
-  ),
+ end_questions = c(
+  "As a child (up to 12 years old) I spent a lot of time in woodlands or forests",
+  "As a teenager (13-18 years old) I spent a lot of time in woodlands or forests",
+  "As an adult (18+ years old) I spent a lot of time in woodlands or forests",
+  "Please select any difficulties you are experiencing at the moment with the following:"
+),
   end_questions_type = c("likert_five", "likert_five", "likert_five", "checkbox"),
   end_questions_ID = c(
     "visits_aschild",
@@ -524,10 +586,10 @@ BIOWELL::build_survey(
     "visits_asadult",
     "impairment"
   ),
-  end_response_options = list(c("smell", "sound", "sight")),
-  end_message = "Please answer the following questions, and then click submit to generate a report.",
+ end_response_options = list(c("Being able to smell (for example, no sense of smell, having a cold or hay fever)", "Hearing (answer assuming you are wearing hearing aides if you need them)", "Sight (answer assuming you are wearing glasses or contact lenses if you need them)")),
+  end_message = "Please indicate how much you agree or disagree with each of the following statements. By ‘out of doors’ we mean open spaces in and around towns and cities, including parks, canals and nature areas; the coast and beaches; and the countryside including farmland, woodland, hills and rivers. It may include time spent close to your home or workplace, further afield or while on holiday in Wales, Scotland and England.",
   all_questions = TRUE,
-  all_sliders = TRUE,
+  all_sliders = F,
   user_report = TRUE,
   offline = TRUE
 )

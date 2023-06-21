@@ -35,15 +35,30 @@ The `BIOWELL` package function `download_data()` collates all survey responses
 and returns a single data frame for analysis.
 
 ```{r, eval = FALSE}
-path_to_folder <- tempdir() # Replace with path to a local folder. 
-appName <- "my_app_name" # Replace with name for your app. 
+path_to_folder <- tempdir() # Replace with path to your local folder containing app.R 
 dir.create(paste0(path_to_folder,"/",appName)) 
 
+Dropbox_App_folder_name <- "your-Dropbox-folder-name" # The same one used in build_survey()
 
-survey_data <- download_data(Dropbox_App_folder = "survey_responses",
-                             BW_app_path = paste0(path_to_folder,"/",appName))
+survey_data <- download_data(Dropbox_App_folder = Dropbox_App_folder_name,
+                             BW_app_path = path_to_folder)
 
 ```
+
+For your own modelling and analysis purposes, you may want to save the
+downloaded data to a local directory. 
+
+Run the code below to save the data frame as a csv file. You can change the path and file name to save to a local directory of your choice. 
+
+```{r, eval = FALSE}
+local_directory <- tempdir() # Here we save to your temporary directory, but this can be a path to any local directory
+
+file_name <- "my_survey_data" # Here you can change the filename to anything you want.
+
+write.csv(survey_data, file = paste0(file_name, ".csv"))
+```
+
+
 
 # <span style="color:#0097AD;">Step 2: Evaluate survey </span>
 
@@ -55,17 +70,11 @@ reliability of surveys.
 
 1) **<span style="color:#004A86;">Cronbach's alpha</span>**
 
-The computed Cronbach's Alpha statistic for your survey,
-which measures the internal consistency of responses. This calculated using
-`cronbach.alpha()` function from the `ltm` R package (Rizopoulos et al.,
-2007).
+The computed Cronbach's Alpha statistic measures the reliability, or internal consistency, of the five wellbeing sliders . This can be calculated for each biodiversity statement and will help understand the strength or consistency with which the sliders collectively measure a biopsychosocial-spiritual model of wellbeing. The resulting alpha statistic can be compared to those obtained in the original Irvine et al. (2023) article. This is calculated using `cronbach.alpha()` function from the `ltm` R package (Rizopoulos et al., 2007).
 
 2) **<span style="color:#004A86;">Item-total correlation</span>**
 
-Item-total correlation: the computed item-total statistic for each BIO-WELL
-question within your survey (Cronbach et al., 1951). This is calculated using
-the `item.total()` function from the `multilevel` [R
-package](https://CRAN.R-project.org/package=multilevel).
+Item-total correlation: the computed item-total statistic for each BIO-WELL question  within your survey (Cronbach et al., 1951). This assesses how strongly scores on one wellbeing slider are related to scores on all the other wellbeing sliders. It also contributes to understanding the reliability of the wellbeing sliders as a measure of a biopsychosocial-spiritual model of wellbeing. This is calculated using the `item.total()` function from the `multilevel` [R package](https://CRAN.R-project.org/package=multilevel).
 
 Cronbach, L. J. (1951) Coefficient alpha and the internal structure of tests.
 Psychometrika, 16, 297–334.
@@ -98,6 +107,16 @@ split BIO-WELL scores by in the returned box plot.
 input for this domain. One of; `physical`, `emotional`, `cognitive`, `social`
 and `spiritual`.
 
++ `score` - An optional argument, indicating whether to plot the raw BIO-WELL scores or inverted BIO-WELL scores. One of; `inverted` or `raw`. 
+
+By default, the typical, inverted BIO-well score is plotted. This is calculated
+by taking the average score from across five wellbeing domains (physical,
+emotional, cognitive, social and spiritual). When `inverted`, the BIO-WELL score
+can be interpreted as 0-49, a negative wellbeing response to biodiversity, 50, a
+neutral wellbeing responses and 51-100 representing a positive wellbeing
+response to biodiversity. The `raw` BIO-WELL scores represents the opposite of
+this with 0-49, a positive wellbeing response to biodiversity, 50, a neutral
+wellbeing responses and 51-100 representing a negative wellbeing response.
 
 1) **<span style="color:#004A86;">Default</span>**
 
@@ -107,11 +126,24 @@ participant by situation and question. The function returns the processed data
 frame and generates a box plot for each situation to display the BIO-WELL scores
 for each question within that situation.
 
+**Note: By default this function plots the inverted BIO-WELL scores.** 
+
 ```{r fig.width=7, fig.height=10}
 results <- explore_data(data = sample_BW_data,
                         plot = FALSE)
 results[[1]][1]
 ```
+
+However, the argument `score` enables you to plot the raw BIO-WELL scores if
+desired.
+
+```{r fig.width=7, fig.height=10}
+results <- explore_data(data = sample_BW_data,
+                        plot = FALSE,
+                        score = "raw")
+results[[1]][1]
+```
+
 
 Using the argument `biowell_scale`, you could alter the default to plot the
 BIO-WELL score calculated from only one well-being domain.
@@ -130,8 +162,7 @@ The survey response data frame contains multiple columns including for responses
 to any start or end questions.
 
 Using the `column_name` argument in `explore_data()` you can specify a column
-that contains categorical data to split participant BIO-WELL scores by instead
-of by situation/question (the default).
+that contains categorical data to split participant BIO-WELL scores by.
 
 For example, the below code will generate a box plot comparing BIO-WELL
 scores between each age category of participants.

@@ -15,6 +15,9 @@
 #'  `cognitive`, `social` and `spiritual.` See details for more information.
 #'@param plot optional; a logical, indicating whether to show plots in the R
 #'  window. Default is `TRUE.`
+#'@param score a character string, specifying whether to plot inverted or raw
+#'  BIO-WELL scores. One of; `inverted` or `raw` Default; `inverted`. See
+#'  details for more information.
 #'@details
 #'
 #'This function can be used to plot average BIO-WELL scores from participant
@@ -45,7 +48,10 @@
 #'(physical, emotional, cognitive, social and spiritual). When inverted, the
 #'BIO-WELL score can be interpreted as 0-49, a negative wellbeing response to
 #'biodiversity, 50, a neutral wellbeing responses and 51-100 representing a
-#'positive wellbeing response to biodiversity.
+#'positive wellbeing response to biodiversity.The `raw` BIO-WELL scores
+#'represents the opposite of this with 0-49, a positive wellbeing response to
+#'biodiversity, 50, a neutral wellbeing responses and 51-100 representing a
+#'negative wellbeing response.
 #'
 #'Please see Irvine et al., (2023) for more details on the BIO-WELL score.
 #'
@@ -60,7 +66,7 @@
 #'Irvine, K.N., Fisher, J.C., Bentley, P.R., Nawrath, M., Dallimer,
 #'M., Austen, G.E., Fish, R. and Davies, Z.G., 2023. BIO-WELL: The development
 #'and validation of a human wellbeing scale that measures responses to
-#'biodiversity. Journal of Environmental Psychology, 85, p.101921.
+#'biodiversity. Journal of Environmental Psychology, 85, p.101921.doi:10.1016/j.jenvp.2022.101921.
 #'
 #'Wickham, H. and Chang, W. , 2016. Package ‘ggplot2’. Create
 #'elegant data visualisations using the grammar of graphics. Version, 2(1),
@@ -91,8 +97,12 @@ explore_data <- function(data,
                          column_name,
                          var_name,
                          biowell_scale,
-                         plot = TRUE) {
+                         plot = TRUE,
+                         score = "inverted") {
 
+
+  score <- match.arg(score, choices = c("inverted", "raw"))
+  score <- toupper(score)
 
   if(!missing(biowell_scale)){
 
@@ -109,7 +119,7 @@ explore_data <- function(data,
     stop("Please provide data as object of class data.frame")
   }
 
-  if (length(grep("Social_INVERTED", colnames(data))) == 0) {
+  if (length(grep(paste0("Social_",score), colnames(data))) == 0) {
     stop(
       "Columns missing: were these data collected using the BIOWELL package?"
     )
@@ -123,16 +133,16 @@ explore_data <- function(data,
   if(!missing(column_name)){
 
     # Get column data and mean bio-well scores
-    plot_data <- data[, c(column_name, "mean_biowell_INVERTED")]
+    plot_data <- data[, c(column_name, paste0("mean_biowell_",score))]
 
     # Default x axis column label for plot.
-    xlab_name <- "BIO-WELL score"
+    xlab_name <- paste0("BIO-WELL score (", tolower(score), ")")
 
     # If specified, select only one of the wellbeing domain BIO-WELL scores
 
     if (!missing(biowell_scale)) {
 
-      biowell_scale_type<-paste0(biowell_scale, "_INVERTED")
+      biowell_scale_type <- paste0(biowell_scale, "_", score)
 
       # Select columns contain values for this domain only and take average
       avg_biowell <- rowMeans(data[, grep(biowell_scale_type, colnames(data))])
@@ -140,7 +150,7 @@ explore_data <- function(data,
       plot_data <- as.data.frame(cbind(data[, c(column_name)], avg_biowell))
 
       # Change x axis column label to specify domain of BIO-WELL scores.
-      xlab_name <- paste0("BIO-WELL score:", biowell_scale)
+      xlab_name <- paste0("BIO-WELL score (", tolower(score), ") :", biowell_scale)
     }
 
     # Label columns for plotting
@@ -215,30 +225,30 @@ explore_data <- function(data,
   if(missing(column_name)){
 
     # Get BIO-WELL scores for each domain
-    df1 <- data[, grep("Social_INVERTED", colnames(data))]
-    df2 <- data[, grep("Spiritual_INVERTED", colnames(data))]
-    df3 <- data[, grep("Physical_INVERTED", colnames(data))]
-    df4 <- data[, grep("Emotional_INVERTED", colnames(data))]
-    df5 <- data[, grep("Cognitive_INVERTED", colnames(data))]
+    df1 <- data[, grep(paste0("Social_",score), colnames(data))]
+    df2 <- data[, grep(paste0("Spiritual_",score), colnames(data))]
+    df3 <- data[, grep(paste0("Physical_",score), colnames(data))]
+    df4 <- data[, grep(paste0("Emotional_",score), colnames(data))]
+    df5 <- data[, grep(paste0("Cognitive_",score), colnames(data))]
 
     # Calculate average BIO-WELL scores for each question
     average_biowell <- (df1 + df2 + df3 + df4 + df5) / 5
 
     # Default x axis column label for plot.
-    xlab_name <- "BIO-WELL score"
+    xlab_name <- paste0("BIO-WELL score (", tolower(score), ")")
 
-    default <- "Social_INVERTED"
+    default <- paste0("Social_", score)
 
     if(!missing(biowell_scale)){
 
-      biowell_scale_type <- paste0(biowell_scale, "_INVERTED")
+      biowell_scale_type <- paste0(biowell_scale, "_", score)
 
       average_biowell <- data[, grep(biowell_scale_type, colnames(data))]
 
       # Change x axis column label to specify domain of BIO-WELL scores.
-      xlab_name <- paste0("BIO-WELL score:", biowell_scale)
+      xlab_name <- paste0("BIO-WELL score (", tolower(score), ") :", biowell_scale)
 
-      default <- paste0(biowell_scale, "_INVERTED")
+      default <- paste0(biowell_scale, "_", score)
     }
 
 

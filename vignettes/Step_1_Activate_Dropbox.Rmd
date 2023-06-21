@@ -20,7 +20,7 @@ The `BIOWELL` package includes functions for building a custom survey in `Shiny`
 using the BIO-WELL scale and sharing the survey with
 participants via the internet by deploying them onto the [Posit Shiny Server](https://posit.co/products/open-source/shinyserver/).
 
-In this vignette, we will outline how to generate a long-lived
+In this vignette, we will outline how to register for a Dropbox account and then generate a long-lived
 [Dropbox](https://www.dropbox.com/) access token for storing response data from
 your BIO-WELL survey.
 
@@ -45,7 +45,8 @@ Before starting, install the `BIOWELL` and `rdrop2` packages in R. Then load the
 libraries.
 
 ```{r setup}
-# install.packages("BIOWELL")
+# devtools::install_github("r-a-dobson/BIOWELL") # Install from GitHub
+# install.packages("BIOWELL")  # Install from CRAN
 # install.packages("rdrop2")
 library(BIOWELL)
 library(rdrop2)
@@ -59,6 +60,8 @@ contains the survey script (`build_survey()` - Vignette 2), as well as the
 Dropbox access token (Vignette 1).
 
 Let's create a folder to store our BIO-WELL survey and associated data to!
+
+Note the app name that you use here. When creating your Dropbox App folder and your Shiny Server app, it would be useful to keep the name consistent through all three (local, Dropbox and Shiny Server) - but they can be different from each other if you wish. 
 
 ```{r app_directory}
 path_to_folder <- tempdir() # Replace with path to a local folder. 
@@ -92,18 +95,18 @@ Now you can access your [Dropbox App Console](https://www.dropbox.com/developers
 
 Scroll down to OAUTH2: Redirect URIs and add "http<span>://</span>localhost:1410/".
 
-![Add redirect URI](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_2.png){width=75%}
+![Add redirect URI](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette1/Vignette1_2.png){width=75%}
 
 Then, go to the Permissions tab and tick the relevant boxes. You need to give
 the app permission to read and write files.
 
-![Add Dropbox App permissions](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_3.png){width=75%}
+![Add Dropbox App permissions](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette1/Vignette1_3.png){width=75%}
 
 Return back to the app's Settings tab, and scroll down to reveal your app's key
 and secret. This is required for activating the access token! Remember to never
 share your app's key and secret.
 
-[Get Dropbox name, key and secret](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_4.png){width=75%}
+[Get Dropbox name, key and secret](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette1/Vignette1_4.png){width=75%}
 
 
 Let's save our Dropbox App details in the R environment. 

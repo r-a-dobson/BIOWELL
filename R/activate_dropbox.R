@@ -22,7 +22,7 @@
 #'important that certain Dropbox App settings are edited before running
 #'`activate_dropbox()`, including:
 #'
-#'+ Under "OAUTH2: Redirect URIs" add the URI "http://localhost:1410/"
+#'+ Under "OAUTH2: Redirect URIs" add "http://localhost:1410/"
 #'+ Under "Permissions" tick for access to Dropbox folder to read and write files.
 #'
 #'Full details on completing these changes are detailed in Vignette 1 within the

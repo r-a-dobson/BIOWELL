@@ -16,38 +16,53 @@ coverage](https://codecov.io/gh/r-a-dobson/BIOWELL/branch/main/graph/badge.svg)]
 **Introducing `BIOWELL`: An R package for effortlessly creating and
 sharing customized surveys that include the BIO-WELL scale**.
 
-The BIO-WELL scale is an important tool for assessing the **contribution
-of biodiversity to human wellbeing**. The scale was developed to address
-the limited understanding of how interactions with nature and
-biodiversity impact our health and wellbeing.
+The BIO-WELL scale provides an important tool for assessing the
+**contribution of biodiversity to human wellbeing**. The scale was
+developed to address the limited understanding of how interactions with
+nature and biodiversity impact our health and wellbeing.
 
-With the `BIOWELL` package, you have the flexibility to **design surveys
-tailored to your specific research needs**.
+With the `BIOWELL` package, you have the flexibility to **design and
+analyse surveys tailored to your specific research needs**.
 
 This **user-friendly** package provides a range of functions that
-**streamline the survey development process**.
+**streamline the survey development process and analysis**.
 
 # **What is the BIO-WELL scale?**
 
-BIO-WELL is a reliable and validated scale that links biodiversity to
-human wellbeing. It incorporates multi-sensory attributes of
-biodiversity and ecological metrics. Five studies, involving 2962
-participants, detail its development, validation, and psychometric
-properties (Irvine et al., 2023).
+BIO-WELL is a reliable and validated self-report scale that links
+biodiversity to human wellbeing. It incorporates ecological metrics
+(e.g. species diversity) and multi-sensory attributes of biodiversity
+(e.g. smells, shapes). Five studies, involving 2962 participants, detail
+its development, validation, and psychometric properties (Irvine et al.,
+2023).
 
 BIO-WELL provides a **valuable tool for researchers and
 decision-makers** to understand the biodiversity-health/wellbeing
-relationship and evaluate interventions.
+relationship and evaluate interventions (Fig 1).
 
 <a href='https://github.com/r-a-dobson/BIOWELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_0.png" align="centre" height="650" width = "100%"/></a>
 
+Fig. 1. The biodiversity-wellbeing scale, BIO-WELL. Through an
+introductory statement, participants are invited to figuratively place
+themselves in a nearby woodland and to think about the biodiversity.
+Stem questions asked about biodiversity metrics (e.g. abundance, species
+diversity), as well as biodiversity attributes (e.g. smells, colours,
+shapes). Wellbeing response items reflected either physical, emotional,
+cognitive, social or spiritual wellbeing, following a
+biopsychosocial-spiritual model of health. They are in Visual Analogue
+Scale format, with a positive and negative linguistic anchor either side
+of a slider ranging from 0 to 100, allowing participants to indicate
+their wellbeing along the line. Two of the seventeen biodiversity stem
+questions are included here for illustrative purposes.
+
 **Read more about the development and application of BIO-WELL in:**
 
-<span style="color:#004A86">*Irvine, K.N., Fisher, J.C., Bentley, P.R.,
-Nawrath, M., Dallimer, M., Austen, G.E., Fish, R. and Davies, Z.G.,
-2023. BIO-WELL: The development and validation of a human wellbeing
-scale that measures responses to biodiversity. Journal of Environmental
-Psychology, 85, p.101921.*
+[*Irvine, K.N., Fisher, J.C., Bentley, P.R., Nawrath, M., Dallimer, M.,
+Austen, G.E., Fish, R. and Davies, Z.G., 2023. BIO-WELL: The development
+and validation of a human wellbeing scale that measures responses to
+biodiversity. Journal of Environmental Psychology, 85, p.101921.
+doi:10.1016/j.jenvp.2022.101921.
+*](https://doi.org/10.1016/j.jenvp.2022.101921)
 
 ## Benefits of BIO-WELL
 
@@ -136,7 +151,7 @@ package:
 6)  **Explore patterns** - Generate plots of BIO-WELL scores across
     environments and stem questions with `explore_data()`.
 
-<a href='https://github.com/r-a-dobson/BIOWELL'><img src="https://github.com/r-a-dobson/BIOWELL/blob/main/man/V2/bw_framework.png" align="centre" height="700" width = "100%"/></a>
+<a href='https://github.com/r-a-dobson/BIOWELL'><img src="https://github.com/r-a-dobson/BIOWELL/blob/main/man/Vignette2/bw_framework.png" align="centre" height="700" width = "100%"/></a>
 
 ## Need help learning the BIOWELL package functions?
 
