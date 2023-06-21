@@ -40,7 +40,7 @@ BIO-WELL provides a **valuable tool for researchers and
 decision-makers** to understand the biodiversity-health/wellbeing
 relationship and evaluate interventions (Fig 1).
 
-<a href='https://github.com/r-a-dobson/BIOWELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V2/V2_0.png" align="centre" height="650" width = "100%"/></a>
+<a href='https://github.com/r-a-dobson/BIOWELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIOWELL/main/man/Vignette2/Vignette2_0.png" align="centre" height="650" width = "100%"/></a>
 
 Fig. 1. The biodiversity-wellbeing scale, BIO-WELL. Through an
 introductory statement, participants are invited to figuratively place
@@ -57,27 +57,27 @@ questions are included here for illustrative purposes.
 
 **Read more about the development and application of BIO-WELL in:**
 
-[*Irvine, K.N., Fisher, J.C., Bentley, P.R., Nawrath, M., Dallimer, M.,
+[Irvine, K.N., Fisher, J.C., Bentley, P.R., Nawrath, M., Dallimer, M.,
 Austen, G.E., Fish, R. and Davies, Z.G., 2023. BIO-WELL: The development
 and validation of a human wellbeing scale that measures responses to
 biodiversity. Journal of Environmental Psychology, 85, p.101921.
-doi:10.1016/j.jenvp.2022.101921.
-*](https://doi.org/10.1016/j.jenvp.2022.101921)
+doi:10.1016/j.jenvp.2022.101921.](https://doi.org/10.1016/j.jenvp.2022.101921)
 
 ## Benefits of BIO-WELL
 
-- Include stem questions that specifically ask participants to consider
+- Combines measures of the environment and wellbeing into a **single
+  scale**.
+
+- Includes stem questions that specifically ask participants to consider
   their wellbeing in relation to **different elements of biodiversity**,
   such as species diversity, ecological processes, and attributes like
   sounds.
 
-- Captures the **holistic experience of biodiversity** by situating
-  participants within a natural environment and incorporates a
+- Captures the **holistic experience of biodiversity** using a
   biopsychosocial-spiritual model of wellbeing, including **physical,
-  emotional, cognitive, social, and spiritual domains of wellbeing**
-
-- Combines measures of the environment and wellbeing into a **single
-  scale** ranging from 0 to 100.
+  emotional, cognitive, social, and spiritual domains of wellbeing** and
+  a response format that can capture the wellbeing continuum from
+  negative to positive.
 
 - Applicable to **diverse research settings**, including scenario-based
   studies, in situ evaluations, and studies that incorporate measures of
@@ -127,7 +127,7 @@ doi:10.1016/j.jenvp.2022.101921.
 Install the `BIOWELL` package by running the line below!
 
 ``` r
-devtools::install_github("r-a-dobson/BIOWELL")
+devtools::install_github("r-a-dobson/BIO-WELL")
 ```
 
 There are six key stages (and associated functions) in the BIOWELL
@@ -151,7 +151,7 @@ package:
 6)  **Explore patterns** - Generate plots of BIO-WELL scores across
     environments and stem questions with `explore_data()`.
 
-<a href='https://github.com/r-a-dobson/BIOWELL'><img src="https://github.com/r-a-dobson/BIOWELL/blob/main/man/Vignette2/bw_framework.png" align="centre" height="700" width = "100%"/></a>
+<a href='https://github.com/r-a-dobson/BIOWELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIOWELL/main/man/Vignette2/bw_framework.png" align="centre" height="700" width = "100%"/></a>
 
 ## Need help learning the BIOWELL package functions?
 
