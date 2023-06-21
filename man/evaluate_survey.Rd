@@ -26,14 +26,26 @@ into \code{evaluate_survey()}.
 \code{evaluate_survey()} returns three outputs in a list object:
 \enumerate{
 \item A processed data frame containing the average BIO-WELL scores for each
-participant for each questions within your custom \code{BIOWELL} package survey.
-\item Cronbach's Alpha: the computed Cronbach's Alpha statistic for your survey,
-which measures the internal consistency of responses. This is calculated using
-the \code{cronbach.alpha()} function from the \code{ltm} R package (Rizopoulos et al.,
+participant for each question within your custom \code{BIOWELL} package survey.
+\item Cronbach's Alpha
+}
+
+The computed Cronbach's Alpha statistic measures the reliability, or internal
+consistency, of the five wellbeing sliders . This can be calculated for each
+biodiversity statement and will help understand the strength or consistency
+with which the sliders collectively measure a biopsychosocial-spiritual model
+of wellbeing. The resulting alpha statistic can be compared to those obtained
+in the original Irvine et al. (2023) article. This is calculated using
+\code{cronbach.alpha()} function from the \code{ltm} R package (Rizopoulos et al.,
 2007).
+\enumerate{
 \item Item-total correlation: the computed item-total statistic for each BIO-WELL
-question within your survey (Cronbach et al., 1951). This is calculated using
-the \code{item.total()} function from the \code{multilevel} \href{https://CRAN.R-project.org/package=multilevel}{R package}.
+question  within your survey (Cronbach et al., 1951). This assesses how
+strongly scores on one wellbeing slider are related to scores on all the other
+wellbeing sliders. It also contributes to understanding the reliability of the
+wellbeing sliders as a measure of a biopsychosocial-spiritual model of
+wellbeing. This is calculated using the \code{item.total()} function from the
+\code{multilevel} \href{https://CRAN.R-project.org/package=multilevel}{R package}.
 }
 }
 \examples{

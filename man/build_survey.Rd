@@ -18,8 +18,8 @@ build_survey(
   start_questions_ID,
   start_questions_type,
   start_response_options = NULL,
-  biowell_situations,
-  biowell_situations_ID,
+  biowell_setting,
+  biowell_setting_ID,
   biowell_questions,
   biowell_questions_ID,
   end_message = NULL,
@@ -85,15 +85,15 @@ vectors, the options to offer for each \code{start_questions} of type \code{chec
 or \code{selectbox}. Provide these in the same order as they appear in
 \code{start_questions}.}
 
-\item{biowell_situations}{a character string or vector, describing the
+\item{biowell_setting}{a character string or vector, describing the
 environmental space setting(s) for BIO-WELL questions.}
 
-\item{biowell_situations_ID}{a character string or vector the length of
-\code{biowell_situations}, the short IDs for each BIO-WELL situation to use in
+\item{biowell_setting_ID}{a character string or vector the length of
+\code{biowell_setting}, the short IDs for each BIO-WELL environmental space setting to use in
 output survey response data frame.}
 
 \item{biowell_questions}{a list of character strings or vectors, the questions
-for each separate \code{biowell_situations}. Each will be accompanied by the
+for each separate \code{biowell_setting}. Each will be accompanied by the
 BIO-WELL response item comprising five sliders.}
 
 \item{biowell_questions_ID}{a character string or vector equal to the length
@@ -159,19 +159,19 @@ of a certain age, or do not consent to their involvement.
 questions. For example, these may be generic questions, such as gaining
 information on a participant's location, gender or employment.
 \item BIO-WELL: The questions in this section are all accompanied by the five
-sliders that comprise the BIO-WELL scale. For each situation given, a new page is added
+sliders that comprise the BIO-WELL scale. For each environmental space setting given, a new page is added
 to the survey. See Irvine et al., (2023) for more details on the BIO-WELL
 scale and survey set-up, including the BIO-WELL stem questions.
 }
 \enumerate{
-\item \code{biowell_situations}: Text for describing an introductory scenario to
+\item \code{biowell_setting}: Text for describing an introductory scenario to
 cognitively situate the participant within a particular natural environment
 (i.e. a nearby forest).
-\item \code{biowell_questions}: A list the length of \code{biowell_situations}, in which
+\item \code{biowell_questions}: A list the length of \code{biowell_setting}, in which
 each element contains a vector of the questions to be asked for each
-situation. These stem questions are asked about biodiversity metrics (e.g.
+environmental space setting. These stem questions are asked about biodiversity metrics (e.g.
 abundance, species diversity), as well as biodiversity attributes (e.g.
-smells, colours, shapes) within each \code{biowell_situation} given.
+smells, colours, shapes) within each \code{biowell_setting} given.
 }
 \itemize{
 \item End: This section allows you to set questions that follow the BIO-WELL
@@ -354,11 +354,11 @@ survey_title = "Insert survey title here",
    c('Choose',  'one',  'of', 'these'),
    c('Choose',  'multiple',  'of', 'these')
  ),
-biowell_situations = c(
-  "Insert description of biowell situation 1.",
-   "Insert description of biowell situation 2."
+biowell_setting = c(
+  "Insert description of biowell environmental space setting 1.",
+   "Insert description of biowell environmental space setting 2."
  ),
-biowell_situations_ID = c("situation1", "situation2"),
+biowell_setting_ID = c("setting1", "setting2"),
  biowell_questions = list(
    c("Insert biodiversity stem question here BW1"),
    c(

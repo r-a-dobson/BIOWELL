@@ -54,8 +54,8 @@ There are two approaches:
 \itemize{
 \item Default: This will generate a box plot of BIO-WELL scores for each BIO-WELL
 question (\code{biowell_questions} in \code{build_survey()}) within each BIO-WELL
-situation (\code{biowell_situations} in \code{build_surveys()}). If more than one
-situation exists within your survey, these will be plotted in seperately.
+environmental space setting (\code{biowell_setting} in \code{build_surveys()}). If more than one
+environmental space setting exists within your survey, these will be plotted in seperately.
 \item Column: If a \code{column_name} is provided, for each unique category in this
 column, a box plot of average BIO-WELL scores for each participant will be
 generated. This can be used to compare average BIO-WELL scores across

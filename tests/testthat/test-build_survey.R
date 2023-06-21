@@ -39,11 +39,11 @@ results <- build_survey(
     c('Choose',  'one',  'of', 'these'),
     c('Choose',  'multiple',  'of', 'these')
   ),
-  biowell_situations = c(
+  biowell_setting = c(
     "Insert description of biowell situation 1.",
     "Insert description of biowell situation 2."
   ),
-  biowell_situations_ID = c("situation1", "situation2"),
+  biowell_setting_ID = c("situation1", "situation2"),
   biowell_questions = list(
     c("Insert biodiversity stem question here BW1"),
     c(
@@ -126,11 +126,11 @@ test_that("Returns server ", {
       c('Choose',  'one',  'of', 'these'),
       c('Choose',  'multiple',  'of', 'these')
     ),
-    biowell_situations = c(
+    biowell_setting = c(
       "Insert description of biowell situation 1.",
       "Insert description of biowell situation 2."
     ),
-    biowell_situations_ID = c("situation1", "situation2"),
+    biowell_setting_ID = c("situation1", "situation2"),
     biowell_questions = list(
       c("Insert biodiversity stem question here BW1"),
       c(
@@ -220,11 +220,11 @@ test_that("Returns UI ", {
       c('Choose',  'one',  'of', 'these'),
       c('Choose',  'multiple',  'of', 'these')
     ),
-    biowell_situations = c(
+    biowell_setting = c(
       "Insert description of biowell situation 1.",
       "Insert description of biowell situation 2."
     ),
-    biowell_situations_ID = c("situation1", "situation2"),
+    biowell_setting_ID = c("situation1", "situation2"),
     biowell_questions = list(
       c("Insert biodiversity stem question here BW1"),
       c(
@@ -307,11 +307,11 @@ test_that("Returns server ", {
       c('Choose',  'one',  'of', 'these'),
       c('Choose',  'multiple',  'of', 'these')
     ),
-    biowell_situations = c(
+    biowell_setting = c(
       "Insert description of biowell situation 1.",
       "Insert description of biowell situation 2."
     ),
-    biowell_situations_ID = c("situation1", "situation2"),
+    biowell_setting_ID = c("situation1", "situation2"),
     biowell_questions = list(
       c("Insert biodiversity stem question here BW1"),
       c(
@@ -377,11 +377,11 @@ test_that("Works without questions ", {
   results <- build_survey(
     survey_title = "Insert survey title here",
     sidepanel_message = "Insert sidepanel message here.",
-    biowell_situations = c(
+    biowell_setting = c(
       "Insert description of biowell situation 1.",
       "Insert description of biowell situation 2."
     ),
-    biowell_situations_ID = c("situation1", "situation2"),
+    biowell_setting_ID = c("situation1", "situation2"),
     biowell_questions = list(
       c("Insert biodiversity stem question here BW1"),
       c(
@@ -434,7 +434,7 @@ test_that("Works in no IDs ", {
       c('Choose',  'one',  'of', 'these'),
       c('Choose',  'multiple',  'of', 'these')
     ),
-    biowell_situations = c(
+    biowell_setting = c(
       "Insert description of biowell situation 1.",
       "Insert description of biowell situation 2."
     ),
@@ -513,10 +513,10 @@ test_that("Works if error when doing list for questions ", {
       c('Choose',  'one',  'of', 'these'),
       c('Choose',  'multiple',  'of', 'these')
     ),
-    biowell_situations = c(
+    biowell_setting = c(
       "Insert description of biowell situation 1."
     ),
-    biowell_situations_ID = c("situation1"),
+    biowell_setting_ID = c("situation1"),
     biowell_questions = c("Insert biodiversity stem question here BW1"),
     biowell_questions_ID = list(c("BW.S1.Q1")),
     end_questions = c(
@@ -593,10 +593,10 @@ test_that("Works if error if online ", {
       c('Choose',  'one',  'of', 'these'),
       c('Choose',  'multiple',  'of', 'these')
     ),
-    biowell_situations = c(
+    biowell_setting = c(
       "Insert description of biowell situation 1."
     ),
-    biowell_situations_ID = c("situation1"),
+    biowell_setting_ID = c("situation1"),
     biowell_questions = c("Insert biodiversity stem question here BW1"),
     biowell_questions_ID = list(c("BW.S1.Q1")),
     end_questions = c(
@@ -693,10 +693,10 @@ test_that("Works if error if incorrent end response type length ", {
       c('Choose',  'one',  'of', 'these'),
       c('Choose',  'multiple',  'of', 'these')
     ),
-    biowell_situations = c(
+    biowell_setting = c(
       "Insert description of biowell situation 1."
     ),
-    biowell_situations_ID = c("situation1"),
+    biowell_setting_ID = c("situation1"),
     biowell_questions = c("Insert biodiversity stem question here BW1"),
     biowell_questions_ID = list(c("BW.S1.Q1")),
     end_questions = c(
@@ -781,10 +781,10 @@ test_that("Works if error if incorrent start response type length ", {
       c('Choose',  'one',  'of', 'these'),
       c('Choose',  'multiple',  'of', 'these')
     ),
-    biowell_situations = c(
+    biowell_setting = c(
       "Insert description of biowell situation 1."
     ),
-    biowell_situations_ID = c("situation1"),
+    biowell_setting_ID = c("situation1"),
     biowell_questions = c("Insert biodiversity stem question here BW1"),
     biowell_questions_ID = list(c("BW.S1.Q1")),
     end_questions = c(
@@ -861,10 +861,10 @@ test_that("Error if wrong length response options start ", {
     start_response_options = list(
       c('Choose',  'multiple',  'of', 'these')
     ),
-    biowell_situations = c(
+    biowell_setting = c(
       "Insert description of biowell situation 1."
     ),
-    biowell_situations_ID = c("situation1"),
+    biowell_setting_ID = c("situation1"),
     biowell_questions = c("Insert biodiversity stem question here BW1"),
     biowell_questions_ID = list(c("BW.S1.Q1")),
     end_questions = c(
@@ -944,10 +944,10 @@ test_that("Error if wrong length response options end ", {
       c('Choose',  'multiple',  'of', 'these'),
       c('Choose',  'multiple',  'of', 'these')
     ),
-    biowell_situations = c(
+    biowell_setting = c(
       "Insert description of biowell situation 1."
     ),
-    biowell_situations_ID = c("situation1"),
+    biowell_setting_ID = c("situation1"),
     biowell_questions = c("Insert biodiversity stem question here BW1"),
     biowell_questions_ID = list(c("BW.S1.Q1")),
     end_questions = c(
@@ -1025,10 +1025,10 @@ test_that("Error if wrong length response options screen ", {
       c('Choose',  'multiple',  'of', 'these'),
       c('Choose',  'multiple',  'of', 'these')
     ),
-    biowell_situations = c(
+    biowell_setting = c(
       "Insert description of biowell situation 1."
     ),
-    biowell_situations_ID = c("situation1"),
+    biowell_setting_ID = c("situation1"),
     biowell_questions = c("Insert biodiversity stem question here BW1"),
     biowell_questions_ID = list(c("BW.S1.Q1")),
     end_questions = c(
@@ -1106,10 +1106,10 @@ test_that("Error if wrong length response options screen ", {
       c('Choose',  'multiple',  'of', 'these'),
       c('Choose',  'multiple',  'of', 'these')
     ),
-    biowell_situations = c(
+    biowell_setting = c(
       "Insert description of biowell situation 1."
     ),
-    biowell_situations_ID = c("situation1"),
+    biowell_setting_ID = c("situation1"),
     biowell_questions = c("Insert biodiversity stem question here BW1"),
     biowell_questions_ID = list(c("BW.S1.Q1")),
     end_questions = c(
