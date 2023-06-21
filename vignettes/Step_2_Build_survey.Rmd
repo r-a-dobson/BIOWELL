@@ -84,7 +84,7 @@ the participant from completing the rest of the survey.
 
 3) Start - An opportunity to add survey questions prior to the BIO-WELL questions. 
 
-4) BIO-WELL - For each situation given, a page with questions will be generated.
+4) BIO-WELL - For each environmental space setting given, a page with questions will be generated.
 Each question will be accompanied by the five sliders included in the BIO-WELL
 scale.
 
@@ -212,26 +212,26 @@ start_response_options = list(c('Male',  'Female',  'In another way', 'Prefer no
 
 # <span style="color:#0097AD;">Section 4: BIO-WELL</span>
 
-+ `biowell_situations`: Text for describing an introductory scenario to cognitively
++ `biowell_setting`: Text for describing an introductory scenario to cognitively
 situate the participant within a particular natural environment (i.e. a nearby
 forest). 
 
-+ `biowell_questions`: A list the length of `biowell_situations`, in which each
-element contains a vector of the questions to be asked for each situation. 
++ `biowell_questions`: A list the length of `biowell_setting`, in which each
+element contains a vector of the questions to be asked for each environmental space setting. 
 
 These stem questions are asked about biodiversity metrics (e.g.
 abundance, species diversity), as well as biodiversity attributes (e.g. smells,
-colours, shapes) within each `biowell_situation` given. 
+colours, shapes) within each `biowell_setting` given. 
 
 Table 2 demonstrates stem questions for a forest habitat. These can be
 adapted to other environments and contexts through either direct modification
 (e.g. change “woody smells” to “grassy smells” for urban parks) or through
 additional empirical work (e.g. focus groups) to identify relevant attributes.
 
-+ `biowell_situations_ID` - A string or vector (equal length to
-`biowell_situations`) providing a unique ID for each situation.
++ `biowell_setting_ID` - A string or vector (equal length to
+`biowell_setting`) providing a unique ID for each environmental space setting.
 
-+ `biowell_questions_ID`- A list the length of `biowell_situations` containing a
++ `biowell_questions_ID`- A list the length of `biowell_setting` containing a
 string or vector the same length as the equivalent list element in `biowell_questions`, providing a unique ID for each BIO-WELL question.
 This is used in the resulting data frame of participant responses to avoid lengthy column names which occurs if question text is used. 
 
@@ -316,11 +316,11 @@ data.frame("Biodiversity type" =  c("metric",
 To enter these as argument you would use the following code: 
 
 ```{r }
-biowell_situations = c(
+biowell_setting = c(
   "For each of the following questions,  imagine yourself in a nearby forest at this time of year. Please think about the living things,  including the plants,  fungi and animals (but not pets,  horses,  cows,  sheep),  in that forest."
 )
 
-biowell_situations_ID = c("forest")
+biowell_setting_ID = c("forest")
 
 biowell_questions = list(
   c("encountering the living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
@@ -530,10 +530,10 @@ from the study after you click on 'Submit' at the end of the survey", # Question
     c('Scotland',  'England',  'Wales'),
     c("Urban", "Rural")
   ),
-  biowell_situations = c(
+  biowell_setting = c(
     "For each of the following questions,  imagine yourself in a nearby forest at this time of year. Please think about the living things,  including the plants,  fungi and animals (but not pets,  horses,  cows,  sheep),  in that forest."
   ),
-  biowell_situations_ID = c("forest"),
+  biowell_setting_ID = c("forest"),
   biowell_questions = list(
     c(
       "Encountering the living things (e.g. plants,  fungi and animals) in this forest makes me feel…",

@@ -74,7 +74,7 @@ The computed Cronbach's Alpha statistic measures the reliability, or internal co
 
 2) **<span style="color:#004A86;">Item-total correlation</span>**
 
-Item-total correlation: the computed item-total statistic for each BIO-WELL question  within your survey (Cronbach et al., 1951). This assesses how strongly scores on one wellbeing slider are related to scores on all the other wellbeing sliders. It also contributes to understanding the reliability of the wellbeing sliders as a measure of a biopsychosocial-spiritual model of wellbeing. This is calculated using the `item.total()` function from the `multilevel` [R package](https://CRAN.R-project.org/package=multilevel).
+The computed item-total statistic for each BIO-WELL question  within your survey (Cronbach et al., 1951). This assesses how strongly scores on one wellbeing slider are related to scores on all the other wellbeing sliders. It also contributes to understanding the reliability of the wellbeing sliders as a measure of a biopsychosocial-spiritual model of wellbeing. This is calculated using the `item.total()` function from the `multilevel` [R package](https://CRAN.R-project.org/package=multilevel).
 
 Cronbach, L. J. (1951) Coefficient alpha and the internal structure of tests.
 Psychometrika, 16, 297–334.
@@ -122,9 +122,9 @@ wellbeing responses and 51-100 representing a negative wellbeing response.
 
 If you only provide `explore_data()` with the participant survey response data
 frame, by default, the function will collate the BIO-WELL scores for each
-participant by situation and question. The function returns the processed data
-frame and generates a box plot for each situation to display the BIO-WELL scores
-for each question within that situation.
+participant by setting and question. The function returns the processed data
+frame and generates a box plot for each setting to display the BIO-WELL scores
+for each question within that setting.
 
 **Note: By default this function plots the inverted BIO-WELL scores.** 
 

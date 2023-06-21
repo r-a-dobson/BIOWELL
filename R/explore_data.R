@@ -31,8 +31,8 @@
 #'
 #'+ Default: This will generate a box plot of BIO-WELL scores for each BIO-WELL
 #'question (`biowell_questions` in `build_survey()`) within each BIO-WELL
-#'situation (`biowell_situations` in `build_surveys()`). If more than one
-#'situation exists within your survey, these will be plotted in seperately.
+#'environmental space setting (`biowell_setting` in `build_surveys()`). If more than one
+#'environmental space setting exists within your survey, these will be plotted in seperately.
 #'
 #'+ Column: If a `column_name` is provided, for each unique category in this
 #'column, a box plot of average BIO-WELL scores for each participant will be
@@ -219,7 +219,7 @@ explore_data <- function(data,
 
 
   #----------------------------------------------------------------------------
-  # Process and plot BIO-WELL scores across BIO-WELL questions in each situation
+  # Process and plot BIO-WELL scores across BIO-WELL questions in each environmental space setting
   #----------------------------------------------------------------------------
 
   if(missing(column_name)){
@@ -257,13 +257,13 @@ explore_data <- function(data,
     df <- do.call(rbind.data.frame, strsplit(column_names, "_"))
 
     # Re-label columns
-    colnames(df) <- c("situation", "question")
+    colnames(df) <- c("setting", "question")
 
     # Replace periods with spaces
     df$question <- gsub("[.]", " ", df$question)
 
-    # Generate situation:question labels for plotting
-    df$situation_question <- paste0(df$situation, ": ", df$question)
+    # Generate setting:question labels for plotting
+    df$setting_question <- paste0(df$setting, ": ", df$question)
 
     # Flip the average BIO-WELL score data
     raw <- as.data.frame(t(average_biowell))
@@ -287,10 +287,10 @@ explore_data <- function(data,
     }
 
     # Add variable column
-    df$variable <- df[, "situation_question"]
+    df$variable <- df[, "setting_question"]
 
     if (missing(var_name)) {
-      var_name <- "situation_question"
+      var_name <- "setting_question"
     }
 
     plot_data<-NULL
@@ -313,17 +313,17 @@ explore_data <- function(data,
     }
 
 
-    # Create empty list for binding each plot for each situation to
+    # Create empty list for binding each plot for each setting to
 
-    plot1 <- vector(mode = "list", length = length(unique(plot_data$situation)))
+    plot1 <- vector(mode = "list", length = length(unique(plot_data$setting)))
 
     plot_data_final <- NULL
 
-    # For every unique BIO-WELL situation within survey...
-    for(sq in 1:length(unique(plot_data$situation))) {
+    # For every unique BIO-WELL setting within survey...
+    for(sq in 1:length(unique(plot_data$setting))) {
 
-      # Select only responses for this situation
-      filt <- plot_data[plot_data$situation == unique(plot_data$situation)[sq],]
+      # Select only responses for this setting
+      filt <- plot_data[plot_data$setting == unique(plot_data$setting)[sq],]
 
       filt$mean_biowell<-as.numeric(filt$mean_biowell)
 
@@ -340,7 +340,7 @@ explore_data <- function(data,
         ggplot2::xlab(var_name) +
         ggplot2::ylab(xlab_name) +
         ggplot2::theme_bw() +
-        ggplot2::ggtitle(unique(plot_data$situation)[sq]) +
+        ggplot2::ggtitle(unique(plot_data$setting)[sq]) +
         ggplot2::labs(colour = var_name) +
         ggplot2::theme(legend.position = "none")
 

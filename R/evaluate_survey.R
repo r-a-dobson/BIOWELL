@@ -13,17 +13,26 @@
 #'`evaluate_survey()` returns three outputs in a list object:
 #'
 #'1) A processed data frame containing the average BIO-WELL scores for each
-#'participant for each questions within your custom `BIOWELL` package survey.
+#'participant for each question within your custom `BIOWELL` package survey.
 #'
-#'2) Cronbach's Alpha: the computed Cronbach's Alpha statistic for your survey,
-#'which measures the internal consistency of responses. This is calculated using
-#'the `cronbach.alpha()` function from the `ltm` R package (Rizopoulos et al.,
+#'2) Cronbach's Alpha
+#'
+#'The computed Cronbach's Alpha statistic measures the reliability, or internal
+#'consistency, of the five wellbeing sliders . This can be calculated for each
+#'biodiversity statement and will help understand the strength or consistency
+#'with which the sliders collectively measure a biopsychosocial-spiritual model
+#'of wellbeing. The resulting alpha statistic can be compared to those obtained
+#'in the original Irvine et al. (2023) article. This is calculated using
+#'`cronbach.alpha()` function from the `ltm` R package (Rizopoulos et al.,
 #'2007).
 #'
 #'3) Item-total correlation: the computed item-total statistic for each BIO-WELL
-#'question within your survey (Cronbach et al., 1951). This is calculated using
-#'the `item.total()` function from the `multilevel` [R
-#'package](https://CRAN.R-project.org/package=multilevel).
+#'question  within your survey (Cronbach et al., 1951). This assesses how
+#'strongly scores on one wellbeing slider are related to scores on all the other
+#'wellbeing sliders. It also contributes to understanding the reliability of the
+#'wellbeing sliders as a measure of a biopsychosocial-spiritual model of
+#'wellbeing. This is calculated using the `item.total()` function from the
+#'`multilevel` [R package](https://CRAN.R-project.org/package=multilevel).
 #'
 #'@returns Returns a list containing a data frame of processed BIO-WELL scores,
 #'  Cronbach's alpha statistic and item-total.
@@ -82,7 +91,7 @@ evaluate_survey <- function(data) {
 
   df <- do.call(rbind.data.frame, strsplit(column_names, "_"))
 
-  colnames(df) <- c("Situation", "Question")
+  colnames(df) <- c("Setting", "Question")
 
   # Extract average BIO-WELL scores for each question for each participant.
   raw <- as.data.frame(t(average_biowell))

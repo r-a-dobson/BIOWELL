@@ -36,13 +36,13 @@
 #'  vectors, the options to offer for each `start_questions` of type `checkbox`
 #'  or `selectbox`. Provide these in the same order as they appear in
 #'  `start_questions`.
-#'@param biowell_situations a character string or vector, describing the
+#'@param biowell_setting a character string or vector, describing the
 #'  environmental space setting(s) for BIO-WELL questions.
-#'@param biowell_situations_ID a character string or vector the length of
-#'  `biowell_situations`, the short IDs for each BIO-WELL situation to use in
+#'@param biowell_setting_ID a character string or vector the length of
+#'  `biowell_setting`, the short IDs for each BIO-WELL environmental space setting to use in
 #'  output survey response data frame.
 #'@param biowell_questions a list of character strings or vectors, the questions
-#'  for each separate `biowell_situations`. Each will be accompanied by the
+#'  for each separate `biowell_setting`. Each will be accompanied by the
 #'  BIO-WELL response item comprising five sliders.
 #'@param biowell_questions_ID a character string or vector equal to the length
 #'  of `biowell_questions`, the short IDs for each BIO-WELL question to use in
@@ -91,19 +91,19 @@
 #' information on a participant's location, gender or employment.
 #'
 #'+ BIO-WELL: The questions in this section are all accompanied by the five
-#'sliders that comprise the BIO-WELL scale. For each situation given, a new page is added
+#'sliders that comprise the BIO-WELL scale. For each environmental space setting given, a new page is added
 #'to the survey. See Irvine et al., (2023) for more details on the BIO-WELL
 #'scale and survey set-up, including the BIO-WELL stem questions.
 #'
-#'  1) `biowell_situations`: Text for describing an introductory scenario to
+#'  1) `biowell_setting`: Text for describing an introductory scenario to
 #'cognitively situate the participant within a particular natural environment
 #'(i.e. a nearby forest).
 #'
-#'2) `biowell_questions`: A list the length of `biowell_situations`, in which
+#'2) `biowell_questions`: A list the length of `biowell_setting`, in which
 #'each element contains a vector of the questions to be asked for each
-#'situation. These stem questions are asked about biodiversity metrics (e.g.
+#'environmental space setting. These stem questions are asked about biodiversity metrics (e.g.
 #'abundance, species diversity), as well as biodiversity attributes (e.g.
-#'smells, colours, shapes) within each `biowell_situation` given.
+#'smells, colours, shapes) within each `biowell_setting` given.
 #'
 #'+ End: This section allows you to set questions that follow the BIO-WELL
 #'questions. This may include asking participants for their contact details or
@@ -286,11 +286,11 @@
 #'    c('Choose',  'one',  'of', 'these'),
 #'    c('Choose',  'multiple',  'of', 'these')
 #'  ),
-#' biowell_situations = c(
-#'   "Insert description of biowell situation 1.",
-#'    "Insert description of biowell situation 2."
+#' biowell_setting = c(
+#'   "Insert description of biowell environmental space setting 1.",
+#'    "Insert description of biowell environmental space setting 2."
 #'  ),
-#' biowell_situations_ID = c("situation1", "situation2"),
+#' biowell_setting_ID = c("setting1", "setting2"),
 #'  biowell_questions = list(
 #'    c("Insert biodiversity stem question here BW1"),
 #'    c(
@@ -349,8 +349,8 @@ build_survey <- function(survey_title = NULL,
                          start_questions_ID,
                          start_questions_type,
                          start_response_options=NULL,
-                         biowell_situations,
-                         biowell_situations_ID,
+                         biowell_setting,
+                         biowell_setting_ID,
                          biowell_questions,
                          biowell_questions_ID,
                          end_message = NULL,
@@ -448,25 +448,25 @@ build_survey <- function(survey_title = NULL,
 
 
 
-  # If only one situation ...
+  # If only one environmental space setting ...
 
-  if(length(biowell_situations) == 1){
+  if(length(biowell_setting) == 1){
 
     if(!inherits(biowell_questions,"list")){
       biowell_questions<-list(biowell_questions)
     }
   }
 
-  if (length(biowell_situations) > 1) {
+  if (length(biowell_setting) > 1) {
     if (!inherits(biowell_questions, "list")) {
       stop(
-        "biowell_questions should be a list the length of biowell_situations. "
+        "biowell_questions should be a list the length of biowell_setting. "
       )
     }
   }
 
-  if (missing(biowell_situations_ID)) {
-    biowell_situations_ID <- biowell_situations
+  if (missing(biowell_setting_ID)) {
+    biowell_setting_ID <- biowell_setting
   }
 
   if (missing(biowell_questions_ID)) {
@@ -633,13 +633,13 @@ build_survey <- function(survey_title = NULL,
                                      font-style: bold;}"))
         ),
 
-        add_biowell_scale(biowell_situations,
+        add_biowell_scale(biowell_setting,
                           biowell_questions,
                           all_sliders,
                           language),
 
         shiny::div(class = "page",
-                   id = paste0("page", 3+length(biowell_situations)),
+                   id = paste0("page", 3+length(biowell_setting)),
                    shiny::tags$div(id="end_m",
                                    style="color: #004A86;font-size: 18px",
                                    end_message),
@@ -661,7 +661,7 @@ build_survey <- function(survey_title = NULL,
         ),
 
         shiny::div(class = "page",
-                   id = paste0("page", 4+length(biowell_situations)),
+                   id = paste0("page", 4+length(biowell_setting)),
                    shiny::fluidRow(
                      if (!user_report) {
                        shiny::p(fm)
@@ -791,7 +791,7 @@ build_survey <- function(survey_title = NULL,
     # Code to ensure if all_slider = TRUE, can only click next if all moved
     shiny::observe({
 
-      if (pg$page > 2 && pg$page <= 2 + length(biowell_situations)) {
+      if (pg$page > 2 && pg$page <= 2 + length(biowell_setting)) {
 
         if (!all_sliders) {
           showNEXT(TRUE)
@@ -842,7 +842,7 @@ build_survey <- function(survey_title = NULL,
 
     # Controlling the page
 
-    NUM_PAGES <- c(2 + length(biowell_situations) + 2)
+    NUM_PAGES <- c(2 + length(biowell_setting) + 2)
     navPage <- function(direction) {pg$page <- pg$page + direction}
     shiny::observeEvent(input$prevBtn, navPage(-1))
     shiny::observeEvent(input$nextBtn, navPage(1))
@@ -1032,7 +1032,7 @@ build_survey <- function(survey_title = NULL,
                                          input$clientTime,
                                          input$client_time_zone_char,
                                          input$tz_intern,
-                                         biowell_situations_ID,
+                                         biowell_setting_ID,
                                          biowell_questions_ID)
 
         nresponses <- length(list.files(tempdir()))
