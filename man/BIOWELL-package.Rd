@@ -4,9 +4,9 @@
 \name{BIOWELL-package}
 \alias{BIOWELL}
 \alias{BIOWELL-package}
-\title{BIOWELL: Create BIO-WELL Surveys in Shiny to Investigate the Influence of Biodiversity on Human Wellbeing}
+\title{BIOWELL: Create BIO-WELL Surveys in Shiny to Investigate the Wellbeing Effects From Biodiversity}
 \description{
-\doi{10.1109/IJCNN.1999.832603}. The BIO-WELL scale is an important tool for assessing the contribution of biodiversity to human wellbeing developed by Irvine et al., (2023). The BIOWELL package includes functions for developing a BIO-WELL survey that is tailored to your research context and aims. These customised surveys are generated as R Shiny Apps, which can be deployed onto the Shiny Server for distribution to participants via the internet. Participant responses to your custom BIO-WELL survey are remotely stored on Dropbox and the package provides functions for importing, evaluating and analysing your survey response data. We include extensive vignettes and examples for all functions within the BIOWELL package to facilitate the development and deployment of your BIO-WELL survey. Methods used in the package refer to Irvine et al., (2023) \doi{10.1016/j.jenvp.2022.101921}. \url{https://doi.org/10.1016/j.jenvp.2022.101921}
+The BIO-WELL scale provides an important tool for assessing the contribution of biodiversity to human wellbeing. It was developed by Irvine et al. (2023) as part of the interdisciplinary RELATE project, funded by the European Research Council. The BIOWELL package includes functions for developing a BIO-WELL survey that is tailored to your research context and aims. These customised surveys are generated as R Shiny Apps, which can be deployed onto the Shiny Server for distribution to participants via the internet. Participant responses to your custom BIO-WELL survey are remotely stored on Dropbox and the package provides functions for importing, evaluating and analysing your survey response data. We include extensive vignettes and examples for all functions within the BIOWELL package to facilitate the development and deployment of your BIO-WELL survey. Methods used in the package refer to Irvine et al., (2023) \doi{10.1016/j.jenvp.2022.101921}.
 }
 \seealso{
 Useful links:

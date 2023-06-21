@@ -4,7 +4,14 @@
 \alias{explore_data}
 \title{Process and plot BIO-WELL scores}
 \usage{
-explore_data(data, column_name, var_name, biowell_scale, plot = TRUE)
+explore_data(
+  data,
+  column_name,
+  var_name,
+  biowell_scale,
+  plot = TRUE,
+  score = "inverted"
+)
 }
 \arguments{
 \item{data}{a data frame containing the combined response data frames from a
@@ -23,6 +30,10 @@ to plot instead of full BIO-WELL scores. One of; \code{physical}, \code{emotiona
 
 \item{plot}{optional; a logical, indicating whether to show plots in the R
 window. Default is \code{TRUE.}}
+
+\item{score}{a character string, specifying whether to plot inverted or raw
+BIO-WELL scores. One of; \code{inverted} or \code{raw} Default; \code{inverted}. See
+details for more information.}
 }
 \value{
 a list object containing the plots and processed data frame.
@@ -58,7 +69,10 @@ calculated by taking the average score from across five wellbeing domains
 (physical, emotional, cognitive, social and spiritual). When inverted, the
 BIO-WELL score can be interpreted as 0-49, a negative wellbeing response to
 biodiversity, 50, a neutral wellbeing responses and 51-100 representing a
-positive wellbeing response to biodiversity.
+positive wellbeing response to biodiversity.The \code{raw} BIO-WELL scores
+represents the opposite of this with 0-49, a positive wellbeing response to
+biodiversity, 50, a neutral wellbeing responses and 51-100 representing a
+negative wellbeing response.
 
 Please see Irvine et al., (2023) for more details on the BIO-WELL score.
 
@@ -94,7 +108,7 @@ results <- explore_data(sample_BW_data,
 Irvine, K.N., Fisher, J.C., Bentley, P.R., Nawrath, M., Dallimer,
 M., Austen, G.E., Fish, R. and Davies, Z.G., 2023. BIO-WELL: The development
 and validation of a human wellbeing scale that measures responses to
-biodiversity. Journal of Environmental Psychology, 85, p.101921.
+biodiversity. Journal of Environmental Psychology, 85, p.101921.doi:10.1016/j.jenvp.2022.101921.
 
 Wickham, H. and Chang, W. , 2016. Package ‘ggplot2’. Create
 elegant data visualisations using the grammar of graphics. Version, 2(1),

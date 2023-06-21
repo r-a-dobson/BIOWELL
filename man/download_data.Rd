@@ -44,6 +44,27 @@ The final columns are overall inverted and raw BIOWELL scores. This is the
 average across all five scales across all BIO-WELL questions.
 
 Please see Irvine et al., (2023) for more details on the BIO-WELL score.
+
+#'# Extra variables recorded
+
+In addition to the participants responses to survey questions, the downloaded
+data will contain columns for the following variables:
+\itemize{
+\item \code{survey_duration} - the time in seconds between the participants starting
+the survey and submitting their responses.
+\item \code{start_date} - the date that participants began the survey in YYYY-MM-DD
+format.
+\item \code{start_time} - the time that participants began the survey in HH-MM-SS
+format.
+\item \code{end_date} - the date that participants submitted their responses to the
+survey in YYYY-MM-DD format.
+\item \code{end_time}  - the time that participants submitted their responses to the
+the survey in HH-MM-SS format.
+\item \code{timezone} - the time zone of participants.
+\item \code{timezone_location} - the broad location of the participant's time zone.
+\item \code{server_submit_time} - the time in the Shiny Server's time zone that
+participant responses were submitted.
+}
 }
 
 \examples{
@@ -63,5 +84,5 @@ head(sample_BW_data)
 Irvine, K.N., Fisher, J.C., Bentley, P.R., Nawrath, M., Dallimer,
 M., Austen, G.E., Fish, R. and Davies, Z.G., 2023. BIO-WELL: The development
 and validation of a human wellbeing scale that measures responses to
-biodiversity. Journal of Environmental Psychology, 85, p.101921.
+biodiversity. Journal of Environmental Psychology, 85, p.101921. doi:10.1016/j.jenvp.2022.101921.
 }

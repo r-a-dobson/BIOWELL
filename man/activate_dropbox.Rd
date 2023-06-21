@@ -42,7 +42,7 @@ need to set up a Dropbox App within your Dropbox account. It is
 important that certain Dropbox App settings are edited before running
 \code{activate_dropbox()}, including:
 \itemize{
-\item Under "OAUTH2: Redirect URIs" add the URI "http://localhost:1410/"
+\item Under "OAUTH2: Redirect URIs" add "http://localhost:1410/"
 \item Under "Permissions" tick for access to Dropbox folder to read and write files.
 }
 

@@ -33,7 +33,7 @@ Imports:
     shinyjs,
     shinyWidgets,
     shinytitle,
-    htmltools (≥ 0.5.4),
+    htmltools (>= 0.5.4),
     httr (>= 1.4.4),
     lubridate,
     shinyFeedback,

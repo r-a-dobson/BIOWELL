@@ -7,8 +7,6 @@
 build_survey(
   survey_title = NULL,
   sidepanel_message = NULL,
-  Dropbox_App_folder,
-  BW_app_path,
   organisation,
   organisation_website = NULL,
   screen_message = NULL,
@@ -34,7 +32,9 @@ build_survey(
   user_report = TRUE,
   language = "english",
   offline_mode = FALSE,
-  return = "run"
+  return = "run",
+  Dropbox_App_folder,
+  BW_app_path
 )
 }
 \arguments{
@@ -43,12 +43,6 @@ each page.}
 
 \item{sidepanel_message}{a character string, the text to display on the side
 panel throughout the survey.}
-
-\item{Dropbox_App_folder}{a character string, the path to the folder in your
-Dropbox App to save survey responses to.}
-
-\item{BW_app_path}{a character string, the path to your BIO-WELL survey Shiny
-App folder. See details for more information.}
 
 \item{organisation}{a character string, the name of the organisation running
 the survey.}
@@ -139,10 +133,16 @@ report for participants. See details for more information.}
 details for all 31 language options available. Default; \code{english}.}
 
 \item{offline_mode}{Optional; a logical, indicating whether to upload survey
-response data to Dropbox. Useful when developing the survey.}
+response data to Dropbox.}
 
 \item{return}{optional; whether to run the survey Shiny app or return app
 component. One of; \code{run}, \code{ui}, \code{server}. Default: \code{run}.}
+
+\item{Dropbox_App_folder}{a character string, the path to the folder in your
+Dropbox App to save survey responses to.}
+
+\item{BW_app_path}{a character string, the path to your BIO-WELL survey Shiny
+App folder. See details for more information.}
 }
 \value{
 Generates a custom BIO-WELL survey in Shiny.
@@ -216,10 +216,12 @@ answer from.
 or none of. Be aware that if \code{all_questions = TRUE}, participants will have to
 select one of the check boxes, and so it is best to include an option for
 selecting none of the other options.
-\item \code{likert_five} - A five point Likert scale going from "strongly
-agree" to "strongly disagree".
-\item \code{likert_seven} - A seven point Likert scale that also includes
-"somewhat agree" and "somewhat disagree".
+\item \code{likert_five} - A five point Likert scale going from "strongly agree" to
+"strongly disagree". Find out more information on the Likert scale
+\href{https://dictionary.apa.org/likert-scales}{here}.
+\item \code{likert_seven} - A seven point Likert scale that also includes "somewhat
+agree" and "somewhat disagree". Find out more information on the Likert scale
+\href{https://dictionary.apa.org/likert-scales}{here}.
 }
 
 *For \code{selectbox} and \code{checkbox} response types, you will need to set the options
@@ -276,18 +278,44 @@ function.
 }
 
 \section{Language options}{
-The BIO-WELL response sliders can be generated in 31 different languages. The
-language for your study can be specified using the \code{language} argument. The
-available options are: + \code{arabic} + \code{bengali_india} + \code{chinese_hong_kong} +
+An exciting feature of the \code{BIOWELL} package is the ability to
+specify the language for the BIO-WELL scale. Both the biodiversity stem
+statements and the wellbeing sliders have been professionally translated into 32
+languages which includes consultation with native speakers. Select a language
+from the below list.
+\itemize{
+\item \code{arabic} + \code{bengali_india} + \code{chinese_hong_kong} +
 \code{chinese_taiwan} + \code{danish} + \code{dutch} + \code{edo} + \code{english} + \code{finnish} +
 \code{french} + \code{german} + \code{gujarati} + \code{indonesian} + \code{irish} + \code{italian} +
 \code{japanese} + \code{korean} + \code{malay} + \code{norwegian} + \code{polish} + \code{portuguese} +
 \code{portuguese_brasil} + \code{punjabi_india} + \code{punjabi_pakistan} + \code{russian} +
 \code{scottish_gaelic} + \code{spanish} + \code{swedish} + \code{urdu_india} + \code{urdu_pakistan} +
 \code{welsh}.
-
+#'
 Please see Vignette 2 in the \code{BIOWELL} package for full guidance on this
 function.
+}
+}
+
+\section{Extra variables recorded}{
+In addition to the participants responses to survey questions, the survey
+records the following variables with each submitted response:
+\itemize{
+\item \code{survey_duration} - the time in seconds between the participants starting
+the survey and submitting their responses.
+\item \code{start_date} - the date that participants began the survey in YYYY-MM-DD
+format.
+\item \code{start_time} - the time that participants began the survey in HH-MM-SS
+format.
+\item \code{end_date} - the date that participants submitted their responses to the
+survey in YYYY-MM-DD format.
+\item \code{end_time}  - the time that participants submitted their responses to the
+the survey in HH-MM-SS format.
+\item \code{timezone} - the time zone of participants.
+\item \code{timezone_location} - the broad location of the participant's time zone.
+\item \code{server_submit_time} - the time in the Shiny Server's time zone that
+participant responses were submitted.
+}
 }
 
 \examples{
@@ -380,5 +408,5 @@ biowell_situations_ID = c("situation1", "situation2"),
 Irvine, K.N., Fisher, J.C., Bentley, P.R., Nawrath, M., Dallimer,
 M., Austen, G.E., Fish, R. and Davies, Z.G., 2023. BIO-WELL: The development
 and validation of a human wellbeing scale that measures responses to
-biodiversity. Journal of Environmental Psychology, 85, p.101921.
+biodiversity. Journal of Environmental Psychology, 85, p.101921. doi:10.1016/j.jenvp.2022.101921.
 }
