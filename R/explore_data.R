@@ -150,7 +150,7 @@ explore_data <- function(data,
       plot_data <- as.data.frame(cbind(data[, c(column_name)], avg_biowell))
 
       # Change x axis column label to specify domain of BIO-WELL scores.
-      xlab_name <- paste0("BIO-WELL score (", tolower(score), ") :", biowell_scale)
+      xlab_name <- paste0("BIO-WELL score (", tolower(score), "): ", biowell_scale)
     }
 
     # Label columns for plotting
@@ -246,7 +246,7 @@ explore_data <- function(data,
       average_biowell <- data[, grep(biowell_scale_type, colnames(data))]
 
       # Change x axis column label to specify domain of BIO-WELL scores.
-      xlab_name <- paste0("BIO-WELL score (", tolower(score), ") :", biowell_scale)
+      xlab_name <- paste0("BIO-WELL score (", tolower(score), "): ", biowell_scale)
 
       default <- paste0(biowell_scale, "_", score)
     }

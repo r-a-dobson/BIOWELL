@@ -87,7 +87,7 @@ Here you should:
 
 * Choose a name for your app 
 
-![Create Dropbox App](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/V1/V1_1.png){width=75%}
+![Create Dropbox App](https://raw.githubusercontent.com/r-a-dobson/BIOWELL/main/man/V1/V1_1.png){width=75%}
 
 # <span style="color:#0097AD;">Step 5: Dropbox App set-up</span>
 
@@ -95,18 +95,18 @@ Now you can access your [Dropbox App Console](https://www.dropbox.com/developers
 
 Scroll down to OAUTH2: Redirect URIs and add "http<span>://</span>localhost:1410/".
 
-![Add redirect URI](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette1/Vignette1_2.png){width=75%}
+![Add redirect URI](https://raw.githubusercontent.com/r-a-dobson/BIOWELL/main/man/Vignette1/Vignette1_2.png){width=75%}
 
 Then, go to the Permissions tab and tick the relevant boxes. You need to give
 the app permission to read and write files.
 
-![Add Dropbox App permissions](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette1/Vignette1_3.png){width=75%}
+![Add Dropbox App permissions](https://raw.githubusercontent.com/r-a-dobson/BIOWELL/main/man/Vignette1/Vignette1_3.png){width=75%}
 
 Return back to the app's Settings tab, and scroll down to reveal your app's key
 and secret. This is required for activating the access token! Remember to never
 share your app's key and secret.
 
-[Get Dropbox name, key and secret](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette1/Vignette1_4.png){width=75%}
+![Get Dropbox name, key and secret](https://raw.githubusercontent.com/r-a-dobson/BIOWELL/main/man/Vignette1/Vignette1_4.png){width=75%}
 
 
 Let's save our Dropbox App details in the R environment. 

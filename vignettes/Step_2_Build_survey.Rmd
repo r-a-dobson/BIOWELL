@@ -131,7 +131,7 @@ Below are examples of how these arguments could be input:
 screen_message = "Consent to participate in research"
 
 screen_questions = c(
-  "'Participation is voluntary and you can withdraw from the study at any point by exiting
+  "Participation is voluntary and you can withdraw from the study at any point by exiting
 the survey before you submit, without providing any reason for why you no longer want your
 responses to be included, and there will be no adverse consequences if you choose to
 withdraw. As this survey is anonymised, it will not be possible to withdraw your responses
@@ -506,9 +506,12 @@ BIOWELL::build_survey(
   organisation_website = "https://github.com/r-a-dobson/BIOWELL",
   screen_message = "Consent to participate in research",
   screen_questions = c(
-    "I confirm I have read and understood the Participant Information Sheet for the Forest Questionnaire. I understand that my participation is voluntary and that I am free to withdraw at any time without giving any reason. I agree to take part in this research project.",
-    "What is your age?"
-  ),
+  "Participation is voluntary and you can withdraw from the study at any point by exiting
+the survey before you submit, without providing any reason for why you no longer want your
+responses to be included, and there will be no adverse consequences if you choose to
+withdraw. As this survey is anonymised, it will not be possible to withdraw your responses
+from the study after you click on 'Submit' at the end of the survey", # Question 1
+  "What is your age?"),
   screen_questions_ID = c("Consent", "Age"),
   screen_response_options = list(
     c("No:SCREEN", "Yes"),
@@ -533,7 +536,7 @@ BIOWELL::build_survey(
   biowell_situations_ID = c("forest"),
   biowell_questions = list(
     c(
-      "encountering the living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
+      "Encountering the living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
       "The number of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
       "The variety of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
       "The interactions between plants,  fungi and animals (e.g. pollination,  predator-prey) in this forest make me feel…",
@@ -589,7 +592,7 @@ BIOWELL::build_survey(
  end_response_options = list(c("Being able to smell (for example, no sense of smell, having a cold or hay fever)", "Hearing (answer assuming you are wearing hearing aides if you need them)", "Sight (answer assuming you are wearing glasses or contact lenses if you need them)")),
   end_message = "Please indicate how much you agree or disagree with each of the following statements. By ‘out of doors’ we mean open spaces in and around towns and cities, including parks, canals and nature areas; the coast and beaches; and the countryside including farmland, woodland, hills and rivers. It may include time spent close to your home or workplace, further afield or while on holiday in Wales, Scotland and England.",
   all_questions = TRUE,
-  all_sliders = F,
+  all_sliders = TRUE,
   user_report = TRUE,
   offline = TRUE
 )
