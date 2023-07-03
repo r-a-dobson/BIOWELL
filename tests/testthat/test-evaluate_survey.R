@@ -7,7 +7,7 @@ test_that("Result is list object", {
 
 test_that("Result is list object of length three", {
   results <- evaluate_survey(sample_BW_data)
-  expect_equal(length(results),3)
+  expect_equal(length(results),6)
 })
 
 test_that("Result [[1]] is df object", {
@@ -39,3 +39,4 @@ test_that("Errors if DF not BW", {
 test_that("Errors if DF only one row", {
   expect_error(evaluate_survey(data[1,]))
 })
+
