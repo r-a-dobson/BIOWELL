@@ -46,16 +46,32 @@ reliability of surveys.
 
 The computed Cronbach's Alpha statistic measures the reliability, or internal consistency, of the five wellbeing sliders. This can be calculated for each biodiversity statement and will help understand the strength or consistency with which the sliders collectively measure a biopsychosocial-spiritual model of wellbeing. The resulting alpha statistic can be compared to those obtained in the original Irvine et al. (2023) article. This is calculated using `cronbach.alpha()` function from the `ltm` R package (Rizopoulos et al., 2007).
 
-2) **<span style="color:#004A86;">Item-total correlation</span>**
+2) **<span style="color:#004A86;">Item-total correlation and Cronbach's alpha </span>**
 
-The computed item-total statistic for each BIO-WELL question within your survey (Cronbach et al., 1951). This assesses how strongly scores on one wellbeing slider are related to scores on all the other wellbeing sliders. It also contributes to understanding the reliability of the wellbeing sliders as a measure of a biopsychosocial-spiritual model of wellbeing. This is calculated using the `item.total()` function from the `multilevel` [R package](https://CRAN.R-project.org/package=multilevel).
+The computed item-total statistic for each BIO-WELL question within your survey
+(Cronbach et al., 1951). This assesses how strongly scores on one wellbeing
+slider are related to scores on all the other wellbeing sliders. It also
+contributes to understanding the reliability of the wellbeing sliders as a
+measure of a biopsychosocial-spiritual model of wellbeing. The Cronbach Alpha
+reliability estimate of the scale without the variable is also calculated for
+each item.This is calculated using the `item.total()` function from the
+`multilevel` [R package](https://CRAN.R-project.org/package=multilevel).
 
 Cronbach, L. J. (1951) Coefficient alpha and the internal structure of tests.
 Psychometrika, 16, 297–334.
+
+Statistics calculated for each stem question (average BIO-WELL score across each wellbeing domain)
 ```{r}
 results <- evaluate_survey(sample_BW_data)
 results[[2]]
 results[[3]]
+```
+
+Statistics calculated for each wellbeing domain slider within each stem question
+```{r}
+results <- evaluate_survey(sample_BW_data)
+results[[5]]
+results[[6]]
 ```
 
 # <span style="color:#0097AD;">Step 3: Explore survey responses</span>

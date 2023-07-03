@@ -147,9 +147,9 @@ evaluate_survey <- function(data) {
   stem_item_total <- multilevel::item.total(stem_only)
 
 
-
   # Calculate item total using ltm package
   all_sliders <- data[,grepl("INVERTED",colnames(data))]
+
   all_sliders <- all_sliders[,1:(ncol(all_sliders)-1)]
 
 
