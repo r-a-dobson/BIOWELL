@@ -27,7 +27,7 @@ In this vignette, we will be demonstrating the `evaluate_survey()` and `explore_
 
 Run the following code to load this dataset into your local environment. 
 
-```{r, eval = FALSE}
+```{r}
 library(BIOWELL)
 
 data("sample_BW_data")
