@@ -10,29 +10,48 @@
 #'data frame using the `download_data()` function, this data frame can be input
 #'into `evaluate_survey()`.
 #'
-#'`evaluate_survey()` returns three outputs in a list object:
+#'`evaluate_survey()` returns six outputs in a list object:
+#'
+#'# Stem question statistics:
+#'
+#'The first three components are derived from the BIO-WELL score for each stem
+#'question, calculated by averaging slider responses across the five well-being
+#'domains.
 #'
 #'1) A processed data frame containing the average BIO-WELL scores for each
-#'participant for each question within your custom `BIOWELL` package survey.
+#'participant for each stem question within your custom `BIOWELL` package survey.
 #'
-#'2) Cronbach's Alpha
+#'2) Cronbach's Alpha: the computed Cronbach's Alpha statistic measures the
+#'reliability, or internal consistency, of the five wellbeing sliders . This can
+#'be calculated for each biodiversity statement and will help understand the
+#'strength or consistency with which the sliders collectively measure a
+#'biopsychosocial-spiritual model of wellbeing. The resulting alpha statistic
+#'can be compared to those obtained in the original Irvine et al. (2023)
+#'article. This is calculated using `cronbach.alpha()` function from the `ltm` R
+#'package (Rizopoulos et al., 2007).
 #'
-#'The computed Cronbach's Alpha statistic measures the reliability, or internal
-#'consistency, of the five wellbeing sliders . This can be calculated for each
-#'biodiversity statement and will help understand the strength or consistency
-#'with which the sliders collectively measure a biopsychosocial-spiritual model
-#'of wellbeing. The resulting alpha statistic can be compared to those obtained
-#'in the original Irvine et al. (2023) article. This is calculated using
-#'`cronbach.alpha()` function from the `ltm` R package (Rizopoulos et al.,
-#'2007).
+#'3) Item-total correlation and Cronbach's Alpha-without: the computed
+#'item-total statistic for each BIO-WELL question  within your survey (Cronbach
+#'et al., 1951). This assesses how strongly scores on one wellbeing slider are
+#'related to scores on all the other wellbeing sliders. It also contributes to
+#'understanding the reliability of the wellbeing sliders as a measure of a
+#'biopsychosocial-spiritual model of wellbeing. Alpha without is the Cronbach
+#'Alpha reliability estimate of the scale without the variable. This is
+#'calculated using the `item.total()` function from the `multilevel` [R
+#'package](https://CRAN.R-project.org/package=multilevel).
 #'
-#'3) Item-total correlation: the computed item-total statistic for each BIO-WELL
-#'question  within your survey (Cronbach et al., 1951). This assesses how
-#'strongly scores on one wellbeing slider are related to scores on all the other
-#'wellbeing sliders. It also contributes to understanding the reliability of the
-#'wellbeing sliders as a measure of a biopsychosocial-spiritual model of
-#'wellbeing. This is calculated using the `item.total()` function from the
-#'`multilevel` [R package](https://CRAN.R-project.org/package=multilevel).
+#'# Wellbeing domain x question:
+#'
+#'The latter three components are derived from the slider responses for each of the
+#'five wellbeing domains within each stem question (total stem questions x five).
+#'
+#'4) A processed data frame containing the score for each wellbeing domain slider
+#'within each stem question given by each participant in your custom `BIOWELL`
+#'package survey dataset.
+#'
+#'5) Cronbach's alpha (see 2 for description)
+#'
+#'6) Item-total correlation and Cronbach's Alpha-without (see 3 for description)
 #'
 #'@returns Returns a list containing a data frame of processed BIO-WELL scores,
 #'  Cronbach's alpha statistic and item-total.
@@ -50,15 +69,31 @@
 #'results<-evaluate_survey(sample_BW_data)
 #'
 #'# Data frame containing average BIO-WELL scores for each participant x
-#'# question
+#'# stem question
 #'
 #'head(results[[1]])
 #'
+#'# Statistics calculated using the average BIO-WELL score for each stem question:
 #'# Cronbach's alpha
 #'results[[2]]
 #'
-#'# Item total
+#'# Item total and Cronbach's alpha without
 #'results[[3]]
+#'
+#'# Data frame containing BIO-WELL score for each participant x
+#'# wellbeing domain question
+#'
+#'head(results[[4]])
+#'
+#'# Statistics calculated using the BIO-WELL score for each wellbeing domain:
+#'
+#'#'# Cronbach's alpha
+#'results[[5]]
+#'
+#'# Item total and Cronbach's alpha without
+#'results[[6]]
+#'
+#'
 
 evaluate_survey <- function(data) {
 
@@ -101,19 +136,54 @@ evaluate_survey <- function(data) {
 
   colnames(raw) <- paste0("participant_", 1:ncol(raw))
 
-  df <- cbind(df, raw)
+  stem_df <- cbind(df, raw)
 
   # Calculate Cronbach's Alpha using ltm package
 
-  cronback_alpha <- ltm::cronbach.alpha(t(raw))
+  stem_only <- t(raw)
+
+  stem_cronback_alpha <- ltm::cronbach.alpha(stem_only)
+
+  stem_item_total <- multilevel::item.total(stem_only)
+
+
 
   # Calculate item total using ltm package
-  item_total <- multilevel::item.total(t(raw))
+  all_sliders <- data[,grepl("INVERTED",colnames(data))]
+  all_sliders <- all_sliders[,1:(ncol(all_sliders)-1)]
+
+
+  # Change column names
+  column_names <- gsub("_INVERTED", "", colnames(all_sliders))
+
+  df <- do.call(rbind.data.frame, strsplit(column_names, "_"))
+
+  colnames(df) <- c("Setting", "Question", "Wellbeing domain")
+
+  raw <- as.data.frame(t(all_sliders))
+
+  # Remove rownames
+  rownames(raw) <- NULL
+
+  colnames(raw) <- paste0("participant_", 1:ncol(raw))
+
+
+  sliders_df <- cbind(df, raw)
+
+
+  sliders_cronback_alpha <- ltm::cronbach.alpha(all_sliders)
+
+  sliders_item_total <- multilevel::item.total(all_sliders)
+
+
 
   # Create list containing data frame and statistics
-  results_list <- list(data_frame = df ,
-                       cronback_alpha = cronback_alpha,
-                       item_total = item_total)
+  results_list <- list(stem_data_frame = stem_df ,
+                       stem_cronback_alpha = stem_cronback_alpha,
+                       stem_item_total = stem_item_total,
+                       slider_data_frame = sliders_df,
+                       sliders_cronback_alpha = sliders_cronback_alpha,
+                       sliders_item_total = sliders_item_total)
 
   # Return list to user
   return(results_list)
