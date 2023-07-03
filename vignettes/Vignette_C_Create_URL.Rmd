@@ -1,8 +1,8 @@
 ---
-title: "Vignette 3: Create URL"
+title: "Vignette C: Create URL"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette 3: Create URL}
+  %\VignetteIndexEntry{Vignette C: Create URL}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -52,7 +52,7 @@ participants can respond to the survey each month.
 
 # <span style="color:#0097AD;">Preparation for this stage</span>
 
-Please ensure that you have followed the prior stages outlined in Vignette 1 and Vignette 2. You should now have a folder for your BIO-WELL survey that contains:
+Please ensure that you have followed the prior stages outlined in Vignette A and Vignette B. You should now have a folder for your BIO-WELL survey that contains:
 
 1) `.secrets` folder containing your activated Dropbox access token named `dropbox_token.rds`)
 
@@ -98,15 +98,13 @@ Now, use the `BIOWELL` package function `create_URL()` to deploy the app and
 retrieve a URL for sharing the survey with participants.
 
 ```{r, eval = FALSE}
-path_to_folder <- tempdir() # Replace with path to a local folder. 
+path_to_folder <- tempdir()  # Replace with path to a local folder. e.g. "C:/Users/username/Documents/" 
 
-appName <- "my_app_name" # Replace with name for your app. 
-
-dir.create(paste0(path_to_folder,"/",appName)) 
+appName <- "my_app_name" # Replace with name for your app. Here we have kept the name of the Shiny Server app the same as the name of the local folder containing "app.R" for consistency (but it can be different if you want!)
 
 create_URL(
   BW_app_path = paste0(path_to_folder,"/",appName),
-  BW_app_name = "my_app_name",
+  BW_app_name = appName,
   Shiny_Server_user = 'biowell-app-testing'
 )
 ```

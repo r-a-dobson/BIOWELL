@@ -1,9 +1,9 @@
 ---
-title: "Vignette 2: Build BIO-WELL survey"
+title: "Vignette B: Build BIO-WELL survey"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteEncoding{UTF-8}
-  %\VignetteIndexEntry{Vignette 2: Build BIO-WELL survey}
+  %\VignetteIndexEntry{Vignette B: Build BIO-WELL survey}
   %\VignetteEngine{knitr::rmarkdown}
 runtime: shiny
 ---
@@ -21,7 +21,7 @@ In this vignette, we will focus on building surveys that include the [BIO-WELL
 scale](https://doi.org/10.1016/j.jenvp.2022.101921) using the `BIOWELL` package
 function `build_survey()`. 
 
-In Vignette 1, you created a folder for storing your
+In Vignette A, you created a folder for storing your
 BIO-WELL survey data, including the Dropbox token. In this folder, you will need
 to save an R script named "app.R" which includes `BIOWELL::build_survey()` with
 your custom arguments filled inside the function. 
@@ -438,13 +438,12 @@ When `offline_mode = FALSE`: survey responses are remotely stored on Dropbox.
 
 + `return` - One of `run`, `UI` and `server`. This must be `run` when uploading to the Shiny Server. We include this option for flexibility if you want to get the two Shiny App inputs to edit them independently (*not recommended*). 
 
-+ `language` - An exciting feature of the `BIOWELL` package is the ability to
-specify the language for the BIO-WELL scale. Both the biodiversity stem
-statements and the wellbeing sliders have been professionally translated into 32
-languages which includes consultation with native speakers. Select a language
-from the below list.
++ `language` - An exciting feature of the `BIOWELL` package is the ability to specify the
+language for the BIO-WELL scale. The wellbeing sliders have been
+professionally translated into 32 languages which includes consultation with
+native speakers. Select a language from the below list.
 
-**Available languages**: 'arabic', 'bengali_india', 'chinese_hong kong', 'chinese_taiwan',
+**Available languages**: 'arabic', 'bengali_india', 'cantonese_hong_kong', 'cantonese_taiwan',
 'danish', 'dutch', 'edo', 'english', 'finnish', 'french', 'german', 'gujarati',
 'indonesian', 'irish', 'italian', 'japanese', 'korean', 'malay', 'norwegian',
 'polish', 'portuguese', 'portuguese_brasil', 'punjabi_india', 'punjabi_pakistan',
@@ -452,7 +451,7 @@ from the below list.
 
 # Extra variables recorded
 
-In addition to the participants responses to survey questions, the survey
+In addition to the participants' responses to survey questions, the survey
 records the following variables with each submitted response:
 
 + `survey_duration` - the time in seconds between the participants starting
@@ -463,7 +462,7 @@ format.
 format.
 + `end_date` - the date that participants submitted their responses to the
 survey in YYYY-MM-DD format.
-+ `end_time`  - the time that participants submitted their responses to the
++ `end_time`  - the time that participants submitted their responses to 
 the survey in HH-MM-SS format.
 + `timezone` - the time zone of participants.
 + `timezone_location` - the broad location of the participant's time zone. 
@@ -482,10 +481,10 @@ containing your `BIOWELL::build_survey()` input as "app.R" inside the folder cre
 your BIO-WELL survey. Ensure that no other lines of code are included in this script, and that the `build_survey()` function is called using the double colon operator. 
 
 + `BW_app_path` - Path to the folder for your BIO-WELL survey. This should
-contain your Dropbox token within a .secrets folder already (see Vignette 1 -
+contain your Dropbox token within a .secrets folder already (see Vignette A -
 `activate_dropbox()`).
 
-+ `Dropbox_App_folder` - Name of the folder within your Dropbox App (see Vignette 1)
++ `Dropbox_App_folder` - Name of the folder within your Dropbox App (see Vignette A)
 for response data to be stored within.
 
 The folder for your BIO-WELL survey and Dropbox folder for storing survey data can have the same name for consistency, but can be different if you prefer. 

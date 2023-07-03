@@ -1,0 +1,61 @@
+---
+title: "Vignette D: Download survey response data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette D: Download survey response data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# <span style="color:#0097AD;">Introduction</span>
+
+After your BIO-WELL survey URL has been shared to participants and their
+responses have been remotely stored to your Dropbox App's folder, it is time to
+move to the analysis stage.
+
+In this vignette, we will be using the `BIOWELL` package functions
+`download_data()` to download the survey response data. 
+
+
+# <span style="color:#0097AD;">Step 1: Download survey response data</span>
+
+Participant responses have been saved as individual `csv` files within your
+designated Dropbox App's folder.
+
+The `BIOWELL` package function `download_data()` collates all survey responses
+and returns a single data frame for analysis.
+
+```{r, eval = FALSE}
+appName <- "my_app_name" # Replace with name for your app. Here we have kept the name of the Shiny Server app the same as the name of the local folder containing "app.R" for consistency (but it can be different if you want!)
+
+path_to_folder <- paste0(tempdir(),"/",appName) # Replace with path to your local folder containing app.R e.g. "C:/Users/username/Documents/my_app_name1".
+
+Dropbox_App_folder_name <- "your-Dropbox-folder-name" # The same one used in build_survey()
+
+survey_data <- download_data(Dropbox_App_folder = Dropbox_App_folder_name,
+                             BW_app_path = path_to_folder)
+
+```
+
+# <span style="color:#0097AD;">Step 2: Export survey response data</span>
+
+For your own modelling and analysis purposes, you may want to save the
+downloaded data to a local directory. 
+
+Run the code below to save the data frame as a csv file. You can change the path and file name to save to a local directory of your choice. 
+
+```{r, eval = FALSE}
+local_directory <- tempdir() # Here we save to your temporary directory, but this can be a path to any local directory
+
+file_name <- "my_survey_data" # Here you can change the file name to anything you want.
+
+write.csv(survey_data, file = paste0(file_name, ".csv"))
+```
+

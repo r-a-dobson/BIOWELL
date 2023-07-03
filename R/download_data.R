@@ -46,7 +46,7 @@
 #'format.
 #'+ `end_date` - the date that participants submitted their responses to the
 #'survey in YYYY-MM-DD format.
-#'+ `end_time`  - the time that participants submitted their responses to the
+#'+ `end_time`  - the time that participants submitted their responses to
 #'the survey in HH-MM-SS format.
 #'+ `timezone` - the time zone of participants.
 #'+ `timezone_location` - the broad location of the participant's time zone.

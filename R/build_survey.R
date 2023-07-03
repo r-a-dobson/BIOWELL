@@ -209,13 +209,12 @@
 #'
 #'# Language options
 #'
-#' An exciting feature of the `BIOWELL` package is the ability to
-#'specify the language for the BIO-WELL scale. Both the biodiversity stem
-#'statements and the wellbeing sliders have been professionally translated into 32
-#'languages which includes consultation with native speakers. Select a language
-#'from the below list.
-#'+ `arabic` + `bengali_india` + `chinese_hong_kong` +
-#'`chinese_taiwan` + `danish` + `dutch` + `edo` + `english` + `finnish` +
+#'An exciting feature of the `BIOWELL` package is the ability to specify the
+#'language for the BIO-WELL scale. The wellbeing sliders have been
+#'professionally translated into 32 languages which includes consultation with
+#'native speakers. Select a language from the below list.
+#'+ `arabic` + `bengali_india` + `cantonese_hong_kong` +
+#'`cantonese_taiwan` + `danish` + `dutch` + `edo` + `english` + `finnish` +
 #'`french` + `german` + `gujarati` + `indonesian` + `irish` + `italian` +
 #'`japanese` + `korean` + `malay` + `norwegian` + `polish` + `portuguese` +
 #'`portuguese_brasil` + `punjabi_india` + `punjabi_pakistan` + `russian` +
@@ -238,7 +237,7 @@
 #'format.
 #'+ `end_date` - the date that participants submitted their responses to the
 #'survey in YYYY-MM-DD format.
-#'+ `end_time`  - the time that participants submitted their responses to the
+#'+ `end_time`  - the time that participants submitted their responses to
 #'the survey in HH-MM-SS format.
 #'+ `timezone` - the time zone of participants.
 #'+ `timezone_location` - the broad location of the participant's time zone.

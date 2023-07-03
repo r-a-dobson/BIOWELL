@@ -1,8 +1,8 @@
 ---
-title: "Step 4: Analysing BIO-WELL scores"
+title: "Vignette E: Evaluate and explore BIO-WELL scores"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Step 4: Analysing BIO-WELL scores}
+  %\VignetteIndexEntry{Vignette E: Evaluate and explore BIO-WELL scores}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,48 +16,22 @@ knitr::opts_chunk$set(
 
 # <span style="color:#0097AD;">Introduction</span>
 
-After your BIO-WELL survey URL has been shared to participants and their
-responses have been remotely stored to your Dropbox App's folder, it is time to
-move to the analysis stage.
-
-In this vignette, we will be using the `BIOWELL` package functions
-`download_data()`, `evaluate_survey()` and `explore_data()` to download the
-survey response data, evaluate your survey and explore patterns in BIO-WELL
-scores.
+Once you have downloaded your survey response data (Vignette D), you can use the
+`BIOWELL` package functions `evaluate_survey()` and `explore_data()` to evaluate
+your survey and explore patterns in BIO-WELL scores.
 
 
-# <span style="color:#0097AD;">Step 1: Download survey response data</span>
+# <span style="color:#0097AD;">Step 1: Load sample survey response data </span>
 
-Participant responses have been saved as individual `csv` files within your
-designated Dropbox App's folder.
+In this vignette, we will be demonstrating the `evaluate_survey()` and `explore_data()` on the BIOWELL package in-built dataset.
 
-The `BIOWELL` package function `download_data()` collates all survey responses
-and returns a single data frame for analysis.
+Run the following code to load this dataset into your local environment. 
 
 ```{r, eval = FALSE}
-path_to_folder <- tempdir() # Replace with path to your local folder containing app.R 
-dir.create(paste0(path_to_folder,"/",appName)) 
+library(BIOWELL)
 
-Dropbox_App_folder_name <- "your-Dropbox-folder-name" # The same one used in build_survey()
-
-survey_data <- download_data(Dropbox_App_folder = Dropbox_App_folder_name,
-                             BW_app_path = path_to_folder)
-
+data("sample_BW_data")
 ```
-
-For your own modelling and analysis purposes, you may want to save the
-downloaded data to a local directory. 
-
-Run the code below to save the data frame as a csv file. You can change the path and file name to save to a local directory of your choice. 
-
-```{r, eval = FALSE}
-local_directory <- tempdir() # Here we save to your temporary directory, but this can be a path to any local directory
-
-file_name <- "my_survey_data" # Here you can change the filename to anything you want.
-
-write.csv(survey_data, file = paste0(file_name, ".csv"))
-```
-
 
 
 # <span style="color:#0097AD;">Step 2: Evaluate survey </span>
@@ -70,17 +44,15 @@ reliability of surveys.
 
 1) **<span style="color:#004A86;">Cronbach's alpha</span>**
 
-The computed Cronbach's Alpha statistic measures the reliability, or internal consistency, of the five wellbeing sliders . This can be calculated for each biodiversity statement and will help understand the strength or consistency with which the sliders collectively measure a biopsychosocial-spiritual model of wellbeing. The resulting alpha statistic can be compared to those obtained in the original Irvine et al. (2023) article. This is calculated using `cronbach.alpha()` function from the `ltm` R package (Rizopoulos et al., 2007).
+The computed Cronbach's Alpha statistic measures the reliability, or internal consistency, of the five wellbeing sliders. This can be calculated for each biodiversity statement and will help understand the strength or consistency with which the sliders collectively measure a biopsychosocial-spiritual model of wellbeing. The resulting alpha statistic can be compared to those obtained in the original Irvine et al. (2023) article. This is calculated using `cronbach.alpha()` function from the `ltm` R package (Rizopoulos et al., 2007).
 
 2) **<span style="color:#004A86;">Item-total correlation</span>**
 
-The computed item-total statistic for each BIO-WELL question  within your survey (Cronbach et al., 1951). This assesses how strongly scores on one wellbeing slider are related to scores on all the other wellbeing sliders. It also contributes to understanding the reliability of the wellbeing sliders as a measure of a biopsychosocial-spiritual model of wellbeing. This is calculated using the `item.total()` function from the `multilevel` [R package](https://CRAN.R-project.org/package=multilevel).
+The computed item-total statistic for each BIO-WELL question within your survey (Cronbach et al., 1951). This assesses how strongly scores on one wellbeing slider are related to scores on all the other wellbeing sliders. It also contributes to understanding the reliability of the wellbeing sliders as a measure of a biopsychosocial-spiritual model of wellbeing. This is calculated using the `item.total()` function from the `multilevel` [R package](https://CRAN.R-project.org/package=multilevel).
 
 Cronbach, L. J. (1951) Coefficient alpha and the internal structure of tests.
 Psychometrika, 16, 297–334.
 ```{r}
-library(BIOWELL)
-data("sample_BW_data")
 results <- evaluate_survey(sample_BW_data)
 results[[2]]
 results[[3]]

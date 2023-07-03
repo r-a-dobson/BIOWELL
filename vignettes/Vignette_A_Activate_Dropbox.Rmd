@@ -1,8 +1,8 @@
 ---
-title: "Vignette 1: Activate Dropbox"
+title: "Vignette A: Activate Dropbox"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette 1: Activate Dropbox}
+  %\VignetteIndexEntry{Vignette A: Activate Dropbox}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -56,15 +56,15 @@ library(rdrop2)
 
 Throughout the `BIOWELL` framework, your BIO-WELL survey will need to have its
 own folder. This is where you will save an R script named 'app.R' which
-contains the survey script (`build_survey()` - Vignette 2), as well as the
-Dropbox access token (Vignette 1).
+contains the survey script (`build_survey()` - Vignette B), as well as the
+Dropbox access token (Vignette A).
 
 Let's create a folder to store our BIO-WELL survey and associated data to!
 
 Note the app name that you use here. When creating your Dropbox App folder and your Shiny Server app, it would be useful to keep the name consistent through all three (local, Dropbox and Shiny Server) - but they can be different from each other if you wish. 
 
 ```{r app_directory}
-path_to_folder <- tempdir() # Replace with path to a local folder. 
+path_to_folder <- tempdir() # Replace with path to a local folder. e.g. "C:/Users/username/Documents/"
 
 appName <- "my_app_name" # Replace with name for your app. 
 
@@ -87,7 +87,7 @@ Here you should:
 
 * Choose a name for your app 
 
-![Create Dropbox App](https://raw.githubusercontent.com/r-a-dobson/BIOWELL/main/man/V1/V1_1.png){width=75%}
+![Create Dropbox App](https://raw.githubusercontent.com/r-a-dobson/BIOWELL/main/man/Vignette1/Vignette1_1.png){width=75%}
 
 # <span style="color:#0097AD;">Step 5: Dropbox App set-up</span>
 

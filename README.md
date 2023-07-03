@@ -130,28 +130,23 @@ Install the `BIOWELL` package by running the line below!
 devtools::install_github("r-a-dobson/BIO-WELL")
 ```
 
-There are six key stages (and associated functions) in the BIOWELL
-package:
-
-1)  **Activate Dropbox** - Set-up cloud storage for survey response data
-    with `activate_dropbox()`.
-
-2)  **Build survey** - Develop your custom BIO-WELL survey from start to
-    finish with `build_survey()`.
-
-3)  **Create URL** - Upload your survey to the Shiny Servers and obtain
-    survey access link to share with participants with `create_URL()`.
-
-4)  **Download data** - Download and combine responses from survey
-    participants into R with `download_data()`.
-
-5)  **Evaluate survey** - Calculate key statistics including Cronbach’s
-    Alpha and Item-Total with `evaluate_survey()`.
-
-6)  **Explore patterns** - Generate plots of BIO-WELL scores across
-    environments and stem questions with `explore_data()`.
+There are five stages in the BIOWELL package framework (Fig 2). The
+functions available for each stages are described in the package’s five
+vignettes.
 
 <a href='https://github.com/r-a-dobson/BIOWELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIOWELL/main/man/Vignette2/bw_framework.png" align="centre" height="700" width = "100%"/></a>
+
+Fig. 2. The BIOWELL package framework. a) Activate Dropbox - set-up
+cloud storage for survey response data with function
+`activate_dropbox()`.B) Build survey - develop your custom BIO-WELL
+survey from start to finish with `build_survey()`. C) Create URL -
+upload your survey to the Shiny Servers and obtain survey access link to
+share with participants with `create_URL()`. D) Download data - download
+and combine responses from survey participants into R with
+`download_data()`. E) Evaluate survey and explore patterns - calculate
+key statistics including Cronbach’s Alpha and Item-Total with
+`evaluate_survey()` and then generate plots of BIO-WELL scores across
+environments and stem questions with `explore_data()`.
 
 ## Need help learning the BIOWELL package functions?
 
