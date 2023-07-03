@@ -58,7 +58,7 @@ format.
 format.
 \item \code{end_date} - the date that participants submitted their responses to the
 survey in YYYY-MM-DD format.
-\item \code{end_time}  - the time that participants submitted their responses to the
+\item \code{end_time}  - the time that participants submitted their responses to
 the survey in HH-MM-SS format.
 \item \code{timezone} - the time zone of participants.
 \item \code{timezone_location} - the broad location of the participant's time zone.

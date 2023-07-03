@@ -278,14 +278,13 @@ function.
 }
 
 \section{Language options}{
-An exciting feature of the \code{BIOWELL} package is the ability to
-specify the language for the BIO-WELL scale. Both the biodiversity stem
-statements and the wellbeing sliders have been professionally translated into 32
-languages which includes consultation with native speakers. Select a language
-from the below list.
+An exciting feature of the \code{BIOWELL} package is the ability to specify the
+language for the BIO-WELL scale. The wellbeing sliders have been
+professionally translated into 32 languages which includes consultation with
+native speakers. Select a language from the below list.
 \itemize{
-\item \code{arabic} + \code{bengali_india} + \code{chinese_hong_kong} +
-\code{chinese_taiwan} + \code{danish} + \code{dutch} + \code{edo} + \code{english} + \code{finnish} +
+\item \code{arabic} + \code{bengali_india} + \code{cantonese_hong_kong} +
+\code{cantonese_taiwan} + \code{danish} + \code{dutch} + \code{edo} + \code{english} + \code{finnish} +
 \code{french} + \code{german} + \code{gujarati} + \code{indonesian} + \code{irish} + \code{italian} +
 \code{japanese} + \code{korean} + \code{malay} + \code{norwegian} + \code{polish} + \code{portuguese} +
 \code{portuguese_brasil} + \code{punjabi_india} + \code{punjabi_pakistan} + \code{russian} +
@@ -309,7 +308,7 @@ format.
 format.
 \item \code{end_date} - the date that participants submitted their responses to the
 survey in YYYY-MM-DD format.
-\item \code{end_time}  - the time that participants submitted their responses to the
+\item \code{end_time}  - the time that participants submitted their responses to
 the survey in HH-MM-SS format.
 \item \code{timezone} - the time zone of participants.
 \item \code{timezone_location} - the broad location of the participant's time zone.

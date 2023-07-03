@@ -23,31 +23,46 @@ Once you have combined all responses to your BIO-WELL survey into a single
 data frame using the \code{download_data()} function, this data frame can be input
 into \code{evaluate_survey()}.
 
-\code{evaluate_survey()} returns three outputs in a list object:
+\code{evaluate_survey()} returns six outputs in a list object:
+}
+\section{Stem question statistics:}{
+The first three components are derived from the BIO-WELL score for each stem
+question, calculated by averaging slider responses across the five well-being
+domains.
 \enumerate{
 \item A processed data frame containing the average BIO-WELL scores for each
-participant for each question within your custom \code{BIOWELL} package survey.
-\item Cronbach's Alpha
+participant for each stem question within your custom \code{BIOWELL} package survey.
+\item Cronbach's Alpha: the computed Cronbach's Alpha statistic measures the
+reliability, or internal consistency, of the five wellbeing sliders . This can
+be calculated for each biodiversity statement and will help understand the
+strength or consistency with which the sliders collectively measure a
+biopsychosocial-spiritual model of wellbeing. The resulting alpha statistic
+can be compared to those obtained in the original Irvine et al. (2023)
+article. This is calculated using \code{cronbach.alpha()} function from the \code{ltm} R
+package (Rizopoulos et al., 2007).
+\item Item-total correlation and Cronbach's Alpha-without: the computed
+item-total statistic for each BIO-WELL question  within your survey (Cronbach
+et al., 1951). This assesses how strongly scores on one wellbeing slider are
+related to scores on all the other wellbeing sliders. It also contributes to
+understanding the reliability of the wellbeing sliders as a measure of a
+biopsychosocial-spiritual model of wellbeing. Alpha without is the Cronbach
+Alpha reliability estimate of the scale without the variable. This is
+calculated using the \code{item.total()} function from the \code{multilevel} \href{https://CRAN.R-project.org/package=multilevel}{R package}.
+}
 }
 
-The computed Cronbach's Alpha statistic measures the reliability, or internal
-consistency, of the five wellbeing sliders . This can be calculated for each
-biodiversity statement and will help understand the strength or consistency
-with which the sliders collectively measure a biopsychosocial-spiritual model
-of wellbeing. The resulting alpha statistic can be compared to those obtained
-in the original Irvine et al. (2023) article. This is calculated using
-\code{cronbach.alpha()} function from the \code{ltm} R package (Rizopoulos et al.,
-2007).
+\section{Wellbeing domain x question:}{
+The latter three components are derived from the slider responses for each of the
+five wellbeing domains within each stem question (total stem questions x five).
 \enumerate{
-\item Item-total correlation: the computed item-total statistic for each BIO-WELL
-question  within your survey (Cronbach et al., 1951). This assesses how
-strongly scores on one wellbeing slider are related to scores on all the other
-wellbeing sliders. It also contributes to understanding the reliability of the
-wellbeing sliders as a measure of a biopsychosocial-spiritual model of
-wellbeing. This is calculated using the \code{item.total()} function from the
-\code{multilevel} \href{https://CRAN.R-project.org/package=multilevel}{R package}.
+\item A processed data frame containing the score for each wellbeing domain slider
+within each stem question given by each participant in your custom \code{BIOWELL}
+package survey dataset.
+\item Cronbach's alpha (see 2 for description)
+\item Item-total correlation and Cronbach's Alpha-without (see 3 for description)
 }
 }
+
 \examples{
 # Read in sample BIO-WELL survey data
 data("sample_BW_data")
@@ -55,15 +70,31 @@ data("sample_BW_data")
 results<-evaluate_survey(sample_BW_data)
 
 # Data frame containing average BIO-WELL scores for each participant x
-# question
+# stem question
 
 head(results[[1]])
 
+# Statistics calculated using the average BIO-WELL score for each stem question:
 # Cronbach's alpha
 results[[2]]
 
-# Item total
+# Item total and Cronbach's alpha without
 results[[3]]
+
+# Data frame containing BIO-WELL score for each participant x
+# wellbeing domain question
+
+head(results[[4]])
+
+# Statistics calculated using the BIO-WELL score for each wellbeing domain:
+
+#'# Cronbach's alpha
+results[[5]]
+
+# Item total and Cronbach's alpha without
+results[[6]]
+
+
 }
 \references{
 Cronbach, L. J. (1951) Coefficient alpha and the internal structure of tests.
