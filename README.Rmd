@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-**Introducing `BIOWELL`: An R package for effortlessly creating and sharing customized surveys that include the BIO-WELL scale**.
+**Introducing `BIOWELL`: An R package for effortlessly creating and sharing customised surveys that include the BIO-WELL scale**.
 
 The BIO-WELL scale provides an important tool for assessing the **contribution of biodiversity to human wellbeing**. The scale was developed to address the limited understanding of how interactions with nature and biodiversity impact our health and wellbeing.
 
@@ -66,7 +66,7 @@ Fig. 1. The biodiversity-wellbeing scale, BIO-WELL. Through an introductory stat
 
 # Package features
 
-1) **Customization**: Adapt the scale to diverse research settings and environments. Whether you're studying woodlands, wetlands, urban parks, or other ecological contexts, the `BIOWELL` package allows for easy modification of stem questions and attributes to suit the specific environment under investigation.
+1) **Customisation**: Adapt the scale to diverse research settings and environments. Whether you're studying woodlands, wetlands, urban parks, or other ecological contexts, the `BIOWELL` package allows for easy modification of stem questions and attributes to suit the specific environment under investigation.
 
 2) **Validity and Reliability**: Leverage the strength of the BIO-WELL scale, which has undergone rigorous validation and psychometric evaluation in previous studies. Benefit from a robust measurement tool that ensures the quality of data collected through your custom surveys.
 
@@ -92,7 +92,17 @@ There are five stages in the BIOWELL package framework (Fig 2). The functions av
 
 <a href='https://github.com/r-a-dobson/BIOWELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIOWELL/main/man/Vignette2/bw_framework.png" align="centre" height="700" width = "100%"/></a>
 
-Fig. 2. The BIOWELL package framework. a) Activate Dropbox - set-up cloud storage for survey response data with function `activate_dropbox()`.B) Build survey - develop your custom BIO-WELL survey from start to finish with `build_survey()`. C) Create URL - upload your survey to the Shiny Servers and obtain survey access link to share with participants with `create_URL()`. D) Download data - download and combine responses from survey participants into R with `download_data()`. E) Evaluate survey and explore patterns - calculate key statistics including Cronbach’s Alpha and Item-Total with `evaluate_survey()` and then generate plots of BIO-WELL scores across environments and stem questions with `explore_data()`.
+Fig. 2. The BIOWELL package framework. 
+
+a) **Activate Dropbox** - set-up cloud storage for survey response data with function `activate_dropbox()`.
+
+B) **Build survey** - develop your custom BIO-WELL survey from start to finish with `build_survey()`. 
+
+C) **Create URL** - upload your survey to the Shiny Servers and obtain survey access link to share with participants with `create_URL()`. 
+
+D) **Download data** - download and combine responses from survey participants into R with `download_data()`. 
+
+E) **Evaluate survey and explore patterns** - calculate key statistics including Cronbach’s Alpha and Item-Total with `evaluate_survey()` and then generate plots of BIO-WELL scores across environments and stem questions with `explore_data()`.
 
 ## Need help learning the BIOWELL package functions?
 
