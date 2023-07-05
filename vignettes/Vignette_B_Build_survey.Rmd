@@ -142,8 +142,8 @@ from the study after you click on 'Submit' at the end of the survey", # Question
 screen_questions_ID = c("Consent", "Age") 
 
 screen_response_options = list(c("No:SCREEN", "Yes"), # First element - choices for the first Q
-                               c('0-17:SCREEN',  # Second element - choices for the second Q
-                                 '18-29',  
+                               c('0-17:SCREEN', # Second element - choices for the second Q
+                                 '18-29', 
                                  '30-59',
                                  'Over 60', 
                                  'Prefer not to say'))
@@ -317,25 +317,25 @@ To enter these as argument you would use the following code:
 
 ```{r }
 biowell_setting = c(
-  "For each of the following questions,  imagine yourself in a nearby forest at this time of year. Please think about the living things,  including the plants,  fungi and animals (but not pets,  horses,  cows,  sheep),  in that forest."
+  "For each of the following questions, imagine yourself in a nearby forest at this time of year. Please think about the living things, including the plants, fungi and animals (but not pets, horses, cows, sheep), in that forest."
 )
 
 biowell_setting_ID = c("forest")
 
 biowell_questions = list(
-  c("encountering the living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
-    "The number of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
-    "The variety of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
-    "The interactions between plants,  fungi and animals (e.g. pollination, predator-prey) in this forest make me feel…",
-    "The living processes (e.g. decomposing,  growing) that happen in this forest make me feel…",
+  c("encountering the living things (e.g. plants, fungi and animals) in this forest makes me feel…",
+    "The number of living things (e.g. plants, fungi and animals) in this forest makes me feel…",
+    "The variety of living things (e.g. plants, fungi and animals) in this forest makes me feel…",
+    "The interactions between plants, fungi and animals (e.g. pollination, predator-prey) in this forest make me feel…",
+    "The living processes (e.g. decomposing, growing) that happen in this forest make me feel…",
     "The variety of sounds in this forest makes me feel…",
     "The distinctive sounds in this forest make me feel…",
     "The variety of colours in this forest makes me feel…",
     "The vivid colours in this forest make me feel…",
     "The variety of shapes in this forest make me feel…",
-    "The maturity of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
+    "The maturity of living things (e.g. plants, fungi and animals) in this forest makes me feel…",
     "The variety of textures in this forest makes me feel…",
-    "The sponginess of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
+    "The sponginess of living things (e.g. plants, fungi and animals) in this forest makes me feel…",
     "The variety of smells in this forest makes me feel…",
     "The woody smells in this forest make me feel…",
     "Changes in this season make me feel...",
@@ -408,7 +408,7 @@ end_questions_ID = c("visits_aschild",
                      "visits_asadult",
                      "impairment")
 
-end_response_options = list(c("Being able to smell (for example, no sense of smell, having a cold or hay fever)", "Hearing (answer assuming you are wearing hearing aides if you need them)", "Sight (answer assuming you are wearing glasses or contact lenses if you need them)"))
+end_response_options = list(c("Being able to smell (for example, no sense of smell, having a cold or hay fever)", "Hearing (answer assuming you are wearing hearing aids if you need them)", "Sight (answer assuming you are wearing glasses or contact lenses if you need them)"))
 
 ```
 
@@ -530,24 +530,24 @@ from the study after you click on 'Submit' at the end of the survey", # Question
     c("Urban", "Rural")
   ),
   biowell_setting = c(
-    "For each of the following questions,  imagine yourself in a nearby forest at this time of year. Please think about the living things,  including the plants,  fungi and animals (but not pets,  horses,  cows,  sheep),  in that forest."
+    "For each of the following questions,  imagine yourself in a nearby forest at this time of year. Please think about the living things, including the plants, fungi and animals (but not pets, horses, cows, sheep), in that forest."
   ),
   biowell_setting_ID = c("forest"),
   biowell_questions = list(
     c(
-      "Encountering the living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
-      "The number of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
-      "The variety of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
-      "The interactions between plants,  fungi and animals (e.g. pollination,  predator-prey) in this forest make me feel…",
-      "The living processes (e.g. decomposing,  growing) that happen in this forest make me feel…",
+      "Encountering the living things (e.g. plants, fungi and animals) in this forest makes me feel…",
+      "The number of living things (e.g. plants, fungi and animals) in this forest makes me feel…",
+      "The variety of living things (e.g. plants, fungi and animals) in this forest makes me feel…",
+      "The interactions between plants, fungi and animals (e.g. pollination, predator-prey) in this forest make me feel…",
+      "The living processes (e.g. decomposing, growing) that happen in this forest make me feel…",
       "The variety of sounds in this forest makes me feel…",
       "The distinctive sounds in this forest make me feel…",
       "The variety of colours in this forest makes me feel…",
       "The vivid colours in this forest make me feel…",
       "The variety of shapes in this forest make me feel…",
-      "The maturity of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
+      "The maturity of living things (e.g. plants, fungi and animals) in this forest makes me feel…",
       "The variety of textures in this forest makes me feel…",
-      "The sponginess of living things (e.g. plants,  fungi and animals) in this forest makes me feel…",
+      "The sponginess of living things (e.g. plants, fungi and animals) in this forest makes me feel…",
       "The variety of smells in this forest makes me feel…",
       "The woody smells in this forest make me feel…",
       "Changes in this season make me feel...",
@@ -588,7 +588,7 @@ from the study after you click on 'Submit' at the end of the survey", # Question
     "visits_asadult",
     "impairment"
   ),
- end_response_options = list(c("Being able to smell (for example, no sense of smell, having a cold or hay fever)", "Hearing (answer assuming you are wearing hearing aides if you need them)", "Sight (answer assuming you are wearing glasses or contact lenses if you need them)")),
+ end_response_options = list(c("Being able to smell (for example, no sense of smell, having a cold or hay fever)", "Hearing (answer assuming you are wearing hearing aids if you need them)", "Sight (answer assuming you are wearing glasses or contact lenses if you need them)")),
   end_message = "Please indicate how much you agree or disagree with each of the following statements. By ‘out of doors’ we mean open spaces in and around towns and cities, including parks, canals and nature areas; the coast and beaches; and the countryside including farmland, woodland, hills and rivers. It may include time spent close to your home or workplace, further afield or while on holiday in Wales, Scotland and England.",
   all_questions = TRUE,
   all_sliders = TRUE,
