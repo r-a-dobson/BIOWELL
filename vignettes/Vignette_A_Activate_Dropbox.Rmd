@@ -24,6 +24,8 @@ In this vignette, we will outline how to register for a Dropbox account and then
 [Dropbox](https://www.dropbox.com/) access token for storing response data from
 your BIO-WELL survey.
 
+A video walk through of this vignette can be found here on [YouTube](https://www.youtube.com/watch?v=FQhlwLRlUvU&t=7s). 
+
 ## <span style="color:#004A86;">Why is this important?</span>
 
 When your survey is uploaded to the [Posit Shiny

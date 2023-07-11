@@ -23,6 +23,8 @@ responses.
 In this vignette, we will be deploying the survey onto the [Posit Shiny Server](https://posit.co/products/open-source/shinyserver/) and creating a URL
 to share with participants that provides access to the BIO-WELL survey.
 
+A video walk through of this vignette can be found here on [YouTube](https://www.youtube.com/watch?v=aOExB6Ldeto). 
+
 ## <span style="color:#004A86;">What is the Posit Shiny Server?</span>
 
 The `BIOWELL` package creates your custom BIO-WELL survey as a Shiny App. Posit
