@@ -61,4 +61,4 @@ write.csv(survey_data, file = paste0(file_name, ".csv"))
 
 # <span style="color:#0097AD;"> Next vignette </span>
 
-In this vignette, you will now have downloaded your BIO-WELL survey response data into a single data frame. The next Vignette (E) will demsontrate `BIOWELL` package functions available for evaluating and analysing these data. 
+In this vignette, you will now have downloaded your BIO-WELL survey response data into a single data frame. The next Vignette (E) will demonstrate `BIOWELL` package functions available for evaluating and analysing these data. 

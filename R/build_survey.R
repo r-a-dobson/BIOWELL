@@ -226,7 +226,7 @@
 #'
 #'# Extra variables recorded
 #'
-#'In addition to the participants responses to survey questions, the survey
+#'In addition to the participants' responses to survey questions, the survey
 #'records the following variables with each submitted response:
 #'
 #'+ `survey_duration` - the time in seconds between the participants starting

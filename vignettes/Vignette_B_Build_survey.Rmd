@@ -57,8 +57,13 @@ knitr::kable(data.frame(Category=c("Physical wellbeing","Emotional wellbeing","C
 ```
 
 These domains are measured using five labelled sliders that survey participants
-can use to indicate their response to certain biodiversity attributes (Figure
+can use to indicate their response to certain biodiversity attributes (Fig.
 1).
+
+
+![Example of BIO-WELL scale sliders](https://raw.githubusercontent.com/r-a-dobson/BIO-WELL/main/man/Vignette2/Vignette2_0.png){width=75%}
+
+Fig. 1. The biodiversity-wellbeing scale, BIO-WELL. Through an introductory statement, participants are invited to figuratively place themselves in a nearby woodland and to think about the biodiversity. Stem questions asked about biodiversity metrics (e.g. abundance, species diversity), as well as biodiversity attributes (e.g. smells, colours, shapes). Wellbeing response items reflected either physical, emotional, cognitive, social or spiritual wellbeing, following a biopsychosocial-spiritual model of health. They are in Visual Analogue Scale format, with a positive and negative linguistic anchor either side of a slider ranging from 0 to 100, allowing participants to indicate their wellbeing along the line. Two of the seventeen biodiversity stem questions are included here for illustrative purposes.
 
 The values for each slider range from 0 to 100. Using the raw slider output,
 scores can be interpreted as follows: low scores (0–49) indicate a positive
