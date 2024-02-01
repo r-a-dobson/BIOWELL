@@ -51,7 +51,7 @@ libraries.
 # install.packages("BIOWELL")  # Install from CRAN
 # install.packages("rdrop2")
 library(BIOWELL)
-library(rdrop2)
+#library(rdrop2)
 ```
 
 # <span style="color:#0097AD;">Step 2: BIO-WELL survey folder </span>
