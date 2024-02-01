@@ -28,7 +28,6 @@ RoxygenNote: 7.2.3
 Imports: 
     dplyr,
     ggplot2,
-    rdrop2,
     shiny,
     shinyjs,
     shinyWidgets,
@@ -47,6 +46,7 @@ Imports:
     rsconnect
 Suggests: 
     knitr,
+    rdrop2,
     rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
