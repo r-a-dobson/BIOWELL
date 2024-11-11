@@ -21,6 +21,9 @@ The BIO-WELL scale provides an important tool for assessing the
 developed to address the limited understanding of how interactions with
 nature and biodiversity impact our health and wellbeing.
 
+For more information on the BIO-WELL project, please visit the [BIO-WELL website](https://research.kent.ac.uk/bio-well/).
+
+
 With the `BIOWELL` package, you have the flexibility to **design and
 analyse surveys tailored to your specific research needs**.
 
