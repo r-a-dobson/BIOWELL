@@ -136,7 +136,7 @@ There are five stages in the BIOWELL package framework (Fig 2). The
 functions available for each stages are described in the package’s five
 vignettes.
 
-<a href='https://github.com/r-a-dobson/BIOWELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIOWELL/main/man/Vignette2/bw_framework.png" align="centre" height="700" width = "100%"/></a>
+<a href='https://github.com/r-a-dobson/BIOWELL'><img src="https://raw.githubusercontent.com/r-a-dobson/BIOWELL/main/man/Vignette2/bw_framework2.png" align="centre" height="700" width = "100%"/></a>
 
 Fig. 2. The BIOWELL package framework.
 
