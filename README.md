@@ -129,7 +129,7 @@ doi:10.1016/j.jenvp.2022.101921.](https://doi.org/10.1016/j.jenvp.2022.101921)
 Install the `BIOWELL` package by running the line below!
 
 ``` r
-devtools::install_github("r-a-dobson/BIO-WELL")
+devtools::install_github("r-a-dobson/BIOWELL")
 ```
 
 There are five stages in the BIOWELL package framework (Fig 2). The
