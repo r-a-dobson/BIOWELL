@@ -116,6 +116,7 @@ jobs:
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_: false
+          _R_CHECK_FORCE_SUGGESTS_: false
         run: rcmdcheck::rcmdcheck(args = c("--no-manual","--as-cran"), error_on = "error")
         shell: Rscript {0}
 
