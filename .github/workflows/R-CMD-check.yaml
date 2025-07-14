@@ -69,6 +69,11 @@ jobs:
           install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
         shell: Rscript {0}
 
+      - name: Install archived rdrop2
+        run: |
+          install.packages("https://cran.r-project.org/src/contrib/Archive/rdrop2/rdrop2_0.8.2.1.tar.gz", repos = NULL, type = "source")
+        shell: Rscript {0}
+
       - name: Install system dependencies (macOS)
         if: runner.os == 'macOS'
         run: |
